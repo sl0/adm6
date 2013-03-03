@@ -5,6 +5,9 @@ BACKUP = ~/adm6.tbz
 
 default:	tests
 
+tests:
+	@nosetests -v --with-coverage adm6/
+
 sync:
 	@git push -v --mirror git+ssh://jhselber@scm.evolvis.org/scmrepos/git/adm6/adm6.git
 
@@ -25,9 +28,6 @@ landscape:
 	ln -sf ~/adm6/desc/obi-wan/output out-ow
 	ln -sf ~/adm6/desc/www/output out-www
 	ln -sf ~/adm6/desc/r-ex/output out-r-ex
-
-tests:
-	@nosetests -v --with-coverage -I=ipaddr
 
 clean:
 	rm -rf *~
