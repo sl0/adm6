@@ -1,17 +1,19 @@
 #!/usr/bin/env python
 #encoding:utf8
 #
-# file:    hostnet6_tests.py
+# file:   adm6configparser_tests.py
 # author: sl0
-# date:   2013-03-03
+# date:   2013-03-04
 #
+"""
+Tests for Adm6ConfigParser
+"""
 
 import unittest
-#from ipaddr import IPv6Network
-#from hostnet6 import HostNet6
-from adm6configparser import Adm6ConfigParser
+from adm6.adm6configparser import Adm6ConfigParser
 
-class Adm6cConfigParser_test(unittest.TestCase):
+
+class Adm6cConfigParserTest(unittest.TestCase):
     '''some tests for class adm6configparser'''
 
     def test_01_read_config(self):
@@ -22,6 +24,7 @@ class Adm6cConfigParser_test(unittest.TestCase):
         print type(cfg)
         print cfg
         print dir(cfg)
+        cfg.show_cf()
 
 if __name__ == "__main__":
-        unittest.main()
+    unittest.main()

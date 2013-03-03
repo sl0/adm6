@@ -21,12 +21,11 @@ class Adm6ConfigParser(ConfigParser):
     This is known to be ugly, but it works (mostly)
     """
 
-    def __init__(self):
+    def __init__(self, cfg_file=".adm6.conf"):
         """
         initial read of config file
         """
         ConfigParser.__init__(self)
-        cfg_file = "adm6.conf"
         self.cfg_file = cfg_file
         self.cfp = ConfigParser()
         self.filename = os.path.expanduser('~/.' + self.cfg_file)
