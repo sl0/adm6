@@ -27,7 +27,7 @@ landscape:
 	ln -sf ~/adm6/desc/r-ex/output out-r-ex
 
 tests:
-	@nosetests -v --with-coverage  adm6/hostnet6.py
+	@nosetests -v --with-coverage -I=ipaddr
 
 clean:
 	rm -rf *~
