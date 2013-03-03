@@ -75,7 +75,12 @@ class HostNet6(IPv6Network):
 
     def append(self,filename):
         """append content of file to entries"""
-        self.__read_file(filename)
+        my_err = False
+        try:
+            self.__read_file(filename)
+        except:
+            msg = "error reading %s" % filename
+            raise ValueError, msg
         
     def get_addrs(self,name):
         """return list of addresses belonging to a name"""
@@ -160,9 +165,34 @@ class HostNet6_tests(unittest.TestCase):
         print content
         self.assertEquals(content, hn6.entries)
 
-    def test_04_evaluate_appended_entries(self):
+    def test_04_evaluate_appended_entries_fail(self):
         """
-        evaluate entries of reference-hostnet
+        evaluate appended entries of reference-hostnet-fail
+        """
+        file1 = "reference-hostnet"
+        file2 = "reference-hostnet-fail"
+        content = [ \
+            ['any', IPv6Network('2000::/3')], \
+            ['beaf', IPv6Network('2001:db8:beaf::/48')], \
+            ['host-one', IPv6Network('2010:db8:1:beed::23/128')], \
+            ['localhost', IPv6Network('::1/128')], \
+            ['many', IPv6Network('::/0')]]
+        my_err = False
+        try:
+            hn6 = HostNet6(file1)
+        except:
+            my_err = True
+        try:
+            hn6.append(file2)
+        except:
+            my_err = True
+        self.assertTrue(my_err)
+        #print "HN:", hn6.entries
+        self.assertEquals(content, hn6.entries)
+
+    def test_05_evaluate_appended_entries_ok(self):
+        """
+        evaluate entries of reference-hostnet-append
         """
         file1 = "reference-hostnet"
         file2 = "reference-hostnet-append"
@@ -182,6 +212,7 @@ class HostNet6_tests(unittest.TestCase):
         except:
             my_err = True
         self.assertEquals(content, hn6.entries)
+        print "HA:", hn6.entries
 
 if __name__ == "__main__":
         unittest.main()
