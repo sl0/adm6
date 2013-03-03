@@ -1,0 +1,5 @@
+#
+# refernece hostnet6, main pupose: tests and give an example
+#
+host-one       2010:db8:1:beed::6/128              # now a group of two
+host-two       2010:db8:1:beed::7/128              # one single address

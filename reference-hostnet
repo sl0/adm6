@@ -1,0 +1,9 @@
+#
+# refernece hostnet6, main pupose: tests and give an example
+#
+any            2000::/3                            # Alle Welt
+many           ::/0                                # Alle Welt
+localhost      ::1/128                             #
+host-one       2010:db8:1:beed::23/128             # one single address
+beaf           2001:db8:beaf::/48                  # one single network
+nonsens        nonsense                            # incorrect syntax for testing
