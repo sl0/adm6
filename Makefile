@@ -6,7 +6,7 @@ BACKUP = ~/adm6.tbz
 default:	tests
 
 tests:
-	@nosetests -v --with-coverage adm6/
+	@nosetests -v --with-coverage adm6/ 2>&1 | grep -v ipaddr
 
 sync:
 	@git push -v --mirror git+ssh://jhselber@scm.evolvis.org/scmrepos/git/adm6/adm6.git
