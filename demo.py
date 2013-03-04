@@ -1,8 +1,5 @@
 #
 # this is demo-module
-# $LastChangedBy: Johannes Hubertz $
-# $LastChangedDate: 2010-07-14 17:04:33 +0200 (Mi, 14. Jul 2010) $
-# $Id: demo.py 51 2010-07-14 15:04:33Z Johannes Hubertz $
 #
 import os
 import sys
