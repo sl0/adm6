@@ -21,23 +21,32 @@ class Adm6ConfigParser(ConfigParser):
     This is known to be ugly, but it works (mostly)
     """
 
-    def __init__(self, cfg_file=".adm6.conf"):
+    def __init__(self, cfg_file):
         """
         initial read of config file
         """
         ConfigParser.__init__(self)
         self.cfg_file = cfg_file
         self.cfp = ConfigParser()
-        self.filename = os.path.expanduser('~/.' + self.cfg_file)
-        #self.cfp.readfp(open(self.filename))
-        #self.cfp.read([cfg_file, os.path.expanduser('~/.'+cfg_file)])
-        self.filename = os.path.expanduser('~/.' + self.cfg_file)
+        self.filename = os.path.expanduser('~/' + cfg_file)
+        msg = "File not found: %s" % (self.filename)
+        try:
+            file = open(self.filename,'r')
+            content = file
+            file.close()
+        except:
+            raise ValueError, msg
         self.cfp.read([self.filename])
 
-    def show_cf(self):
-        """show complete content as dict of dicts"""
+    def get_show_cf(self):
+        """
+        return complete content as dict of dicts
+        """
+        retstr = ""
         for section in self.cfp.sections():
-            print section, self.cfp.items(section)
+            retstr += str(section)
+            retstr += str(self.cfp.items(section)) + '\n'
+        return retstr
 
     def get_adm6_home(self):
         """return adm6 homedir as read from config-file"""
@@ -207,6 +216,7 @@ def nice_print(title, mytext):
     print title + " " + mytext + " "*rest_len + "#"
 
 if __name__ == "__main__":
-    print "main test program"
-    CNF = ConfigParser()
-    print dir(CNF)
+    CNF = Adm6ConfigParser(".adm6.conf")
+    #print "main test program"
+    #print dir(CNF)
+    #print CNF.print_all_headers()
