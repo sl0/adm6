@@ -75,7 +75,7 @@ home = /home/sl0/adm6/
 # ssh-keys to connect to all the clients
 key_file = none, please specify your own keyfile
 # the following devices are adm6-clients
-devices = adm6,r-ex,ns,,www,obi-wan
+devices = adm6,r-ex,ns,www,obi-wan
 # which client OS are possibly supported
 # f.e.: software = ['Debian', 'OpenBSD', 'WriteYourOwn']
 software = ['Debian', 'OpenBSD', ]
@@ -95,6 +95,7 @@ os = Debian GNU/Linux, wheezy
 ip = 2001:db8:1:2::1
 fwd = 1
 active = 1
+asymmetric = 1
 
 [device#ns]
 desc = company dns server
@@ -114,7 +115,7 @@ active = 1
 desc = gif-tunnel for afiliate, internal end
 os = OpenBSD 4.5
 ip = 2001:db8:feed:2::1
-fwd = 0
+#fwd = 0
 active = 1
 """
     write_any_file(file, c)

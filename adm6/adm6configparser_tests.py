@@ -20,7 +20,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_01_read_existing_config(self):
         """
-        read exisiting config file
+        01 read exisiting config file
         """
         my_err = False
         try:
@@ -31,7 +31,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_02_read_non_existing_config(self):
         """
-        read non existing config file
+        02 read non existing config file
         """
         my_err = False
         try:
@@ -42,7 +42,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_03_get_version_from_config(self):
         """
-        check version of adm6.conf
+        03 check version of adm6.conf
         """
         ref = "0.2"
         value = ""
@@ -56,7 +56,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_04_get_string_from_config(self):
         """
-        get complete config as a string
+        04 get complete config as a string
         """
         ref = ""
         value = None
@@ -70,7 +70,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_05_get_adm6_home(self):
         """
-        get adm6 home from config
+        05 get adm6 home from config
         """
         ref = "/adm6"
         value = ""
@@ -84,7 +84,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_06_get_adm6_debuglevel(self):
         """
-        get adm6 debuglevel from config
+        06 get adm6 debuglevel from config
         """
         ref = 1
         value = None
@@ -98,7 +98,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_07_set_adm6_debuglevel(self):
         """
-        set debuglevel
+        07 set debuglevel
         """
         ref = True
         value = None
@@ -109,10 +109,10 @@ class Adm6ConfigParser_tests(unittest.TestCase):
         except:
             my_err = True
         self.assertEqual(ref, value)
-        
+
     def test_08_dec_inc_debuglevel(self):
         """
-        decrement adm6 debuglevel by one
+        08 decrement adm6 debuglevel by one
         """
         value = None
         my_err = False
@@ -133,9 +133,222 @@ class Adm6ConfigParser_tests(unittest.TestCase):
         self.assertEqual(True, value)
         value = cfg.get_adm6_debuglevel()
         self.assertEqual(1, value)
-        
 
+    def test_09_get_applyflag_ok(self):
+        """
+        09 get adm6 applyflag from config
+        """
+        ref = True
+        value = False
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_apply("adm6")
+        except:
+            my_err = True
+        self.assertEqual(ref, value)
 
+    def test_10_get_applyflag_fail(self):
+        """
+        10 get adm6 applyflag from config
+        """
+        ref = True
+        value = True
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_apply("obi-wan")
+        except:
+            my_err = True
+        self.assertEqual(ref, value)
+
+    def test_11_get_key_filename(self):
+        """
+        11 get adm6 keyfilename from config
+        """
+        ref = 'none, please specify your own keyfile'
+        value = None
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_key_filename()
+        except:
+            my_err = True
+        self.assertFalse(my_err)
+        self.assertEqual(ref, value)
+
+    def test_12_get_devices(self):
+        """
+        12 get adm6 devices from config
+        """
+        ref = 'adm6,r-ex,ns,www,obi-wan'
+        value = None
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_devices()
+        except:
+            my_err = True
+        self.assertFalse(my_err)
+        self.assertEqual(ref, value)
+
+    def test_13_get_software(self):
+        """
+        13 get adm6 software from config
+        """
+        ref = "['Debian', 'OpenBSD', ]"
+        value = None
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_software()
+        except:
+            my_err = True
+        self.assertFalse(my_err)
+        self.assertEqual(ref, value)
+
+    def test_14_get_device_home(self):
+        """
+        14 get adm6 device_home from config
+        """
+        ref = "/adm6/desc/ns"
+        value = None
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_device_home('ns')
+        except:
+            my_err = True
+        self.assertIn(ref, value)
+
+    def test_15_get_desc(self):
+        """
+        15 get adm6 desc from config
+        """
+        ref = "company dns server"
+        value = None
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_desc('ns')
+        except:
+            my_err = True
+        self.assertIn(ref, value)
+
+    def test_16_get_os(self):
+        """
+        16 get adm6 os from config
+        """
+        ref = "Debian GNU/Linux, wheezy"
+        value = None
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_os('ns')
+        except:
+            my_err = True
+        self.assertIn(ref, value)
+
+    def test_17_get_asym_fail(self):
+        """
+        17 get adm6 non existing asym flag from config
+        """
+        value = None
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_asym('ns')
+        except:
+            my_err = True
+        self.assertFalse(value)
+
+    def test_18_get_asym_ok(self):
+        """
+        18 get adm6 existing true asym flag from config
+        """
+        value = None
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_asym('r-ex')
+        except:
+            my_err = True
+        self.assertTrue(value)
+
+    def test_19_get_ip(self):
+        """
+        19 get adm6 ip from config
+        """
+        value = None
+        ref = "2001:db8:23:2::1"
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_ip('r-ex')
+        except:
+            my_err = True
+        self.assertEqual(ref, value)
+
+    def test_20_get_fwd_ok(self):
+        """
+        20 get adm6 fwd flag from config
+        """
+        value = None
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_fwd('r-ex')
+        except:
+            my_err = True
+        self.assertTrue(value)
+
+    def test_21_get_fwd_fail(self):
+        """
+        21 get adm6 fwd flag fail from config
+        """
+        value = None
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = cfg.get_fwd('obi-wan')
+            self.assertRaises(IOError, cfg.get_fwd, 'obi-wan')
+            self.assertRaises(ValueError, cfg.get_fwd, 'obi-wan')
+        except:
+            my_err = True
+        self.assertTrue(my_err)
+        #self.assertEquals(None, value)
+
+    def test_22_print_head(self):
+        """
+        22 get adm6 print head from config
+        """
+        value = None
+        ref = 890
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            value = len(cfg.print_head('adm6'))
+        except:
+            my_err = True
+        self.assertFalse(my_err)
+        self.assertEquals(ref, value)
+
+    def test_23_print_head(self):
+        """
+        23 get adm6 print all headers from config
+        """
+        value = None
+        ref = True
+        my_err = False
+        try:
+            cfg = Adm6ConfigParser(".adm6.conf")
+            print cfg.print_all_headers()
+            value = cfg.print_all_headers()
+        except:
+            my_err = True
+        self.assertFalse(my_err)
+        self.assertEquals(ref, value)
+    
 
 if __name__ == "__main__":
     unittest.main()

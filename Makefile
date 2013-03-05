@@ -22,6 +22,7 @@ new:
 landscape:
 	@python demo.py 
 	ln -sf ~/.adm6.conf global-cfg
+	ln -sf ~/adm6/etc etc
 	ln -sf ~/adm6/desc desc
 	ln -sf ~/adm6/desc/adm6/output out-adm6
 	ln -sf ~/adm6/desc/ns/output out-ns
@@ -32,8 +33,8 @@ landscape:
 clean:
 	rm -rf *~
 	rm -f *.pyc adm6/*pyc
-	rm -f desc out-adm6 out-ns out-ow out-www out-r-ex global-cfg out-o6
-	rm -rf ~/adm6/
+	rm -f out-adm6 out-ns out-ow out-www out-r-ex global-cfg
+	rm -rf etc desc ~/adm6/ ~/.adm6.conf
 
 back:
 	make clean

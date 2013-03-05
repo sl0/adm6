@@ -83,13 +83,7 @@ class Adm6ConfigParser(ConfigParser):
     def get_apply(self, device):
         """give back applyflag (missing flag means true always!)"""
         section = "device#" + device.strip()
-        value = False
-        try:
-            return self.cfp.getboolean(section, 'active')
-        except IOError, err:
-            print "Error reading config:", err.strerror
-            return False
-        return value
+        return self.cfp.getboolean(section, 'active')
 
     def get_version(self):
         """return version string read from config-flie"""
@@ -132,13 +126,7 @@ class Adm6ConfigParser(ConfigParser):
     def get_fwd(self, device):
         """give back fwdflag (false means device does not forward IPv6!)"""
         section = "device#" + device.strip()
-        value = False
-        try:
-            return self.cfp.getboolean(section, 'fwd')
-        except IOError, err:
-            print "Error reading config:", err.strerror
-            return False
-        return value
+        return self.cfp.get(section, 'fwd')
 
     def get_asym(self, device):
         """give back asymmetric-flag
@@ -146,77 +134,86 @@ class Adm6ConfigParser(ConfigParser):
         asymmetric = 1 forces stateful to off
         """
         section = "device#" + device.strip()
-        value = False
-        try:
-            return self.cfp.getboolean(section, 'asymmetric')
-        except IOError, err:
-            print "Error reading config:", err.strerror
-            return False
-        except:
-            pass
-        return value
+        return self.cfp.get(section, 'asymmetric')
 
     def print_head(self, device):
-        """print a nice header for named device-section"""
-        print "#"*80
-        nice_print('#', '')
-        nice_print("# Device:      ", device.strip())
-        nice_print('#', '')
-        nice_print('# Desc:        ', self.get_desc(device.strip()))
-        nice_print('# OS:          ', self.get_os(device.strip()))
-        nice_print('# IP:          ', self.get_ip(device.strip()))
-        nice_print('# Forwarding:  ', str(self.get_fwd(device.strip())))
-        nice_print('# Asymmetric:  ', str(self.get_asym(device.strip())))
-        nice_print('#', '')
-        return None
+        """
+        print a nice header for named device-section
+        """
+        msg = "#"*80
+        msg += '\n'
+        msg += self.nice_print('#', '')
+        msg += self.nice_print("# Device:      ", device.strip())
+        msg += self.nice_print('#', '')
+        msg += self.nice_print('# Desc:        ', self.get_desc(device.strip()))
+        msg += self.nice_print('# OS:          ', self.get_os(device.strip()))
+        msg += self.nice_print('# IP:          ', self.get_ip(device.strip()))
+        msg += self.nice_print('# Forwarding:  ', str(self.get_fwd(device.strip())))
+        msg += self.nice_print('# Asymmetric:  ', str(self.get_asym(device.strip())))
+        msg += self.nice_print('#', '')
+        msg += "#"*80
+        #print msg
+        return msg
 
     def print_header(self):
-        """print nice header as top of every generated output"""
-        print "#"*80
-        print "#"*80
-        nice_print('#', '')
-        nice_print('#', '')
-        nice_print('# adm6:      ', 'Packetfilter generator for')
-        nice_print('#            ', 'Linux ip6tables and OpenBSD pf.conf')
-        nice_print('#', '')
-        nice_print('# License:   ', 'GPLv3 - General Public License version 3')
-        nice_print('#          ', '                    or any later version')
-        nice_print('#', '')
-        nice_print('#', '')
+        """
+        print nice header as top of every generated output
+        """
+        msg = "#"*80
+        msg += '\n'
+        msg = "#"*80
+        msg += '\n'
+        msg += self.nice_print('#', '')
+        msg += self.nice_print('#', '')
+        msg += self.nice_print('# adm6:      ', 'Packetfilter generator for')
+        msg += self.nice_print('#            ', 'Linux ip6tables and OpenBSD pf.conf')
+        msg += self.nice_print('#', '')
+        msg += self.nice_print('# License:   ', 'GPLv3 - General Public License version 3')
+        msg += self.nice_print('#          ', '                    or any later version')
+        msg += self.nice_print('#', '')
+        msg += self.nice_print('#', '')
         myversion = self.cfp.get('global', 'version')
-        nice_print('# Version:   ', myversion)
+        msg += self.nice_print('# Version:   ', myversion)
         config_timestamp = self.cfp.get('global', 'timestamp')
-        nice_print('# Date:      ', config_timestamp)
-        nice_print('# Author:    ', 'Johannes Hubertz')
-        nice_print('#', '')
-        nice_print('# Configuration of almost everything: ',
+        msg += self.nice_print('# Date:      ', config_timestamp)
+        msg += self.nice_print('# Author:    ', 'Johannes Hubertz')
+        msg += self.nice_print('#', '')
+        msg += self.nice_print('# Configuration of almost everything: ',
             self.filename.strip())
-        nice_print('#', '')
-        nice_print('# Copyright: ',
+        msg += self.nice_print('#', '')
+        msg += self.nice_print('# Copyright: ',
                          '(c)2011-2012 Johannes Hubertz, '+
                          'Cologne, Germany, Europe, Earth')
-        nice_print('#', '')
-        nice_print('#', '')
-        print "#"*80
+        msg += self.nice_print('#', '')
+        msg += self.nice_print('#', '')
+        msg += "#"*80
+        #print msg
+        return msg
 
     def print_all_headers(self):
         """print all device headers for debug purposes"""
         self.print_header()
         mydevs = self.get_devices().split(',')
         for device in mydevs:
-            if self.get_apply(device):
-                self.print_head(device)
+            try:
+                if self.get_apply(device):
+                    self.print_head(device)
+            except:
+                pass
         print "#"*80
+        return True
+
+    def nice_print(self, title, mytext):
+        """nice printout of a config line, only to impress the user
+        used linelength: 70 characters"""
+        rest_len = 78 - len(title) - len(mytext)
+        msg =  title + " " + mytext + " "*rest_len + "#"
+        print msg
+        return msg + '\n'
 
 
-def nice_print(title, mytext):
-    """nice printout of a config line, only to impress the user
-    used linelength: 70 characters"""
-    rest_len = 78 - len(title) - len(mytext)
-    print title + " " + mytext + " "*rest_len + "#"
-
-if __name__ == "__main__":
-    CNF = Adm6ConfigParser(".adm6.conf")
-    #print "main test program"
-    #print dir(CNF)
-    #print CNF.print_all_headers()
+#if __name__ == "__main__":
+#    CNF = Adm6ConfigParser(".adm6.conf")
+#    print "main test program"
+#    print dir(CNF)
+#    print CNF.print_all_headers()
