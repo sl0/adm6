@@ -325,13 +325,17 @@ class Adm6ConfigParser_tests(unittest.TestCase):
         value = None
         ref = 890
         my_err = False
+        cfg = Adm6ConfigParser(".adm6.conf")
+        value = len(cfg.print_head('adm6'))
+        self.assertEquals(ref, value)
+        return
         try:
             cfg = Adm6ConfigParser(".adm6.conf")
-            value = len(cfg.print_head('adm6'))
+            value = cfg.print_head('adm6')
         except:
             my_err = True
         self.assertFalse(my_err)
-        self.assertEquals(ref, value)
+        #self.assertEquals(ref, value)
 
     def test_23_print_head(self):
         """

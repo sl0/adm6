@@ -126,7 +126,8 @@ class Adm6ConfigParser(ConfigParser):
     def get_fwd(self, device):
         """give back fwdflag (false means device does not forward IPv6!)"""
         section = "device#" + device.strip()
-        return self.cfp.get(section, 'fwd')
+        value = self.cfp.get(section, 'fwd')
+        return value > 0
 
     def get_asym(self, device):
         """give back asymmetric-flag
@@ -148,8 +149,14 @@ class Adm6ConfigParser(ConfigParser):
         msg += self.nice_print('# Desc:        ', self.get_desc(device.strip()))
         msg += self.nice_print('# OS:          ', self.get_os(device.strip()))
         msg += self.nice_print('# IP:          ', self.get_ip(device.strip()))
-        msg += self.nice_print('# Forwarding:  ', str(self.get_fwd(device.strip())))
-        msg += self.nice_print('# Asymmetric:  ', str(self.get_asym(device.strip())))
+        msg += self.nice_print('# Forwarding:  ', 
+                str(self.get_fwd(device.strip())))
+        try:
+            msg += self.nice_print('# Asymmetric:  ', 
+                str(self.get_asym(device.strip())))
+        except:
+            msg += self.nice_print('# Asymmetric:  ', 
+                    str(False))
         msg += self.nice_print('#', '')
         msg += "#"*80
         #print msg
