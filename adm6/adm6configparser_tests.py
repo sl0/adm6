@@ -20,7 +20,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_01_read_existing_config(self):
         """
-        01 read exisiting config file
+        cf-01 read exisiting config file
         """
         my_err = False
         try:
@@ -31,7 +31,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_02_read_non_existing_config(self):
         """
-        02 read non existing config file
+        cf-02 read non existing config file
         """
         my_err = False
         try:
@@ -42,7 +42,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_03_get_version_from_config(self):
         """
-        03 check version of adm6.conf
+        cf-03 check version of adm6.conf
         """
         ref = "0.2"
         value = ""
@@ -56,7 +56,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_04_get_string_from_config(self):
         """
-        04 get complete config as a string
+        cf-04 get complete config as a string
         """
         ref = ""
         value = None
@@ -70,7 +70,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_05_get_adm6_home(self):
         """
-        05 get adm6 home from config
+        cf-05 get adm6 home from config
         """
         ref = "/adm6"
         value = ""
@@ -84,7 +84,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_06_get_adm6_debuglevel(self):
         """
-        06 get adm6 debuglevel from config
+        cf-06 get adm6 debuglevel from config
         """
         ref = 1
         value = None
@@ -98,7 +98,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_07_set_adm6_debuglevel(self):
         """
-        07 set debuglevel
+        cf-07 set debuglevel
         """
         ref = True
         value = None
@@ -112,7 +112,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_08_dec_inc_debuglevel(self):
         """
-        08 decrement adm6 debuglevel by one
+        cf-08 decrement adm6 debuglevel by one
         """
         value = None
         my_err = False
@@ -136,7 +136,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_09_get_applyflag_ok(self):
         """
-        09 get adm6 applyflag from config
+        cf-09 get adm6 applyflag from config
         """
         ref = True
         value = False
@@ -150,7 +150,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_10_get_applyflag_fail(self):
         """
-        10 get adm6 applyflag from config
+        cf-10 get adm6 applyflag from config
         """
         ref = True
         value = True
@@ -164,7 +164,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_11_get_key_filename(self):
         """
-        11 get adm6 keyfilename from config
+        cf-11 get adm6 keyfilename from config
         """
         ref = 'none, please specify your own keyfile'
         value = None
@@ -179,7 +179,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_12_get_devices(self):
         """
-        12 get adm6 devices from config
+        cf-12 get adm6 devices from config
         """
         ref = 'adm6,r-ex,ns,www,obi-wan'
         value = None
@@ -194,7 +194,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_13_get_software(self):
         """
-        13 get adm6 software from config
+        cf-13 get adm6 software from config
         """
         ref = "['Debian', 'OpenBSD', ]"
         value = None
@@ -209,7 +209,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_14_get_device_home(self):
         """
-        14 get adm6 device_home from config
+        cf-14 get adm6 device_home from config
         """
         ref = "/adm6/desc/ns"
         value = None
@@ -223,7 +223,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_15_get_desc(self):
         """
-        15 get adm6 desc from config
+        cf-15 get adm6 desc from config
         """
         ref = "company dns server"
         value = None
@@ -237,7 +237,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_16_get_os(self):
         """
-        16 get adm6 os from config
+        cf-16 get adm6 os from config
         """
         ref = "Debian GNU/Linux, wheezy"
         value = None
@@ -251,7 +251,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_17_get_asym_fail(self):
         """
-        17 get adm6 non existing asym flag from config
+        cf-17 get adm6 non existing asym flag from config
         """
         value = None
         my_err = False
@@ -264,7 +264,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_18_get_asym_ok(self):
         """
-        18 get adm6 existing true asym flag from config
+        cf-18 get adm6 existing true asym flag from config
         """
         value = None
         my_err = False
@@ -277,7 +277,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_19_get_ip(self):
         """
-        19 get adm6 ip from config
+        cf-19 get adm6 ip from config
         """
         value = None
         ref = "2001:db8:23:2::1"
@@ -291,7 +291,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_20_get_fwd_ok(self):
         """
-        20 get adm6 fwd flag from config
+        cf-20 get adm6 fwd flag from config
         """
         value = None
         my_err = False
@@ -304,7 +304,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_21_get_fwd_fail(self):
         """
-        21 get adm6 fwd flag fail from config
+        cf-21 get adm6 fwd flag fail from config
         """
         value = None
         my_err = False
@@ -320,7 +320,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_22_print_head(self):
         """
-        22 get adm6 print head from config
+        cf-22 get adm6 print head from config
         """
         value = None
         ref = 890
@@ -339,7 +339,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
 
     def test_23_print_head(self):
         """
-        23 get adm6 print all headers from config
+        cf-23 get adm6 print all headers from config
         """
         value = None
         ref = True

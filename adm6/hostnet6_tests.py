@@ -15,7 +15,7 @@ class HostNet6_tests(unittest.TestCase):
 
     def test_01_read_nonexisting_file(self):
         """
-        read non existing file, check raise
+        hn-01 read non existing file, check raise
         """
         my_err = False
         try:
@@ -26,7 +26,7 @@ class HostNet6_tests(unittest.TestCase):
         
     def test_02_read_an_existing_file(self):
         """
-        read an existing file, check no raise
+        hn-02 read an existing file, check no raise
         """
         my_err = False
         file = "reference-hostnet"
@@ -38,7 +38,7 @@ class HostNet6_tests(unittest.TestCase):
 
     def test_03_evaluate_entries(self):
         """
-        evaluate entries of reference-hostnet
+        hn-03 evaluate entries of reference-hostnet
         """
         file = "reference-hostnet"
         content = [ \
@@ -58,7 +58,7 @@ class HostNet6_tests(unittest.TestCase):
 
     def test_04_evaluate_appended_entries_fail(self):
         """
-        entries of reference-hostnet-fail are not appended
+        hn-04 entries of reference-hostnet-fail are not appended
         """
         file1 = "reference-hostnet"
         file2 = "reference-hostnet-fail"
@@ -83,7 +83,7 @@ class HostNet6_tests(unittest.TestCase):
 
     def test_05_evaluate_appended_entries_ok(self):
         """
-        entries of reference-hostnet-append are appended
+        hn-05 entries of reference-hostnet-append are appended
         """
         file1 = "reference-hostnet"
         file2 = "reference-hostnet-append"
@@ -102,10 +102,10 @@ class HostNet6_tests(unittest.TestCase):
         except:
             my_err = True
         self.assertEquals(content, hn6.entries)
-        
+
     def test_06_get_address(self):
         """
-        get_addrs returns list of given hostname
+        hn-06 get_addrs returns list of given hostname
         """
         file1 = "reference-hostnet"
         my_err = False
@@ -124,7 +124,7 @@ class HostNet6_tests(unittest.TestCase):
 
     def test_07_show_hostnet(self):
         """
-        show hostnet returns a long string
+        hn-07 show hostnet returns a long string
         """
         ref = """# hostnet6 contents:                                                           #
 #    any 2000::/3                                                              #

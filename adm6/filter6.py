@@ -3,32 +3,24 @@
 # $LastChangedDate: $
 # $Id:  $
 
-# others packages
-#mport os, glob, re, time, datetime
 import time
 from UserDict import UserDict
-#from adm6ConfigParser import Adm6ConfigParser
-#from ipaddr import IPv6Network
 
-# my packages
-# to have these you need to use Markus Leist's mypython
-#from jh.adm6.adm6ConfigParser import Adm6ConfigParser
-#from jh.adm6.hostnet6 import HostNet6
-#from jh.adm6.ipaddr import IPv6Network
-
-# my python-files ($HOME/simple, easy import, Makefile)
-#from hostnet6 import HostNet6
 
 class Ip6_Filter_Rule(UserDict):
-    """IP6_Filter_Rule is a container with all the neccessary stuff
+    """
+    IP6_Filter_Rule is a container with all the neccessary stuff
     for device-type independant filter-generation.
     It is filled by reading all the specific device-files of one device,
     device-type is one out of (Debian, OpenBSD, OpenSolaris)
-    interfaces, routing-table, hostnet6 and all device-rules"""
+    interfaces, routing-table, hostnet6 and all device-rules
+    """
 
     def __init__(self, dict=None, **kwargs):
-        """set initial params valid for all instances, and create a
-        DisplayList for representation of this Object"""
+        """
+        set initial params valid for all instances, and create a
+        DisplayList for representation of this Object
+        """
         UserDict.__init__(self, dict, **kwargs)
         #self['debuglevel'] = 0
         self['travers'] = False
@@ -39,7 +31,7 @@ class Ip6_Filter_Rule(UserDict):
         self['nostate'] = False
         self['insec'] = False
         self['sport'] = u'1024:'
-        # we cannot print a filedescriptor
+        # we cannot print f.e. a filedescriptor
         self.NeverDisplay = ['Output', 'debuglevel']
         # normal output not verbose
         self.CommentList = [
@@ -103,7 +95,9 @@ class Ip6_Filter_Rule(UserDict):
             self.produce_Debian(outfile, True)
             self.produce_IPF(outfile, False)
         else:
-            print "# cannot make filter commands for unknown OS"
+            msg = "Cannot make filter commands for unknown OS: %s!" \
+                % (self['OS'])
+            raise ValueError, msg
         return
 
     def produce_Debian(self, outfile, commented):
@@ -458,9 +452,11 @@ class Ip6_Filter_Rule(UserDict):
 
 
 class IP6_Filter():
+    """
+    Devicetype mostly independant Filter
+    """
     os = ''
     me = None
-    """Devicetype mostly independant Filter"""
 
     def __init__(self, debuglevel, path, name, os, fwd, asym, interfaces):
         """start with an empty filter"""
@@ -485,15 +481,16 @@ class IP6_Filter():
         return
 
     def append(self, rule):
-        """append a rule to the creation list"""
-        #print "APPENDING to filter rule: "+str(rule)
+        """
+        append another rule to the end of the creation list
+        """
         self.rules.append(rule)
-        return
 
-    def mangle_file(self,outfile,mangleinclude):
+    def mangle_file(self, outfile, mangleinclude):
+        """
+        include a file into the outputfile, paketmangling or whatever
+        """
         mangle_filename = self.path + u'/' + mangleinclude
-        #print "#"
-        #outfile.write("#")
         try:
             mang = open(mangle_filename)
             print "# mangle-file: %s inclusion starts" % mangle_filename
@@ -509,7 +506,9 @@ class IP6_Filter():
             outfile.write("# mangle-file: %s not found, no problem\n" % mangle_filename)
 
     def mach_output(self):
-        """construct header, rules and footer altogether"""
+        """
+        construct header, rules and footer altogether
+        """
         fname = self.path + '/output'
         header_file = self.path + "/../../etc/" + str(self.os) + "-header"
         footer_file = self.path + "/../../etc/" + str(self.os) + "-footer"
@@ -540,8 +539,10 @@ class IP6_Filter():
         return
 
     def final_this_rule(self, rule, outfile):
-        """do output for one pair out of rule-nr into file: outfile,
-        convert simple list-structure in rule into Rule-UserDict-Object"""
+        """
+        do output for one pair out of rule-nr into file: outfile,
+        convert simple list-structure in rule into Rule-UserDict-Object
+        """
         r = Ip6_Filter_Rule()
         r['debuglevel'] = self.debuglevel
         r['Output'] = outfile
