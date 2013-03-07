@@ -59,6 +59,38 @@ class Ip6_Filter_Rule_tests(unittest.TestCase):
         fr['OS'] = 'Invalid os name'
         self.assertRaises(ValueError, fr.produce ,stdout)
 
+    def test_03_produce_for_linux_os_name(self):
+        """
+        fr-02 produce for invalid os name
+        """
+        my_err = False
+        try:
+            ofile = open("/dev/null", 'w')
+            fr = Ip6_Filter_Rule(rule)
+            fr['debuglevel'] = False
+            fr['Rule-Nr'] = 1
+            fr['Pair-Nr'] = 1
+            fr['Protocol'] = 1
+            fr['Action'] = "accept"
+            fr['Source'] = "2001:db8:1::1"
+            fr['Destin'] = "2001:db8:2::1"
+            fr['Protocol'] = "tcp"
+            fr['dport'] = "22"
+            fr['System-Forward'] = True
+            fr['i_am_s'] = True
+            fr['travers'] = False
+            fr['source-if'] = "eth0"
+            fr['destin-if'] = "eth1"
+            fr['src-linklocal'] = False
+            fr['dst-linklocal'] = False
+        except:
+            my_err = True
+        fr['OS'] = 'Debian'
+        #print type(fr)
+        #print fr
+        msg = fr.produce(ofile)
+        print "M:", msg
+        #self.assertRaises(ValueError, fr.produce ,stdout)
 
 
 

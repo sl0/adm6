@@ -101,10 +101,12 @@ class Ip6_Filter_Rule(UserDict):
         return
 
     def produce_Debian(self, outfile, commented):
-        """do one pair of src-dst out of a rule for Debian"""
+        """
+        do one pair of src-dst out of a rule for Debian
+        """
+        msg = u""
         print u"# producing ip6tables commands for rule:", self['Rule-Nr'],
         print u"Pair: ", self['Pair-Nr']
-        #rule_id = u' -m comment --comment "' + self['RuleText'] + u'"'
         rule_pair = "%d,%d" % (self['Rule-Nr'], self['Pair-Nr'])
         rule_id = u' -m comment --comment "' + rule_pair + u'"'
         answer_packets = False
@@ -181,12 +183,15 @@ class Ip6_Filter_Rule(UserDict):
                 sif = " -i "+ str(self['destin-if'])
                 dif = " -o "+ str(self['destin-if'])
             if self['dst-linklocal']:
-                return
+                return msg
             print ipo + dif + line1
+            msg += ipo + dif +line1 + rule_id + u'\n'
             outfile.write(ipo + dif + line1 + rule_id + u'\n')
             if answer_packets:
                 print ipi + sif + line2
+                msg += ipi + sif + line2 + rule_id + u'\n'
                 outfile.write(ipi + sif + line2 + rule_id + u'\n')
+            msg += u'echo -n "."; '
             outfile.write(u'echo -n "."; ')
         if self['i_am_d']:
             if self['noif']:
@@ -196,14 +201,16 @@ class Ip6_Filter_Rule(UserDict):
                 sif = " -i "+ str(self['source-if'])
                 dif = " -o "+ str(self['source-if'])
             print ipi + sif + line1
+            msg += ipi + sif + line1 + rule_id + u'\n'
             outfile.write(ipi + sif + line1 + rule_id + u'\n')
             if answer_packets:
                 print ipo + dif + line2
                 outfile.write(ipo + dif + line2 + rule_id + u'\n')
+            msg += u'echo -n "."; '
             outfile.write(u'echo -n "."; ')
         if not self['System-Forward']:
             print "# System does not forward by configuration"
-            return
+            return msg
         if self['travers']:
             sif = ""
             dif = ""
@@ -213,14 +220,17 @@ class Ip6_Filter_Rule(UserDict):
                 if not u'undef' in self['destin-if']:
                     dif = " -o "+ str(self['destin-if'])
             if self['src-linklocal'] or self['dst-linklocal']:
-                return
+                return msg
             print ipf + dif + line1
+            msg += ipf + sif + line1 + rule_id + u'\n'
             outfile.write(ipf + sif + line1 + rule_id + u'\n')
             if answer_packets:
                 print "# ", ipf + sif + line2
+                msg += ipf + dif + line2 + rule_id + u'\n'
                 outfile.write(ipf + dif + line2 + rule_id + u'\n')
+            msg += u'echo -n "."; '
             outfile.write(u'echo -n "."; ')
-        return
+        return msg
 
     def produce_OpenBSD(self, outfile, commented):
         """do one pair of src-dst out of a rule for OpenBSD"""
