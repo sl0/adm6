@@ -8,7 +8,7 @@
 
 import unittest
 from ipaddr import IPv6Network
-from hostnet6 import HostNet6
+from adm6.hostnet6 import HostNet6
 
 class HostNet6_tests(unittest.TestCase):
     '''some tests for class HostNet6'''
