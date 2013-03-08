@@ -7,7 +7,7 @@
 #
 
 import unittest
-from filter6 import IP6_Filter, Ip6_Filter_Rule
+from adm6.filter6 import IP6_Filter, Ip6_Filter_Rule
 from sys import stdout
 
 rule = {}
