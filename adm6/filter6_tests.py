@@ -59,9 +59,9 @@ class Ip6_Filter_Rule_tests(unittest.TestCase):
         fr['OS'] = 'Invalid os name'
         self.assertRaises(ValueError, fr.produce ,stdout)
 
-    def test_03_produce_for_linux_os_name(self):
+    def test_03_produce_for_linux_as_source(self):
         """
-        fr-02 produce for invalid os name
+        fr-02 produce for linux as source host
         """
         my_err = False
         try:
@@ -83,16 +83,50 @@ class Ip6_Filter_Rule_tests(unittest.TestCase):
             fr['destin-if'] = "eth1"
             fr['src-linklocal'] = False
             fr['dst-linklocal'] = False
+            fr['OS'] = 'Debian'
         except:
             my_err = True
-        fr['OS'] = 'Debian'
-        #print type(fr)
-        #print fr
-        msg = fr.produce(ofile)
-        print "M:", msg
-        #self.assertRaises(ValueError, fr.produce ,stdout)
+        fr.produce(ofile)
+        expect = """/sbin/ip6tables -A   output__new  -o eth1 -s 2001:db8:1::1 -d 2001:db8:2::1 -p tcp --sport 1024: --dport 22 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+/sbin/ip6tables -A   input___new  -i eth1 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+echo -n ".";"""
+        self.maxDiff = None
+        self.assertEquals(expect, fr.msg)
 
-
+    def test_04_produce_for_linux_as_dest(self):
+        """
+        fr-02 produce for linux as dest host
+        """
+        my_err = False
+        try:
+            ofile = open("/dev/null", 'w')
+            fr = Ip6_Filter_Rule(rule)
+            fr['debuglevel'] = False
+            fr['Rule-Nr'] = 1
+            fr['Pair-Nr'] = 1
+            fr['Protocol'] = 1
+            fr['Action'] = "accept"
+            fr['Source'] = "2001:db8:1::1"
+            fr['Destin'] = "2001:db8:2::1"
+            fr['Protocol'] = "tcp"
+            fr['dport'] = "22"
+            fr['System-Forward'] = True
+            fr['i_am_s'] = False
+            fr['i_am_d'] = True
+            fr['travers'] = False
+            fr['source-if'] = "eth0"
+            fr['destin-if'] = "eth0"
+            fr['src-linklocal'] = False
+            fr['dst-linklocal'] = False
+            fr['OS'] = 'Debian'
+        except:
+            my_err = True
+        fr.produce(ofile)
+        expect = """/sbin/ip6tables -A   input___new  -i eth0 -s 2001:db8:1::1 -d 2001:db8:2::1 -p tcp --sport 1024: --dport 22 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+/sbin/ip6tables -A   output__new  -o eth0 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+echo -n ".";"""
+        self.maxDiff = None
+        self.assertEquals(expect, fr.msg)
 
 #class Ip6_Filter_tests(unittest.TestCase):
 #    '''some tests for class Ip6_Filter_Rule'''
