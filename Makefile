@@ -3,9 +3,9 @@
 #
 BACKUP = ~/adm6.tbz
 
-default:	tests
+default:	test_all
 
-tests:
+test_all:
 	@nosetests -v --with-coverage adm6/ 2>&1 | grep -v ipaddr
 
 sync:
