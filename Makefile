@@ -32,7 +32,7 @@ landscape:
 
 clean:
 	rm -rf *~
-	rm -f *.pyc adm6/*pyc
+	rm -f *.pyc adm6/*pyc tests/*pyc
 	rm -f out-adm6 out-ns out-ow out-www out-r-ex global-cfg
 	rm -rf etc desc ~/adm6/ ~/.adm6.conf
 
