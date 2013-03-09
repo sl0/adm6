@@ -200,7 +200,7 @@ echo -n ".";"""
 
     def test_06_repr_with_debuglevel(self):
         """
-        fr-05 produce for linux as traversed host
+        fr-06 produce for linux as traversed host
         """
         my_err = False
         try:
@@ -257,7 +257,7 @@ echo -n ".";"""
 
     def test_07_repr_without_debuglevel(self):
         """
-        fr-05 produce for linux as traversed host
+        fr-07 produce for linux as traversed host
         """
         my_err = False
         try:
