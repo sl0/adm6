@@ -161,8 +161,72 @@ echo -n ".";"""
 /sbin/ip6tables -A   forward_new  -o eth0 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
 echo -n ".";"""
         self.maxDiff = None
-        #print "M:", fr.msg
         self.assertEquals(expect, fr.msg)
+
+    def test_05_produce_for_linux_as_traversed(self):
+        """
+        fr-05 produce for linux as traversed host
+        """
+        my_err = False
+        try:
+            ofile = open("/dev/null", 'w')
+            fr = Ip6_Filter_Rule(rule)
+            fr['debuglevel'] = False
+            fr['Rule-Nr'] = 1
+            fr['Pair-Nr'] = 1
+            fr['Protocol'] = 1
+            fr['Action'] = "accept"
+            fr['Source'] = "2001:db8:1::1"
+            fr['Destin'] = "2001:db8:2::1"
+            fr['Protocol'] = "tcp"
+            fr['dport'] = "22"
+            fr['System-Forward'] = True
+            fr['i_am_s'] = False
+            fr['i_am_d'] = False
+            fr['travers'] = True
+            fr['source-if'] = "eth0"
+            fr['destin-if'] = "eth0"
+            fr['src-linklocal'] = False
+            fr['dst-linklocal'] = False
+            fr['OS'] = 'Debian'
+        except:
+            my_err = True
+        fr.produce(ofile)
+        expect = """/sbin/ip6tables -A   forward_new  -i eth0 -s 2001:db8:1::1 -d 2001:db8:2::1 -p tcp --sport 1024: --dport 22 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+/sbin/ip6tables -A   forward_new  -o eth0 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+echo -n ".";"""
+        self.maxDiff = None
+        self.assertEquals(expect, fr.msg)
+
+    def test_06_repr_with_debuglevel(self):
+        """
+        fr-05 produce for linux as traversed host
+        """
+        my_err = False
+        try:
+            ofile = open("/dev/null", 'w')
+            fr = Ip6_Filter_Rule(rule)
+            fr['debuglevel'] = False
+            fr['Rule-Nr'] = 1
+            fr['Pair-Nr'] = 1
+            fr['Protocol'] = 1
+            fr['Action'] = "accept"
+            fr['Source'] = "2001:db8:1::1"
+            fr['Destin'] = "2001:db8:2::1"
+            fr['Protocol'] = "tcp"
+            fr['dport'] = "22"
+            fr['System-Forward'] = True
+            fr['i_am_s'] = False
+            fr['i_am_d'] = False
+            fr['travers'] = True
+            fr['source-if'] = "eth0"
+            fr['destin-if'] = "eth0"
+            fr['src-linklocal'] = False
+            fr['dst-linklocal'] = False
+            fr['OS'] = 'Debian'
+        except:
+            my_err = True
+        fr.produce(ofile)
         fr['debuglevel'] = True
         value = str(fr)
         print "V:", value
@@ -187,6 +251,46 @@ echo -n ".";"""
 # src-linklocal  : False                                                       #
 # destin-if      : eth0                                                        #
 # dst-linklocal  : False                                                       #
+"""
+        self.assertEquals(expect, value)
+
+
+    def test_07_repr_without_debuglevel(self):
+        """
+        fr-05 produce for linux as traversed host
+        """
+        my_err = False
+        try:
+            ofile = open("/dev/null", 'w')
+            fr = Ip6_Filter_Rule(rule)
+            fr['debuglevel'] = False
+            fr['Rule-Nr'] = 1
+            fr['Pair-Nr'] = 1
+            fr['Protocol'] = 1
+            fr['Action'] = "accept"
+            fr['Source'] = "2001:db8:1::1"
+            fr['Destin'] = "2001:db8:2::1"
+            fr['Protocol'] = "tcp"
+            fr['dport'] = "22"
+            fr['System-Forward'] = True
+            fr['i_am_s'] = False
+            fr['i_am_d'] = False
+            fr['travers'] = True
+            fr['source-if'] = "eth0"
+            fr['destin-if'] = "eth0"
+            fr['src-linklocal'] = False
+            fr['dst-linklocal'] = False
+            fr['OS'] = 'Debian'
+        except:
+            my_err = True
+        fr.produce(ofile)
+        fr['debuglevel'] = False
+        fr['Abrakadabra'] = True
+        value = str(fr)
+        print "V:", value
+        expect = """# Rule-Nr        : 1                                                           #
+# Pair-Nr        : 1                                                           #
+# Abrakadabra    : True                                                        #
 """
         self.assertEquals(expect, value)
 
