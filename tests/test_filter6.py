@@ -163,7 +163,32 @@ echo -n ".";"""
         self.maxDiff = None
         #print "M:", fr.msg
         self.assertEquals(expect, fr.msg)
-
+        fr['debuglevel'] = True
+        value = str(fr)
+        print "V:", value
+        expect = """# Rule-Nr        : 1                                                           #
+# Pair-Nr        : 1                                                           #
+# System-Forward : True                                                        #
+# OS             : Debian                                                      #
+# Source         : 2001:db8:1::1                                               #
+# Destin         : 2001:db8:2::1                                               #
+# Protocol       : tcp                                                         #
+# sport          : 1024:                                                       #
+# dport          : 22                                                          #
+# Action         : accept                                                      #
+# nonew          : False                                                       #
+# noif           : False                                                       #
+# nostate        : False                                                       #
+# insec          : False                                                       #
+# i_am_s         : False                                                       #
+# i_am_d         : False                                                       #
+# travers        : True                                                        #
+# source-if      : eth0                                                        #
+# src-linklocal  : False                                                       #
+# destin-if      : eth0                                                        #
+# dst-linklocal  : False                                                       #
+"""
+        self.assertEquals(expect, value)
 
 
 
