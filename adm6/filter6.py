@@ -198,7 +198,9 @@ class Ip6_Filter_Rule(UserDict):
             self.msg += 'echo -n ".";'
             outfile.write(u'echo -n ".";')
         if not self['System-Forward']:
-            return      # no System-Forward, ==> no forwarding rules!
+            if not self['forced']:
+                self.msg = "# System-Forward: False ==> no rule generated"
+                return
         if self['travers']:
             sif = ""
             dif = ""
@@ -208,7 +210,8 @@ class Ip6_Filter_Rule(UserDict):
                 if not u'undef' in self['destin-if']:
                     dif = " -o "+ str(self['destin-if'])
             if self['src-linklocal'] or self['dst-linklocal']:
-                return   # no forward traffic with link-local address!
+                self.msg = "# link-local ==> no forward"
+                return  # Is this true? no forward traffic, link-local address!
             self.msg += ipf + sif + line1 + rule_id + '\n'
             outfile.write(ipf + sif + line1 + rule_id + u'\n')
             if answer_packets:
@@ -220,8 +223,8 @@ class Ip6_Filter_Rule(UserDict):
 
     def produce_OpenBSD(self, outfile, commented):
         """do one pair of src-dst out of a rule for OpenBSD"""
-        print u"# producing pf_conf commands for rule:", self['Rule-Nr'],
-        print u"Pair: ", self['Pair-Nr']
+        #print u"# producing pf_conf commands for rule:", self['Rule-Nr'],
+        #print u"Pair: ", self['Pair-Nr']
         ########################################################################
         answer_packets = False
         icmp_type = False
@@ -298,7 +301,8 @@ class Ip6_Filter_Rule(UserDict):
         ipo = comm #+ "/sbin/ip6tables -A   output__new "
         ipf = comm #+ "/sbin/ip6tables -A   forward_new "
         if not self['System-Forward'] and self['travers']:
-            print "# System does not forward by configuration"
+            msg = "# System does not forward by configuration"
+            raise ValueError, msg
             return
         if self['travers'] or self['i_am_s'] or self['i_am_d']:
             if self['noif']:
@@ -314,41 +318,15 @@ class Ip6_Filter_Rule(UserDict):
             if answer_packets:
                 print ipi + sif + line2
                 outfile.write(ipi + sif + line2 + u'\n')
-        #if self['i_am_d']:
-        #    if self['noif']:
-        #        sif = ""
-        #        dif = ""
-        #    else:
-        #        sif = ""# -i "+ str(self['source-if'])
-        #        dif = ""# -o "+ str(self['source-if'])
-        #    print ipi + sif + line1
-        #    outfile.write(ipi + sif + line1 + u'\n')
-        #    if answer_packets:
-        #        print ipo + dif + line2
-        #        outfile.write(ipo + dif + line2 + u'\n')
-        #if self['travers']:
-        #    sif = ""
-        #    dif = ""
-        #    if not self['noif']:
-        #        if not u'undef' in self['source-if']:
-        #            sif = " -i "+ str(self['source-if'])
-        #        if not u'undef' in self['destin-if']:
-        #            dif = " -o "+ str(self['destin-if'])
-        #    if self['src-linklocal'] or self['dst-linklocal']:
-        #        return
-        #    print ipf + dif + line1
-        #    outfile.write(ipf + sif + line1 + u'\n')
-        #    if answer_packets:
-        #        print "# ", ipf + sif + line2
-        #        outfile.write(ipf + dif + line2 + u'\n')
-        ########################################################################
-        print u"# n o t   y e t   r e a d y"
+        self.msg = "# OpenBSD implementation _not_ ready!"
         return
 
     def produce_wxpsp3(self, outfile, commented):
         """do one pair of src-dst out of a rule for Win-XP-SP3"""
-        print u"# producing netsh commands for rule:", self['Rule-Nr'],
-        print u"Pair: ", self['Pair-Nr']
+        #print u"# producing netsh commands for rule:", self['Rule-Nr'],
+        #print u"Pair: ", self['Pair-Nr']
+        self.msg = "# WXP-SP3  n o t   y e t  i m p l e m e n t e d !"
+        return
         ########################################################################
         answer_packets = False
         icmp_type = False
@@ -436,7 +414,7 @@ class Ip6_Filter_Rule(UserDict):
             if answer_packets:
                 print ipi + sif + line2
                 outfile.write(ipi + sif + line2 + u'\n')
-        print u"# n o t   y e t   r e a d y"
+        self.msg = "# WXP-SP3  n o t   y e t  i m p l e m e n t e d !"
         return
 
     def produce_IPF(self, outfile, commented):
@@ -444,6 +422,7 @@ class Ip6_Filter_Rule(UserDict):
         print u"# producing ipf commands for rule:", self['Rule-Nr'],
         print u"Pair: ", self['Pair-Nr']
         print u"# n o t   y e t   r e a d y"
+        self.msg = "# IPF is n o t  y e t   i m p l e m e n t e d !"
         return
 
 
