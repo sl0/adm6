@@ -436,10 +436,10 @@ class IP6_Filter():
     """
     Devicetype mostly independant Filter
     """
-    os = ''
+    os = 'Unknown'
     me = None
 
-    def __init__(self, debuglevel, path, name, os, fwd, asym, interfaces):
+    def __init__(self, debuglevel, path, name, os, fwd, asym, interfaces=None):
         """start with an empty filter"""
         self.rules = []
         self.debuglevel = debuglevel
@@ -457,7 +457,8 @@ class IP6_Filter():
         elif 'Win-XP-SP3' in os:
             self.os = 'Win-XP-SP3'
         else:
-            print "# try to create filter object for unknown OS", 
+            self.os = "Unknown operating system for host: %s" % (name)
+            print "# try to create filter object for unknown OS",
             print self.name, self.path, self.os
         return
 

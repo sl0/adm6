@@ -1241,18 +1241,103 @@ echo -n ".";"""
             self.maxDiff = None
             self.assertEquals(expect, fr.msg)
 
+
+
+class Ip6_Filter_tests(unittest.TestCase):
+    '''some tests for class Ip6_Filter_Rule'''
+
+    def test_01_IP6_Filter_create_Debian(self):
+        """
+        ft-01 IP6 Filter create an object for Debian
+        """
+        #init__(self, debuglevel, path, name, os, fwd, asym, interfaces=None):
+        debug = False
+        name = "ns"
+        path = "desc/ns/"
+        os = "Debian GNU/Linux wheezy"
+        fwd = False
+        asym = False
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        self.assertEquals(fi.os, 'Debian')
+
+    def test_02_IP6_Filter_create_OpenBSD(self):
+        """
+        ft-02 IP6 Filter create an object for OpenBSD
+        """
+        #init__(self, debuglevel, path, name, os, fwd, asym, interfaces=None):
+        debug = False
+        name = "ns"
+        path = "desc/ns/"
+        os = "OpenBSD 4.5"
+        fwd = False
+        asym = False
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        self.assertEquals(fi.os, 'OpenBSD')
+
+    def test_03_IP6_Filter_create_OpenSolaris(self):
+        """
+        ft-03 IP6 Filter create an object for OpenSolaris
+        """
+        #init__(self, debuglevel, path, name, os, fwd, asym, interfaces=None):
+        debug = False
+        name = "ns"
+        path = "desc/ns/"
+        os = "OpenSolaris unknown version"
+        fwd = False
+        asym = False
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        self.assertEquals(fi.os, 'OpenSolaris')
+
+    def test_04_IP6_Filter_create_win_xp_sp3(self):
+        """
+        ft-04 IP6 Filter create an object for WXP SP3
+        """
+        #init__(self, debuglevel, path, name, os, fwd, asym, interfaces=None):
+        debug = False
+        name = "ns"
+        path = "desc/ns/"
+        os = "Win-XP-SP3"
+        fwd = False
+        asym = False
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        self.assertEquals(fi.os, 'Win-XP-SP3')
+
+    def test_05_IP6_Filter_create_unknown_os(self):
+        """
+        ft-05 IP6 Filter create an object for unknown os
+        """
+        #init__(self, debuglevel, path, name, os, fwd, asym, interfaces=None):
+        debug = False
+        name = "ns"
+        path = "desc/ns/"
+        os = "Unknown OS"
+        fwd = False
+        asym = False
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        self.assertEquals(fi.os, 'Unknown operating system for host: ns')
+
+    def test_06_IP6_Filter_append_first_rule(self):
+        """
+        ft-06 IP6 Filter append first rule
+        """
+        debug = False
+        name = "ns"
+        path = "desc/ns/"
+        os = "Debian GNU/Linux"
+        fwd = False
+        asym = False
+        rule_one = ['s', 'd', 'ip6', 'all', 'accept', "#", 'test-comment']
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        fi.append(rule_one)
+        expect = [rule_one, ]
+        self.assertEqual(expect, fi.rules)
     
-
-
-
-#class Ip6_Filter_tests(unittest.TestCase):
-#    '''some tests for class Ip6_Filter_Rule'''
-#
-#    def test_01_create_IP6_Filter(self):
-#        """
-#        create a IP6 Filter object
-#        """
-
 
 if __name__ == "__main__":
         unittest.main()
