@@ -9,6 +9,7 @@
 import unittest
 from adm6.filter6 import IP6_Filter, Ip6_Filter_Rule
 from sys import stdout
+from os.path import expanduser as homedir
 
 rule = {}
 
@@ -1337,7 +1338,84 @@ class Ip6_Filter_tests(unittest.TestCase):
         fi.append(rule_one)
         expect = [rule_one, ]
         self.assertEqual(expect, fi.rules)
+
+    def test_06_IP6_Filter_mangle_start_exist(self):
+        """
+        ft-06 IP6 Filter mangle-start exisiting file
+        """
+        debug = False
+        name = "ns"
+        path = "/home/sl0/adm6/desc/ns"
+        mach_dir = "~/adm6/desc/ns"
+        path = homedir(mach_dir)
+        print "H:", path
+        os = "Debian GNU/Linux"
+        fwd = False
+        asym = False
+        rule_one = ['s', 'd', 'ip6', 'all', 'accept', "#", 'test-comment']
+        ofile = open("/dev/null", 'w')
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        file_to_read = "mangle-startup"
+        fi.mangle_file(ofile, file_to_read)
+        expect = "# start reading mangle-file: %s/" % (path)
+        expect += file_to_read
+        value = fi.msg
+        self.assertEqual(expect, value)
+
+    def test_07_IP6_Filter_mangle_end_exist(self):
+        """
+        ft-07 IP6 Filter mangle-end exisiting file
+        """
+        debug = False
+        name = "ns"
+        path = "/home/sl0/adm6/desc/ns"
+        mach_dir = "~/adm6/desc/adm6"
+        path = homedir(mach_dir)
+        print "H:", path
+        os = "Debian GNU/Linux"
+        fwd = False
+        asym = False
+        rule_one = ['s', 'd', 'ip6', 'all', 'accept', "#", 'test-comment']
+        ofile = open("/dev/null", 'w')
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        file_to_read = "mangle-endup"
+        fi.mangle_file(ofile, file_to_read)
+        expect = "# failed reading mangle-file: %s/" % (path)
+        #expect = "# start reading mangle-file: %s/" % (path)
+        expect += file_to_read
+        expect += ", but OK"
+        value = fi.msg
+        self.assertEqual(expect, value)
     
+    def test_08_IP6_Filter_mangle_end_non_exist(self):
+        """
+        ft-08 IP6 Filter mangle-end non exisiting file
+        """
+        debug = False
+        name = "ns"
+        path = "/home/sl0/adm6/desc/ns"
+        mach_dir = "~/adm6/desc/ns"
+        path = homedir(mach_dir)
+        print "H:", path
+        os = "Debian GNU/Linux"
+        fwd = False
+        asym = False
+        rule_one = ['s', 'd', 'ip6', 'all', 'accept', "#", 'test-comment']
+        ofile = open("/dev/null", 'w')
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        file_to_read = "mangle-endup"
+        fi.mangle_file(ofile, file_to_read)
+        expect = "# start reading mangle-file: %s/" % (path)
+        expect += file_to_read
+        value = fi.msg
+        self.assertEqual(expect, value)
+
+
+
+
 
 if __name__ == "__main__":
         unittest.main()

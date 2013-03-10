@@ -472,9 +472,11 @@ class IP6_Filter():
         """
         include a file into the outputfile, paketmangling or whatever
         """
+        self.msg = ""
         mangle_filename = self.path + u'/' + mangleinclude
         try:
             mang = open(mangle_filename)
+            self.msg = "# start reading mangle-file: %s" % (mangle_filename)
             print "# mangle-file: %s inclusion starts" % mangle_filename
             outfile.write("# mangle-file: %s inclusion starts\n" % mangle_filename)
             for line in mang:
@@ -484,6 +486,7 @@ class IP6_Filter():
             print "# mangle-file: %s inclusion successfully ended" % mangle_filename
             outfile.write("# mangle-file: %s inclusion successfully ended\n" % mangle_filename)
         except:
+            self.msg = "# failed reading mangle-file: %s, but OK" % (mangle_filename)
             print "# mangle-file: %s not found, no problem\n" % mangle_filename
             outfile.write("# mangle-file: %s not found, no problem\n" % mangle_filename)
 
