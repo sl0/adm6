@@ -1348,7 +1348,6 @@ class Ip6_Filter_tests(unittest.TestCase):
         path = "/home/sl0/adm6/desc/ns"
         mach_dir = "~/adm6/desc/ns"
         path = homedir(mach_dir)
-        print "H:", path
         os = "Debian GNU/Linux"
         fwd = False
         asym = False
@@ -1372,7 +1371,6 @@ class Ip6_Filter_tests(unittest.TestCase):
         path = "/home/sl0/adm6/desc/ns"
         mach_dir = "~/adm6/desc/adm6"
         path = homedir(mach_dir)
-        print "H:", path
         os = "Debian GNU/Linux"
         fwd = False
         asym = False
@@ -1398,7 +1396,6 @@ class Ip6_Filter_tests(unittest.TestCase):
         path = "/home/sl0/adm6/desc/ns"
         mach_dir = "~/adm6/desc/ns"
         path = homedir(mach_dir)
-        print "H:", path
         os = "Debian GNU/Linux"
         fwd = False
         asym = False
