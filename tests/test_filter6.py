@@ -10,6 +10,7 @@ import unittest
 from adm6.filter6 import IP6_Filter, Ip6_Filter_Rule
 from sys import stdout
 from os.path import expanduser as homedir
+from ipaddr import IPv6Network
 
 rule = {}
 
@@ -1410,9 +1411,147 @@ class Ip6_Filter_tests(unittest.TestCase):
         value = fi.msg
         self.assertEqual(expect, value)
 
+    def test_09_IP6_Filter_final_this_rule(self):
+        """
+        ft-09 IP6 Filter final this rule
+        """
+        debug = True
+        name = "ns"
+        path = "/home/sl0/adm6/desc/ns"
+        mach_dir = "~/adm6/desc/ns"
+        path = homedir(mach_dir)
+        os = "Debian GNU/Linux"
+        fwd = False
+        asym = False
+        rule_one = ['s', 'd', 'ip6', 'all', 'accept', "#", 'test-comment']
+        ofn = "/dev/null"
+        ofile = open(ofn, 'w')
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        rule = []
+        rule.append("RuleText")                                 # RuleText
+        rule.append(True)                                       # System-Fwd
+        rule.append(2)                                          # Rule-Nr.
+        rule.append(3)                                          # Pair-Nr.
+        rule.append(True)
+        rule.append(False)
+        rule.append(IPv6Network('fe80::1'))                     # source
+        rule.append(IPv6Network('ff80::4711'))                  # destin
+        rule.append('eth0')                        # source-if
+        rule.append(3)                             # source-rn
+        rule.append('eth0')                        # destin-if
+        rule.append(3)                             # destin-rn
+        rule.append('udp')                         # protocol
+        rule.append('4711:4713')                   # dport
+        rule.append('accept')                      # action
+        rule.append('NOIF NOSTATE')                # append     options at last
+        fi.rules.append(rule)
+        fi.final_this_rule(rule, ofile)
+        value = fi.msg
+        expect = """# ---------------------------------------------------------------------------- #
+# Rule-Nr        : 2                                                           #
+# Pair-Nr        : 3                                                           #
+# System-Name    : ns                                                          #
+# System-Forward : True                                                        #
+# OS             : Debian                                                      #
+# Asymmetric     : False                                                       #
+# RuleText       : RuleText                                                    #
+# Source         : fe80::1/128                                                 #
+# Destin         : ff80::4711/128                                              #
+# Protocol       : udp                                                         #
+# sport          : 1024:                                                       #
+# dport          : 4711:4713                                                   #
+# Action         : accept                                                      #
+# nonew          : False                                                       #
+# noif           : True                                                        #
+# nostate        : True                                                        #
+# insec          : False                                                       #
+# i_am_s         : True                                                        #
+# i_am_d         : False                                                       #
+# travers        : False                                                       #
+# source-if      : eth0                                                        #
+# source-rn      : 3                                                           #
+# src-linklocal  : True                                                        #
+# src-multicast  : False                                                       #
+# destin-if      : eth0                                                        #
+# destin-rn      : 3                                                           #
+# dst-linklocal  : False                                                       #
+# dst-multicast  : True                                                        #
+"""
+        value = fi.msg
+        self.assertEqual(expect, value)
 
-
-
+    def test_10_IP6_Filter_final_this_rule_forced(self):
+        """
+        ft-10 IP6 Filter final this rule forced
+        """
+        debug = True
+        name = "ns"
+        path = "/home/sl0/adm6/desc/ns"
+        mach_dir = "~/adm6/desc/ns"
+        path = homedir(mach_dir)
+        os = "Debian GNU/Linux"
+        fwd = False
+        asym = False
+        rule_one = ['s', 'd', 'ip6', 'all', 'accept', "#", 'test-comment']
+        ofn = "/dev/null"
+        ofile = open(ofn, 'w')
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        rule = []
+        rule.append("RuleText")                    # RuleText
+        rule.append(True)                          # System-Fwd
+        rule.append(2)                             # Rule-Nr.
+        rule.append(3)                             # Pair-Nr.
+        rule.append(True)                          # i_am_s
+        rule.append(False)                         # i_am_d
+        rule.append(IPv6Network('fe80::1'))        # source
+        rule.append(IPv6Network('ff80::4711'))     # destin
+        rule.append('eth0')                        # source-if
+        rule.append(3)                             # source-rn
+        rule.append('eth0')                        # destin-if
+        rule.append(3)                             # destin-rn
+        rule.append('udp')                         # protocol
+        rule.append('4711:4713')                   # dport
+        rule.append('accept')                      # action
+        rule.append('NOIF NOSTATE FORCED')         # options at last
+        fi.rules.append(rule)
+        fi.final_this_rule(rule, ofile)
+        value = fi.msg
+        expect = """# ---------------------------------------------------------------------------- #
+# Rule-Nr        : 2                                                           #
+# Pair-Nr        : 3                                                           #
+# System-Name    : ns                                                          #
+# System-Forward : True                                                        #
+# OS             : Debian                                                      #
+# Asymmetric     : False                                                       #
+# RuleText       : RuleText                                                    #
+# Source         : fe80::1/128                                                 #
+# Destin         : ff80::4711/128                                              #
+# Protocol       : udp                                                         #
+# sport          : 1024:                                                       #
+# dport          : 4711:4713                                                   #
+# Action         : accept                                                      #
+# nonew          : False                                                       #
+# noif           : True                                                        #
+# nostate        : True                                                        #
+# insec          : False                                                       #
+# i_am_s         : True                                                        #
+# i_am_d         : True                                                        #
+# travers        : True                                                        #
+# source-if      : eth0                                                        #
+# source-rn      : 3                                                           #
+# src-linklocal  : True                                                        #
+# src-multicast  : False                                                       #
+# destin-if      : eth0                                                        #
+# destin-rn      : 3                                                           #
+# dst-linklocal  : False                                                       #
+# dst-multicast  : True                                                        #
+"""
+        value = fi.msg
+        self.assertEqual(expect, value)
+    
+    
 
 if __name__ == "__main__":
         unittest.main()

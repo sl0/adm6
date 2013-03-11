@@ -447,7 +447,7 @@ class IP6_Filter():
         self.name = name
         self.forward = fwd
         self.asymmetric = asym
-        #print "IP6_Filter_init: ", self.name, self.forward
+        self.msg = ""
         if 'Debian' in os:
             self.os = 'Debian'
         elif 'OpenBSD' in os:
@@ -490,11 +490,12 @@ class IP6_Filter():
             print "# mangle-file: %s not found, no problem\n" % mangle_filename
             outfile.write("# mangle-file: %s not found, no problem\n" % mangle_filename)
 
-    def mach_output(self):
+    def mach_output(self, fname=None):
         """
         construct header, rules and footer altogether
         """
-        fname = self.path + '/output'
+        if fname == None:
+            fname = self.path + '/output'
         header_file = self.path + "/../../etc/" + str(self.os) + "-header"
         footer_file = self.path + "/../../etc/" + str(self.os) + "-footer"
         outfile = open(fname, 'w')
@@ -533,13 +534,22 @@ class IP6_Filter():
         r['Output'] = outfile
         r['OS'] = self.os
         r['System-Name'] = self.name.strip()
-        r['RuleText'] = rule.pop(0)    # Orig. Rule Text as List (clone)
-        r['System-Forward'] = rule.pop(0)
         r['Asymmetric'] = self.asymmetric
-        r['Rule-Nr'] = rule.pop(0)
-        r['Pair-Nr'] = rule.pop(0)
-        r['i_am_s'] = rule.pop(0)
-        r['i_am_d'] = rule.pop(0)
+        r['RuleText'] = rule.pop(0)         # Orig. Rule Text as List (clone)
+        r['System-Forward'] = rule.pop(0)   # 2
+        r['Rule-Nr'] = rule.pop(0)          # 3
+        r['Pair-Nr'] = rule.pop(0)          # 4
+        r['i_am_s'] = rule.pop(0)           # 5
+        r['i_am_d'] = rule.pop(0)           # 6
+        r['Source'] = rule.pop(0)           # 7
+        r['Destin'] = rule.pop(0)           # 8
+        r['source-if'] = rule.pop(0)        # 9
+        r['source-rn'] = rule.pop(0)        #10
+        r['destin-if'] = rule.pop(0)        #11
+        r['destin-rn'] = rule.pop(0)        #12
+        r['Protocol'] = rule.pop(0)         #13
+        r['dport'] = rule.pop(0)            #14
+        r['Action'] = rule.pop(0)           #15
         if 'NOIF' in rule[-1]:
             r['noif'] = True
         if 'NONEW' in rule[-1]:
@@ -550,15 +560,6 @@ class IP6_Filter():
             r['insec'] = True
         if self.asymmetric:
             r['nostate'] = True
-        r['Source'] = rule.pop(0)
-        r['Destin'] = rule.pop(0)
-        r['source-if'] = rule.pop(0)
-        r['source-rn'] = rule.pop(0)
-        r['destin-if'] = rule.pop(0)
-        r['destin-rn'] = rule.pop(0)
-        r['Protocol'] = rule.pop(0)
-        r['dport'] = rule.pop(0)
-        r['Action'] = rule.pop(0)
         r['src-multicast'] = r['Source'].is_multicast
         r['src-linklocal'] = r['Source'].is_link_local
         r['dst-multicast'] = r['Destin'].is_multicast
@@ -578,9 +579,11 @@ class IP6_Filter():
             r['i_am_d'] = True
             r['travers'] = True
         s = "# "+'-'*76 + " #"
-        print s
+        self.msg = s + '\n'
         outfile.write(s+'\n')
-        print "%s" % (r),
+        self.msg += str(r)
+        #print "%s" % (r),
+        print self.msg
         outfile.write(str(r))
         #use r.produce and later r.__del__(automagically)
         r.produce(outfile)
