@@ -37,10 +37,13 @@ After a first look into the python universe and after there was a /48 delivered
 on a leased line, I started to write some plain python files. One of my friends
 recommended me to put them into a repository, write some explanations and to
 deposit these on a public place. First choice was http://evolvis.org because of
-a friendship to one of their maintainers. On some conferences *adm6* was presented:
+a friendship to one of their maintainers. On some german conferences *adm6* was presented:
 
-   1) Frühjahrsfachgespräch 2011, München
-   2) Heise IPv6 Conference, 2011, Frankfurt
+#. LinuxTag 2011, Berlin
+#. Heise IPv6 Conference, 2011, Frankfurt
+#. OpenRheinRuhr 2011, Oberhausen
+#. Secure Linux Administrators Conference 2011, Berlin
+#. Frühjahrsfachgespräch 2012, München
 
 People listened, asked a few questions. So I knew my software to
 be somehow strange but kept on going...
