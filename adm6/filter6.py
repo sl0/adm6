@@ -207,8 +207,10 @@ class Ip6_Filter_Rule(UserDict):
             if not self['noif']:
                 if not u'undef' in self['source-if']:
                     sif = " -i "+ str(self['source-if'])
-                if not u'undef' in self['destin-if']:
-                    dif = " -o "+ str(self['destin-if'])
+                    dif = " -o "+ str(self['source-if'])
+                #if not u'undef' in self['destin-if']:
+                #    #dif = " -o "+ str(self['destin-if']) # FAULT!
+                #    dif = " -o "+ str(self['source-if'])
             if self['src-linklocal'] or self['dst-linklocal']:
                 self.msg = "# link-local ==> no forward"
                 return  # Is this true? no forward traffic, link-local address!
