@@ -1975,6 +1975,214 @@ echo "**********************************************************************"
         #print "M:", value
         self.assertEquals(expect, value)
 
+    def test_14_IP6_Filter_mach_output_as_stateful_travers(self):
+        """
+        ft-14 IP6 Filter mach_output as stateful travers
+        """
+        debug = True
+        name = "adm6"
+        mach_dir = "~/adm6/desc/%s" % (name)
+        path = homedir(mach_dir)
+        os = "Debian GNU/Linux"
+        fwd = False
+        asym = False
+        ofilename = "/dev/null"
+        fi = IP6_Filter(debug, path, name, os, fwd, asym, None)
+        self.assertIsInstance(fi, IP6_Filter)
+        rule = []
+        rule.append("should be RuleText")          # RuleText
+        rule.append(True)                          # System-Fwd
+        rule.append(1)                             # Rule-Nr.
+        rule.append(1)                             # Pair-Nr.
+        rule.append(False)                         # i_am_s
+        rule.append(False)                         # i_am_d
+        rule.append(IPv6Network('2001:db8:1::1'))  # source
+        rule.append(IPv6Network('2001:db8:2::11')) # destin
+        rule.append('eth0')                        # source-if
+        rule.append(1)                             # source-rn
+        rule.append('eth1')                        # destin-if
+        rule.append(3)                             # destin-rn
+        rule.append('udp')                         # protocol
+        rule.append('4711')                        # dport
+        rule.append('accept')                      # action
+        rule.append('')                            # options at last
+        fi.rules.append(rule)
+        fi.mach_output(ofilename)
+        value = fi.msg
+        expect = """#!/bin/bash
+#
+echo "**********************************************************************"
+echo "**********************************************************************"
+echo "##                                                                  ##"
+echo "##   a d m 6   -   A Device Manager for IPv6 packetfiltering        ##"
+echo "##                                                                  ##"
+echo "##   version:      0.2                                              ##"
+echo "##                                                                  ##"
+echo "##   device-name:  adm6                                             ##"
+echo "##   device-type:  Debian GNU/Linux                                 ##"
+echo "##                                                                  ##"
+echo "##   date:         2013-03-13 23:23                                 ##"
+echo "##   author:       Johannes Hubertz, hubertz-it-consulting GmbH     ##"
+echo "##                                                                  ##"
+echo "##   license:      GNU general public license version 3             ##"
+echo "##                     or any later  version                        ##"
+echo "##                                                                  ##"
+echo "**********************************************************************"
+echo "**********************************************************************"
+echo "##                                                                  ##"
+echo "##   some magic abbreviations follow                                ##"
+echo "##                                                                  ##"
+#
+#POLICY_A='ACCEPT'
+POLICY_D='DROP'
+#
+I6='/sbin/ip6tables '
+IP6I='/sbin/ip6tables -A   input___new '
+IP6O='/sbin/ip6tables -A   output__new '
+IP6F='/sbin/ip6tables -A   forward_new '
+#
+CHAINS="$CHAINS input__"
+CHAINS="$CHAINS output_"
+CHAINS="$CHAINS forward"
+for chain in $CHAINS
+do
+    /sbin/ip6tables -N ${chain}_act >/dev/null 2>/dev/null
+    /sbin/ip6tables -N ${chain}_new
+done
+# but ignore all the boring fault-messages
+$I6 -P   INPUT $POLICY_D
+$I6 -P  OUTPUT $POLICY_D
+$I6 -P FORWARD $POLICY_D
+#
+# some things need to pass,
+# even if you don't like them
+# do local and multicast on every interface
+LOCAL="fe80::/10"
+MCAST="ff02::/10"
+#
+$IP6I -p ipv6-icmp -s ${LOCAL} -d ${LOCAL} -j ACCEPT
+$IP6O -p ipv6-icmp -s ${LOCAL} -d ${LOCAL} -j ACCEPT
+#
+$IP6I -p ipv6-icmp -s ${MCAST} -j ACCEPT
+$IP6I -p ipv6-icmp -d ${MCAST} -j ACCEPT
+$IP6O -p ipv6-icmp -s ${MCAST} -j ACCEPT
+#
+# all prepared now, individual mangling and rules following
+#
+# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-startup, but OK
+# ---------------------------------------------------------------------------- #
+# Rule-Nr        : 1                                                           #
+# Pair-Nr        : 1                                                           #
+# System-Name    : adm6                                                        #
+# System-Forward : True                                                        #
+# OS             : Debian                                                      #
+# Asymmetric     : False                                                       #
+# RuleText       : should be RuleText                                          #
+# Source         : 2001:db8:1::1/128                                           #
+# Destin         : 2001:db8:2::11/128                                          #
+# Protocol       : udp                                                         #
+# sport          : 1024:                                                       #
+# dport          : 4711                                                        #
+# Action         : accept                                                      #
+# nonew          : False                                                       #
+# noif           : False                                                       #
+# nostate        : False                                                       #
+# insec          : False                                                       #
+# i_am_s         : False                                                       #
+# i_am_d         : False                                                       #
+# travers        : True                                                        #
+# source-if      : eth0                                                        #
+# source-rn      : 1                                                           #
+# src-linklocal  : False                                                       #
+# src-multicast  : False                                                       #
+# destin-if      : eth1                                                        #
+# destin-rn      : 3                                                           #
+# dst-linklocal  : False                                                       #
+# dst-multicast  : False                                                       #
+/sbin/ip6tables -A   forward_new  -i eth0 -s 2001:db8:1::1/128 -d 2001:db8:2::11/128 -p udp --sport 1024: --dport 4711 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+/sbin/ip6tables -A   forward_new  -o eth0 -d 2001:db8:1::1/128 -s 2001:db8:2::11/128 -p udp --dport 1024: --sport 4711 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+echo -n ".";# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-endup, but OK#
+#$IP6I -p tcp --dport 22 -j ACCEPT
+#$IP6O -p tcp --sport 22 -j ACCEPT
+#
+# allow ping and pong always (al gusto)
+#$IP6O -p ipv6-icmp --icmpv6-type echo-request -j ACCEPT
+#$IP6I -p ipv6-icmp --icmpv6-type echo-reply   -j ACCEPT
+##
+#$IP6I -p ipv6-icmp --icmpv6-type echo-request -j ACCEPT
+#$IP6O -p ipv6-icmp --icmpv6-type echo-reply   -j ACCEPT
+#
+#ICMPv6types="${ICMPv6types} destination-unreachable"
+ICMPv6types="${ICMPv6types} echo-request"
+ICMPv6types="${ICMPv6types} echo-reply"
+ICMPv6types="${ICMPv6types} neighbour-solicitation"
+ICMPv6types="${ICMPv6types} neighbour-advertisement"
+ICMPv6types="${ICMPv6types} router-solicitation"
+ICMPv6types="${ICMPv6types} router-advertisement"
+for icmptype in $ICMPv6types
+do
+    $IP6I -p ipv6-icmp --icmpv6-type $icmptype -j ACCEPT
+    $IP6O -p ipv6-icmp --icmpv6-type $icmptype -j ACCEPT
+done
+$IP6I -p ipv6-icmp --icmpv6-type destination-unreachable -j LOG  --log-prefix "unreach: " -m limit --limit 30/second --limit-burst 60
+$IP6I -p ipv6-icmp --icmpv6-type destination-unreachable -j ACCEPT
+#
+CHAINS=""
+CHAINS="$CHAINS input__"
+CHAINS="$CHAINS output_"
+CHAINS="$CHAINS forward"
+#set -x
+for chain in $CHAINS
+do
+    /sbin/ip6tables -E "${chain}_act" "${chain}_old"
+    /sbin/ip6tables -E "${chain}_new" "${chain}_act"
+done
+#
+$I6 -F INPUT
+$I6 -A INPUT   -m rt --rt-type 0 -j LOG --log-prefix "rt-0: " -m limit --limit 3/second --limit-burst 6
+$I6 -A INPUT   -m rt --rt-type 0 -j DROP
+$I6 -A INPUT   -m rt --rt-type 2 -j LOG --log-prefix "rt-2: " -m limit --limit 3/second --limit-burst 6
+$I6 -A INPUT   -m rt --rt-type 2 -j DROP
+$I6 -A INPUT  -i lo -j ACCEPT
+$I6 -A INPUT   --jump input___act
+#
+$I6 -F OUTPUT
+$I6 -A OUTPUT -o lo -j ACCEPT
+$I6 -A OUTPUT  --jump output__act
+#
+$I6 -F FORWARD
+$I6 -A FORWARD -m rt --rt-type 0 -j LOG --log-prefix "rt-0: " -m limit --limit 3/second --limit-burst 6
+$I6 -A FORWARD -m rt --rt-type 0 -j DROP
+$I6 -A FORWARD --jump forward_act
+#
+for chain in $CHAINS
+do
+    /sbin/ip6tables -F "${chain}_old"
+    /sbin/ip6tables -X "${chain}_old"
+done
+$I6 -F logdrop   >/dev/null 2>/dev/null
+$I6 -X logdrop   >/dev/null 2>/dev/null
+$I6 -N logdrop
+$I6 -A   INPUT   --jump logdrop
+$I6 -A  OUTPUT   --jump logdrop
+$I6 -A FORWARD   --jump logdrop
+$I6 -A logdrop -j LOG --log-prefix "drp: " -m limit --limit 3/second --limit-burst 6
+$I6 -A logdrop -j DROP
+#
+/sbin/ip6tables-save -c >/root/last-filter
+echo "**********************************************************************"
+echo "**********************************************************************"
+echo "##                                                                  ##"
+echo "##    End of generated filter-rules                                 ##"
+echo "##                                                                  ##"
+echo "**********************************************************************"
+echo "**********************************************************************"
+# EOF
+"""
+        print "M:", value
+        self.assertEquals(expect, value)
+
+
 
 if __name__ == "__main__":
         unittest.main()
