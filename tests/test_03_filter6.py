@@ -84,7 +84,7 @@ class Ip6_Filter_Rule_tests(unittest.TestCase):
             fr['i_am_d'] = False
             fr['travers'] = True
             fr['source-if'] = "eth0"
-            fr['destin-if'] = "eth0"
+            fr['destin-if'] = "eth1"
             fr['src-linklocal'] = False
             fr['dst-linklocal'] = False
             fr['OS'] = 'Debian'
@@ -92,8 +92,9 @@ class Ip6_Filter_Rule_tests(unittest.TestCase):
             my_err = True
         fr.produce(ofile)
         expect = """/sbin/ip6tables -A   forward_new  -i eth0 -s 2001:db8:1::1 -d 2001:db8:2::1 -p tcp --sport 1024: --dport 22 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
-/sbin/ip6tables -A   forward_new  -o eth0 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+/sbin/ip6tables -A   forward_new  -i eth1 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
 echo -n ".";"""
+        print "M:", fr.msg
         self.maxDiff = None
         self.assertEquals(expect, fr.msg)
 
@@ -485,7 +486,7 @@ echo -n ".";"""
             fr['i_am_d'] = False
             fr['travers'] = True
             fr['source-if'] = "eth0"
-            fr['destin-if'] = "eth0"
+            fr['destin-if'] = "eth1"
             fr['src-linklocal'] = False
             fr['dst-linklocal'] = False
             fr['OS'] = 'Debian'
@@ -493,12 +494,12 @@ echo -n ".";"""
             my_err = True
         fr.produce(ofile)
         expect = """/sbin/ip6tables -A   forward_new  -i eth0 -s 2001:db8:1::1 -d 2001:db8:2::1 -p tcp --sport 1024: --dport 22 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
-/sbin/ip6tables -A   forward_new  -o eth0 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+/sbin/ip6tables -A   forward_new  -i eth1 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
 echo -n ".";"""
         self.maxDiff = None
         self.assertEquals(expect, fr.msg)
 
-    def test_15_produce_for_linux_as_traversed(self):
+    def test_15_produce_for_linux_as_traversed_reject(self):
         """
         fr-15 produce for linux reject rule
         """
@@ -520,7 +521,7 @@ echo -n ".";"""
             fr['i_am_d'] = False
             fr['travers'] = True
             fr['source-if'] = "eth0"
-            fr['destin-if'] = "eth0"
+            fr['destin-if'] = "eth1"
             fr['src-linklocal'] = False
             fr['dst-linklocal'] = False
             fr['OS'] = 'Debian'
@@ -528,12 +529,12 @@ echo -n ".";"""
             my_err = True
         fr.produce(ofile)
         expect = """/sbin/ip6tables -A   forward_new  -i eth0 -s 2001:db8:1::1 -d 2001:db8:2::1 -p tcp --sport 1024: --dport 22 -m state --state NEW,ESTABLISHED,RELATED -j REJECT -m comment --comment "1,1"
-/sbin/ip6tables -A   forward_new  -o eth0 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j REJECT -m comment --comment "1,1"
+/sbin/ip6tables -A   forward_new  -i eth1 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j REJECT -m comment --comment "1,1"
 echo -n ".";"""
         self.maxDiff = None
         self.assertEquals(expect, fr.msg)
 
-    def test_16_produce_for_linux_as_traversed(self):
+    def test_16_produce_for_linux_as_traversed_drop(self):
         """
         fr-16 produce for linux drop rule
         """
@@ -555,7 +556,7 @@ echo -n ".";"""
             fr['i_am_d'] = False
             fr['travers'] = True
             fr['source-if'] = "eth0"
-            fr['destin-if'] = "eth0"
+            fr['destin-if'] = "eth1"
             fr['src-linklocal'] = False
             fr['dst-linklocal'] = False
             fr['OS'] = 'Debian'
@@ -563,13 +564,13 @@ echo -n ".";"""
             my_err = True
         fr.produce(ofile)
         expect = """/sbin/ip6tables -A   forward_new  -i eth0 -s 2001:db8:1::1 -d 2001:db8:2::1 -p tcp --sport 1024: --dport 22 -m state --state NEW,ESTABLISHED,RELATED -j DROP -m comment --comment "1,1"
-/sbin/ip6tables -A   forward_new  -o eth0 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j DROP -m comment --comment "1,1"
+/sbin/ip6tables -A   forward_new  -i eth1 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 1024: --sport 22 -m state --state     ESTABLISHED,RELATED -j DROP -m comment --comment "1,1"
 echo -n ".";"""
         self.maxDiff = None
         self.assertEquals(expect, fr.msg)
 
 
-    def test_17_produce_for_linux_as_traversed(self):
+    def test_17_produce_for_linux_as_traversed_insec(self):
         """
         fr-17 produce for linux accept rule insec
         """
@@ -592,7 +593,7 @@ echo -n ".";"""
             fr['i_am_d'] = False
             fr['travers'] = True
             fr['source-if'] = "eth0"
-            fr['destin-if'] = "eth0"
+            fr['destin-if'] = "eth1"
             fr['src-linklocal'] = False
             fr['dst-linklocal'] = False
             fr['OS'] = 'Debian'
@@ -600,7 +601,7 @@ echo -n ".";"""
             my_err = True
         fr.produce(ofile)
         expect = """/sbin/ip6tables -A   forward_new  -i eth0 -s 2001:db8:1::1 -d 2001:db8:2::1 -p tcp --sport 0:  --dport 22 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
-/sbin/ip6tables -A   forward_new  -o eth0 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 0:  --sport 22 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+/sbin/ip6tables -A   forward_new  -i eth1 -d 2001:db8:1::1 -s 2001:db8:2::1 -p tcp --dport 0:  --sport 22 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
 echo -n ".";"""
         self.maxDiff = None
         self.assertEquals(expect, fr.msg)
@@ -1893,7 +1894,7 @@ $IP6O -p ipv6-icmp -s ${MCAST} -j ACCEPT
 # dst-linklocal  : False                                                       #
 # dst-multicast  : False                                                       #
 /sbin/ip6tables -A   forward_new  -i eth0 -s 2001:db8:1::1/128 -d 2001:db8:2::11/128 -p udp --sport 1024: --dport 4711 -j ACCEPT -m comment --comment "1,1"
-/sbin/ip6tables -A   forward_new  -o eth0 -d 2001:db8:1::1/128 -s 2001:db8:2::11/128 -p udp --dport 1024: --sport 4711 -j ACCEPT -m comment --comment "1,1"
+/sbin/ip6tables -A   forward_new  -i eth1 -d 2001:db8:1::1/128 -s 2001:db8:2::11/128 -p udp --dport 1024: --sport 4711 -j ACCEPT -m comment --comment "1,1"
 echo -n ".";# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-endup, but OK#
 #$IP6I -p tcp --dport 22 -j ACCEPT
 #$IP6O -p tcp --sport 22 -j ACCEPT
@@ -2100,7 +2101,7 @@ $IP6O -p ipv6-icmp -s ${MCAST} -j ACCEPT
 # dst-linklocal  : False                                                       #
 # dst-multicast  : False                                                       #
 /sbin/ip6tables -A   forward_new  -i eth0 -s 2001:db8:1::1/128 -d 2001:db8:2::11/128 -p udp --sport 1024: --dport 4711 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
-/sbin/ip6tables -A   forward_new  -o eth0 -d 2001:db8:1::1/128 -s 2001:db8:2::11/128 -p udp --dport 1024: --sport 4711 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
+/sbin/ip6tables -A   forward_new  -i eth1 -d 2001:db8:1::1/128 -s 2001:db8:2::11/128 -p udp --dport 1024: --sport 4711 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
 echo -n ".";# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-endup, but OK#
 #$IP6I -p tcp --dport 22 -j ACCEPT
 #$IP6O -p tcp --sport 22 -j ACCEPT
@@ -2179,7 +2180,7 @@ echo "**********************************************************************"
 echo "**********************************************************************"
 # EOF
 """
-        print "M:", value
+        #print "M:", value
         self.assertEquals(expect, value)
 
 
