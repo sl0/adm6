@@ -123,6 +123,11 @@ active = 1
 
 
 def init_debian_headfoot(file):
+
+    dontforget="""# following was seen, it's mobile and we don't like them
+# IN= OUT=eth1 SRC=0000:0000:0000:0000:0000:0000:0000:0000 DST=ff02:0000:0000:0000:0000:0000:0000:0016 LEN=76 TC=0 HOPLIMIT=1 FLOWLBL=0 PROTO=ICMPv6 TYPE=143 CODE=0
+# IN= OUT=eth1 SRC=fe80:0000:0000:0000:0200:24ff:fecc:220d DST=ff02:0000:0000:0000:0000:0000:0000:0016 LEN=96 TC=0 HOPLIMIT=1 FLOWLBL=0 PROTO=ICMPv6 TYPE=143 CODE=0
+"""
     h="""#!/bin/bash
 #
 echo "**********************************************************************"
@@ -173,9 +178,6 @@ $I6 -P FORWARD $POLICY_D
 # do local and multicast on every interface
 LOCAL="fe80::/10"
 MCAST="ff02::/10"
-# following was seen, it's mobile and we don't like them
-# IN= OUT=eth1 SRC=0000:0000:0000:0000:0000:0000:0000:0000 DST=ff02:0000:0000:0000:0000:0000:0000:0016 LEN=76 TC=0 HOPLIMIT=1 FLOWLBL=0 PROTO=ICMPv6 TYPE=143 CODE=0
-#  IN= OUT=eth1 SRC=fe80:0000:0000:0000:0200:24ff:fecc:220d DST=ff02:0000:0000:0000:0000:0000:0000:0016 LEN=96 TC=0 HOPLIMIT=1 FLOWLBL=0 PROTO=ICMPv6 TYPE=143 CODE=0
 #
 $IP6I -p ipv6-icmp -s ${LOCAL} -d ${LOCAL} -j ACCEPT
 $IP6O -p ipv6-icmp -s ${LOCAL} -d ${LOCAL} -j ACCEPT
@@ -484,8 +486,12 @@ fe80::/64 dev eth1  metric 256  mtu 1412 advmss 1352 hoplimit 4294967295
 fe80::/64 dev eth0  metric 256  mtu 1500 advmss 1440 hoplimit 4294967295
 default via fe80::200:24ff:fec4:d819 dev eth1  proto kernel  metric 1024  expires 1693sec mtu 1412 advmss 1352 hoplimit 64
 """
+    ms="# mangle-startup file for testing \n"
+    me="# mangle-endup file for testing \n"
     write_any_file(path+"/interfaces",i)
     write_any_file(path+"/routes",r)
+    write_any_file(path+"/mangle-startup",ms)
+    write_any_file(path+"/mangle-endup",me)
     return
 
 
