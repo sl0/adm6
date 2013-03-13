@@ -315,7 +315,7 @@ class Ip6_Filter_Rule(UserDict):
             if self['dst-linklocal']:
                 self.msg = "# dst-link-local ==> no filter rule generated"
                 return
-            print ipo + dif + line1
+            #print ipo + dif + line1
             outfile.write(ipo + dif + line1 + u'\n')
             #if answer_packets:
             #    print ipi + sif + line2
@@ -413,10 +413,10 @@ class Ip6_Filter_Rule(UserDict):
             if self['dst-linklocal']:
                 self.msg = "# dst-linklocal ==> no rule generated"
                 return
-            print ipo + dif + line1
+            #print ipo + dif + line1
             outfile.write(ipo + dif + line1 + u'\n')
             if answer_packets:
-                print ipi + sif + line2
+                #print ipi + sif + line2
                 outfile.write(ipi + sif + line2 + u'\n')
         self.msg = "# WXP-SP3  n o t   y e t  r e a d y !"
         return
@@ -472,22 +472,18 @@ class IP6_Filter():
         """
         include a file into the outputfile, paketmangling or whatever
         """
-        self.msg = ""
         mangle_filename = self.path + u'/' + mangleinclude
         try:
             mang = open(mangle_filename)
-            self.msg = "# start reading mangle-file: %s" % (mangle_filename)
-            print "# mangle-file: %s inclusion starts" % mangle_filename
+            self.msg += "# start reading mangle-file: %s" % (mangle_filename)
             outfile.write("# mangle-file: %s inclusion starts\n" % mangle_filename)
             for line in mang:
-                print line,
+                self.msg += line
                 outfile.write(line)
             mang.close()
-            print "# mangle-file: %s inclusion successfully ended" % mangle_filename
             outfile.write("# mangle-file: %s inclusion successfully ended\n" % mangle_filename)
         except:
-            self.msg = "# failed reading mangle-file: %s, but OK" % (mangle_filename)
-            print "# mangle-file: %s not found, no problem\n" % mangle_filename
+            self.msg += "# failed reading mangle-file: %s, but OK" % (mangle_filename)
             outfile.write("# mangle-file: %s not found, no problem\n" % mangle_filename)
 
     def mach_output(self, fname=None):
@@ -496,21 +492,25 @@ class IP6_Filter():
         """
         if fname == None:
             fname = self.path + '/output'
+            header_date = time.strftime("%Y-%m-%d %H:%M")
+        else:
+            header_date = "2013-03-13 23:23"
+        self.msg = ""
         header_file = self.path + "/../../etc/" + str(self.os) + "-header"
         footer_file = self.path + "/../../etc/" + str(self.os) + "-footer"
         outfile = open(fname, 'w')
         head = open(header_file, 'r')
         header_name = u"%-25s" %(self.name)
-        date = time.localtime()
-        header_date = time.strftime("%Y-%m-%d %H:%M")
         # beautify header, device-name, date,
         for line in head:
             l = line.replace('cccccc                   ', header_name)
             line = l.replace('dddddd          ', header_date)
             outfile.write(line)
+            self.msg += line
         head.close()
         # read mangle-start if present
         self.mangle_file(outfile,u'mangle-startup')
+        self.msg += '\n'
         #outfile.write(u'echo -n "##      ."; ')
         # every rule could do an output now
         for rule in self.rules:
@@ -519,9 +519,15 @@ class IP6_Filter():
         outfile.write(u'echo "." ')
         # read mangle-end if present
         self.mangle_file(outfile,u'mangle-endup')
+        #foot = open(footer_file, 'r')
+        #outfile.writelines(foot.readlines())
+        #outfile.close()
         foot = open(footer_file, 'r')
-        outfile.writelines(foot.readlines())
-        outfile.close()
+        for line in foot:
+            outfile.write(line)
+            self.msg += line
+        foot.close()
+        #print self.msg
         return
 
     def final_this_rule(self, rule, outfile):
@@ -579,13 +585,9 @@ class IP6_Filter():
             r['i_am_d'] = True
             r['travers'] = True
         s = "# "+'-'*76 + " #"
-        self.msg = s + '\n'
+        self.msg += s + '\n'
         outfile.write(s+'\n')
         self.msg += str(r)
-        #print "%s" % (r),
-        print self.msg
         outfile.write(str(r))
-        #use r.produce and later r.__del__(automagically)
         r.produce(outfile)
-        #print s
-        #outfile.write(s)
+        self.msg += r.msg
