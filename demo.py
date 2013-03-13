@@ -165,8 +165,8 @@ CHAINS="$CHAINS output_"
 CHAINS="$CHAINS forward"
 for chain in $CHAINS
 do
-	/sbin/ip6tables -N ${chain}_act >/dev/null 2>/dev/null
-	/sbin/ip6tables -N ${chain}_new
+    /sbin/ip6tables -N ${chain}_act >/dev/null 2>/dev/null
+    /sbin/ip6tables -N ${chain}_new
 done
 # but ignore all the boring fault-messages
 $I6 -P   INPUT $POLICY_D
@@ -209,8 +209,8 @@ ICMPv6types="${ICMPv6types} router-solicitation"
 ICMPv6types="${ICMPv6types} router-advertisement"
 for icmptype in $ICMPv6types
 do
-	$IP6I -p ipv6-icmp --icmpv6-type $icmptype -j ACCEPT
-	$IP6O -p ipv6-icmp --icmpv6-type $icmptype -j ACCEPT
+    $IP6I -p ipv6-icmp --icmpv6-type $icmptype -j ACCEPT
+    $IP6O -p ipv6-icmp --icmpv6-type $icmptype -j ACCEPT
 done
 $IP6I -p ipv6-icmp --icmpv6-type destination-unreachable -j LOG  --log-prefix "unreach: " -m limit --limit 30/second --limit-burst 60
 $IP6I -p ipv6-icmp --icmpv6-type destination-unreachable -j ACCEPT
@@ -222,8 +222,8 @@ CHAINS="$CHAINS forward"
 #set -x
 for chain in $CHAINS
 do
-	/sbin/ip6tables -E "${chain}_act" "${chain}_old"
-	/sbin/ip6tables -E "${chain}_new" "${chain}_act"
+    /sbin/ip6tables -E "${chain}_act" "${chain}_old"
+    /sbin/ip6tables -E "${chain}_new" "${chain}_act"
 done
 #
 $I6 -F INPUT
@@ -245,8 +245,8 @@ $I6 -A FORWARD --jump forward_act
 #
 for chain in $CHAINS
 do
-	/sbin/ip6tables -F "${chain}_old"
-	/sbin/ip6tables -X "${chain}_old"
+    /sbin/ip6tables -F "${chain}_old"
+    /sbin/ip6tables -X "${chain}_old"
 done
 $I6 -F logdrop   >/dev/null 2>/dev/null
 $I6 -X logdrop   >/dev/null 2>/dev/null
@@ -375,21 +375,21 @@ def init_rules(path = ""):
     r = """# this is 00-rules.admin for demonstation only
 #  first: some syntax error and an empty line
 
-admin       obi-wan   tcp    22    accept   # 
-any	    ns        udp    53    accept   NOSTATE # 
-admin        ns       tcp    22    accept   # 
-admin        r-ex     tcp    22    accept   # 
-admin        obi-wan  tcp    22    accept   # 
-admin       r-ex      tcp    22    accept   #
-admin       ns        tcp    22    accept   # test options
-admin       r-ex      tcp    22    accept   FORCED INSEC NOIF NOSTATE # test options
-any         ns         udp    53    accept    NOSTATE      # test comment
-ns          any        udp    53    accept    NOSTATE
-any         ns         udp    53    accept    NOIF NOSTATE # test comment on rule 2
-any         ns         tcp    25    accept                 # test comment
-ns          any        tcp    25    accept                 # test comment
-any         www        tcp    80    accept                 # test comment
-jhx6        www        tcp    22    accept    # essential administrative rule!
+admin        obi-wan    tcp    22    accept   #
+any          ns         udp    53    accept   NOSTATE #
+admin        ns         tcp    22    accept   #
+admin        r-ex       tcp    22    accept   #
+admin        obi-wan    tcp    22    accept   #
+admin        r-ex       tcp    22    accept   #
+admin        ns         tcp    22    accept   # test options
+admin        r-ex       tcp    22    accept   FORCED INSEC NOIF NOSTATE # test options
+any          ns         udp    53    accept    NOSTATE      # test comment
+ns           any        udp    53    accept    NOSTATE
+any          ns         udp    53    accept    NOIF NOSTATE # test comment on rule 2
+any          ns         tcp    25    accept                 # test comment
+ns           any        tcp    25    accept                 # test comment
+any          www        tcp    80    accept                 # test comment
+jhx6         www        tcp    22    accept    # essential administrative rule!
 nag          any        icmpv6    echo-request    accept
 any          nag        icmpv6    echo-reply      accept
 any          nag        icmpv6    destination-unreachable    accept
@@ -559,127 +559,127 @@ default via fe80::200:24ff:fec4:d819 dev eth1  proto kernel  metric 1024  expire
     return
 
 def write_files_r_ex(path):
-    i = """eth0      Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18  
+    i = """eth0      Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18
           inet addr:87.79.1.126  Bcast:87.79.1.127  Mask:255.255.255.240
           inet6 addr: fe80::200:24ff:fec4:d818/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:62828154 errors:0 dropped:0 overruns:0 frame:0
           TX packets:65705105 errors:9 dropped:0 overruns:9 carrier:9
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:166374998 (158.6 MiB)  TX bytes:2988023236 (2.7 GiB)
-          Interrupt:17 Base address:0xe000 
+          Interrupt:17 Base address:0xe000
 
-eth0:1    Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18  
+eth0:1    Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18
           inet addr:87.79.1.125  Bcast:87.79.1.127  Mask:255.255.255.240
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          Interrupt:17 Base address:0xe000 
+          Interrupt:17 Base address:0xe000
 
-eth0:2    Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18  
+eth0:2    Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18
           inet addr:87.79.1.113  Bcast:87.79.1.127  Mask:255.255.255.240
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          Interrupt:17 Base address:0xe000 
+          Interrupt:17 Base address:0xe000
 
-eth0:3    Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18  
+eth0:3    Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18
           inet addr:87.79.1.115  Bcast:87.79.1.127  Mask:255.255.255.240
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          Interrupt:17 Base address:0xe000 
+          Interrupt:17 Base address:0xe000
 
-eth1      Link encap:Ethernet  HWaddr 00:00:24:c4:d8:19  
+eth1      Link encap:Ethernet  HWaddr 00:00:24:c4:d8:19
           inet6 addr: fe80::200:24ff:fec4:d819/64 Scope:Link
           inet6 addr: 2010:db8:f002:1::1/64 Scope:Global
           inet6 addr: 2010:db8:f002:1::53/64 Scope:Global
           UP BROADCAST RUNNING MULTICAST  MTU:1300  Metric:1
           RX packets:3165973 errors:0 dropped:0 overruns:0 frame:0
           TX packets:3083693 errors:3 dropped:0 overruns:3 carrier:3
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:1118052922 (1.0 GiB)  TX bytes:566086844 (539.8 MiB)
-          Interrupt:18 Base address:0x2000 
+          Interrupt:18 Base address:0x2000
 
-eth2      Link encap:Ethernet  HWaddr 00:00:24:c6:fc:84  
+eth2      Link encap:Ethernet  HWaddr 00:00:24:c6:fc:84
           inet addr:87.79.1.102  Bcast:87.79.1.103  Mask:255.255.255.248
           inet6 addr: fe80::200:24ff:fec6:fc84/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:77713999 errors:0 dropped:0 overruns:0 frame:0
           TX packets:78500952 errors:16 dropped:0 overruns:16 carrier:16
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:4128560908 (3.8 GiB)  TX bytes:2372215028 (2.2 GiB)
-          Interrupt:18 Base address:0x4000 
+          Interrupt:18 Base address:0x4000
 
-eth3      Link encap:Ethernet  HWaddr 00:00:24:c6:fc:85  
+eth3      Link encap:Ethernet  HWaddr 00:00:24:c6:fc:85
           inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0
           inet6 addr: fe80::200:24ff:fec6:fc85/64 Scope:Link
           inet6 addr: 2010:db8:f002::2/64 Scope:Global
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:224314477 errors:0 dropped:2 overruns:0 frame:0
           TX packets:225044221 errors:13 dropped:0 overruns:13 carrier:13
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:974816343 (929.6 MiB)  TX bytes:1079106738 (1.0 GiB)
-          Interrupt:19 Base address:0x4000 
+          Interrupt:19 Base address:0x4000
 
-lo        Link encap:Local Loopback  
+lo        Link encap:Local Loopback
           inet addr:127.0.0.1  Mask:255.0.0.0
           inet6 addr: ::1/128 Scope:Host
           UP LOOPBACK RUNNING  MTU:16436  Metric:1
           RX packets:4353 errors:0 dropped:0 overruns:0 frame:0
           TX packets:4353 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
+          collisions:0 txqueuelen:0
           RX bytes:246583 (240.8 KiB)  TX bytes:246583 (240.8 KiB)
 
-sit1      Link encap:IPv6-in-IPv4  
+sit1      Link encap:IPv6-in-IPv4
           inet6 addr: 2010:db8:f002:3::1/64 Scope:Global
           inet6 addr: fe80::574f:173/128 Scope:Link
           UP POINTOPOINT RUNNING NOARP  MTU:1480  Metric:1
           RX packets:5931194 errors:0 dropped:0 overruns:0 frame:0
           TX packets:4491145 errors:84 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
+          collisions:0 txqueuelen:0
           RX bytes:542871043 (517.7 MiB)  TX bytes:2930595984 (2.7 GiB)
 
-tun0      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  
+tun0      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00
           inet6 addr: fe80:0:ff00::1/64 Scope:Link
           UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1500  Metric:1
           RX packets:19828 errors:0 dropped:0 overruns:0 frame:0
           TX packets:20167 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:100 
+          collisions:0 txqueuelen:100
           RX bytes:3499108 (3.3 MiB)  TX bytes:3911344 (3.7 MiB)
 
-tun1      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  
+tun1      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00
           inet6 addr: fe80:0:fe00::1/64 Scope:Link
           UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1500  Metric:1
           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
           TX packets:0 errors:0 dropped:2373 overruns:0 carrier:0
-          collisions:0 txqueuelen:100 
+          collisions:0 txqueuelen:100
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
-tun2      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  
+tun2      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00
           inet6 addr: fe80:0:fd00::1/64 Scope:Link
           UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1500  Metric:1
           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
           TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:100 
+          collisions:0 txqueuelen:100
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
-tun3      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  
+tun3      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00
           inet6 addr: fe80:0:fc00::1/64 Scope:Link
           UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1500  Metric:1
           RX packets:10882 errors:0 dropped:0 overruns:0 frame:0
           TX packets:8428 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:100 
+          collisions:0 txqueuelen:100
           RX bytes:1755640 (1.6 MiB)  TX bytes:1543804 (1.4 MiB)
 
-tun4      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  
+tun4      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00
           inet6 addr: fe80:0:fb00::1/64 Scope:Link
           UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1500  Metric:1
           RX packets:26403 errors:0 dropped:0 overruns:0 frame:0
           TX packets:1211 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:100 
+          collisions:0 txqueuelen:100
           RX bytes:4314584 (4.1 MiB)  TX bytes:114736 (112.0 KiB)
 
-tun5      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  
+tun5      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00
           inet6 addr: fe80:0:fa00::1/64 Scope:Link
           UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1500  Metric:1
           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
           TX packets:0 errors:0 dropped:2370 overruns:0 carrier:0
-          collisions:0 txqueuelen:100 
+          collisions:0 txqueuelen:100
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 """
     r = """2001:db8:1::/64 dev eth3  metric 256  mtu 1500 advmss 1440 hoplimit 4294967295
@@ -809,7 +809,7 @@ ff02::%gif0/32                     link#6                         UC         0  
 # if you like, put some commands in this file
 # they are expected after firewall-setup is ready
 # and before inserting all the rules
-# 
+#
 # typically some packet-manglin or the like
 #
 # nothing to mangle for now, have fun!
@@ -931,7 +931,7 @@ ff02::%gif0/32                     link#6                         UC         0  
     return
 
 def write_any_file(file,content):
-    demo = True 
+    demo = True
     if demo:
         # my version
         doku = content.replace('2001:db8:1:','2001:db8:23:')
