@@ -12,7 +12,7 @@ sync:
 	@git push -v --mirror git+ssh://jhselber@scm.evolvis.org/scmrepos/git/adm6/adm6.git
 
 run:
-	@python device.py 2>&1
+	@python adm6/device.py 2>&1
 	#@python device.py 2>&1 | more
 
 new:
