@@ -17,8 +17,7 @@ from ConfigParser import ConfigParser
 
 class Adm6ConfigParser(ConfigParser):
     """
-    Read global configuration from configfile named in global var cfg_file
-    This is known to be ugly, but it works (mostly)
+    Read global configuration from configfile named as parameter
     """
 
     def __init__(self, cfg_file):
@@ -26,9 +25,10 @@ class Adm6ConfigParser(ConfigParser):
         initial read of config file
         """
         ConfigParser.__init__(self)
-        self.cfg_file = cfg_file
+        self.homedir = os.getenv("HOME")
+        #self.filename = self.homedir + cfg_file
+        self.filename = os.path.join(self.homedir, cfg_file)
         self.cfp = ConfigParser()
-        self.filename = os.path.expanduser('~/' + cfg_file)
         msg = "File not found: %s" % (self.filename)
         try:
             file = open(self.filename,'r')
@@ -126,8 +126,11 @@ class Adm6ConfigParser(ConfigParser):
     def get_fwd(self, device):
         """give back fwdflag (false means device does not forward IPv6!)"""
         section = "device#" + device.strip()
-        value = self.cfp.get(section, 'fwd')
-        return value > 0
+        fwd = False
+        if self.cfp.has_section(section):
+            if self.cfp.has_option(section, 'fwd'):
+                fwd = self.cfp.get(section, 'fwd')
+        return fwd
 
     def get_asym(self, device):
         """give back asymmetric-flag
@@ -135,7 +138,11 @@ class Adm6ConfigParser(ConfigParser):
         asymmetric = 1 forces stateful to off
         """
         section = "device#" + device.strip()
-        return self.cfp.get(section, 'asymmetric')
+        asym = False
+        if self.cfp.has_section(section):
+            if self.cfp.has_option(section, 'asymmetric'):
+                asym = self.cfp.get(section, 'asymmetric')
+        return asym
 
     def print_head(self, device):
         """
@@ -151,15 +158,10 @@ class Adm6ConfigParser(ConfigParser):
         msg += self.nice_print('# IP:          ', self.get_ip(device.strip()))
         msg += self.nice_print('# Forwarding:  ', 
                 str(self.get_fwd(device.strip())))
-        try:
-            msg += self.nice_print('# Asymmetric:  ', 
+        msg += self.nice_print('# Asymmetric:  ', 
                 str(self.get_asym(device.strip())))
-        except:
-            msg += self.nice_print('# Asymmetric:  ', 
-                    str(False))
         msg += self.nice_print('#', '')
         msg += "#"*80
-        #print msg
         return msg
 
     def print_header(self):
@@ -202,11 +204,8 @@ class Adm6ConfigParser(ConfigParser):
         self.print_header()
         mydevs = self.get_devices().split(',')
         for device in mydevs:
-            try:
-                if self.get_apply(device):
-                    self.print_head(device)
-            except:
-                pass
+            if self.get_apply(device):
+                self.print_head(device)
         print "#"*80
         return True
 
@@ -215,7 +214,7 @@ class Adm6ConfigParser(ConfigParser):
         used linelength: 70 characters"""
         rest_len = 78 - len(title) - len(mytext)
         msg =  title + " " + mytext + " "*rest_len + "#"
-        print msg
+        #print msg
         return msg + '\n'
 
 
