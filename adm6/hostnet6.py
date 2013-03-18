@@ -15,7 +15,7 @@ class HostNet6(IPv6Network):
     as a sorted list of lists of: (name,address!!!es!!!)
     every line in file may be like:
     NAME   ADDRESS # COMMENT
-                or
+    or
     # COMMENT
     """
     def __init__(self, file="reference-hostnet"):
