@@ -130,7 +130,7 @@ class Adm6ConfigParser(ConfigParser):
         if self.cfp.has_section(section):
             if self.cfp.has_option(section, 'fwd'):
                 fwd = self.cfp.get(section, 'fwd')
-        return fwd
+        return fwd > 0
 
     def get_asym(self, device):
         """give back asymmetric-flag
@@ -142,7 +142,7 @@ class Adm6ConfigParser(ConfigParser):
         if self.cfp.has_section(section):
             if self.cfp.has_option(section, 'asymmetric'):
                 asym = self.cfp.get(section, 'asymmetric')
-        return asym
+        return asym > 0
 
     def print_head(self, device):
         """
@@ -191,30 +191,30 @@ class Adm6ConfigParser(ConfigParser):
             self.filename.strip())
         msg += self.nice_print('#', '')
         msg += self.nice_print('# Copyright: ',
-                         '(c)2011-2012 Johannes Hubertz, '+
+                         '(c)2011-2013 Johannes Hubertz, '+
                          'Cologne, Germany, Europe, Earth')
         msg += self.nice_print('#', '')
         msg += self.nice_print('#', '')
         msg += "#"*80
-        #print msg
         return msg
 
     def print_all_headers(self):
-        """print all device headers for debug purposes"""
-        self.print_header()
+        """
+        print all device headers (for debug purposes only)
+        """
+        headers = self.print_header() + '\n'
         mydevs = self.get_devices().split(',')
         for device in mydevs:
             if self.get_apply(device):
-                self.print_head(device)
-        print "#"*80
-        return True
+                headers += self.print_head(device)
+                headers += '\n'
+        return headers
 
     def nice_print(self, title, mytext):
         """nice printout of a config line, only to impress the user
         used linelength: 70 characters"""
         rest_len = 78 - len(title) - len(mytext)
         msg =  title + " " + mytext + " "*rest_len + "#"
-        #print msg
         return msg + '\n'
 
 
