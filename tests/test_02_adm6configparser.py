@@ -322,35 +322,27 @@ class Adm6ConfigParser_tests(unittest.TestCase):
         """
         cf-22 get adm6 print head from config
         """
-        value = None
-        ref = 890
-        my_err = False
+        ref = 4450
+        value = 0
         cfg = Adm6ConfigParser(".adm6.conf")
-        value = len(cfg.print_head('adm6'))
+        liste = cfg.get_devices().split(',')
+        while len(liste) > 0:
+            mach = liste.pop(0)
+            nipri = str(cfg.print_head(mach))
+            value += len(str(cfg.print_head(mach)))
         self.assertEquals(ref, value)
-        return
-        try:
-            cfg = Adm6ConfigParser(".adm6.conf")
-            value = cfg.print_head('adm6')
-        except:
-            my_err = True
-        self.assertFalse(my_err)
-        #self.assertEquals(ref, value)
 
-    def test_23_print_head(self):
+    def test_23_print_all_headers(self):
         """
         cf-23 get adm6 print all headers from config
         """
-        value = None
-        ref = True
+        value = 0
+        ref = 6075
         my_err = False
-        try:
-            cfg = Adm6ConfigParser(".adm6.conf")
+        cfg = Adm6ConfigParser(".adm6.conf")
+        value += len(str(cfg.print_all_headers()))
+        if not ref == value:
             print cfg.print_all_headers()
-            value = cfg.print_all_headers()
-        except:
-            my_err = True
-        self.assertFalse(my_err)
         self.assertEquals(ref, value)
     
 
