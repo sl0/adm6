@@ -35,3 +35,6 @@ adm6 - python classes
 .. autoclass:: tests.test_03_filter6.Ip6_Filter_tests
     :members: 
 
+.. autoclass:: tests.test_04_device.ThisDevice_tests
+    :members: 
+
