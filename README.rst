@@ -4,6 +4,13 @@
 adm6 - README
 =============
 
+.. image:: adm6-logo.png
+   :width: 250px
+   :align: right
+   :alt: adm6 logo
+
+
+
 README for *adm6,* a good starting point for getting to know something about ...
 
 License
