@@ -12,8 +12,6 @@ License
 As a matter of common sense, first of all software for security should be transparent, i.e. everybody
 should be able to dive into the software and perhaps may want to improve it.
 So there wasn't much choice: *adm6* License is GPLv3 or newer, see LICENSE.txt.
-The reason is, there shall never be hidden improvements spread in a so called
-commecial version. Thanks for thinking about and understanding.
 
 Where adm6 comes from
 =====================
