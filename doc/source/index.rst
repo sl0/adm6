@@ -25,6 +25,7 @@ be implemented, ipf, netsh advFirewall and the like are on the wishlist.
 
    README
    how does it work
+   config
    sources
 
 Indices and tables
