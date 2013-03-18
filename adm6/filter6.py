@@ -513,7 +513,6 @@ class IP6_Filter():
         # read mangle-start if present
         self.mangle_file(outfile,u'mangle-startup')
         self.msg += '\n'
-        #outfile.write(u'echo -n "##      ."; ')
         # every rule could do an output now
         for rule in self.rules:
             self.final_this_rule(rule, outfile)
@@ -521,15 +520,12 @@ class IP6_Filter():
         outfile.write(u'echo "." ')
         # read mangle-end if present
         self.mangle_file(outfile,u'mangle-endup')
-        #foot = open(footer_file, 'r')
-        #outfile.writelines(foot.readlines())
-        #outfile.close()
+        # read footer
         foot = open(footer_file, 'r')
         for line in foot:
             outfile.write(line)
             self.msg += line
         foot.close()
-        #print self.msg
         return
 
     def final_this_rule(self, rule, outfile):
