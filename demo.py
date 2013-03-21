@@ -71,7 +71,7 @@ version = 0.2
 # this file written was written on:
 timestamp = 2013-03-02
 # residence of adm6 structure
-home = /home/sl0/adm6/
+home = %s
 # ssh-keys to connect to all the clients
 key_file = none, please specify your own keyfile
 # the following devices are adm6-clients
@@ -118,7 +118,10 @@ ip = 2001:db8:feed:2::1
 #fwd = 0
 active = 1
 """
-    write_any_file(file, c)
+    user_home = os.environ.get('HOME')
+    adm6_home = user_home + '/adm6/'
+    global_cfg = c % (adm6_home)
+    write_any_file(file, global_cfg)
     return
 
 
