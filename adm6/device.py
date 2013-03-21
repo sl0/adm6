@@ -71,7 +71,7 @@ class ThisDevice:
         self.interfaces = []
         self.interfaces_file = confParser.get_device_home(device).strip()
         self.interfaces_file = self.interfaces_file + '/interfaces'
-        self.read_interface_file()
+        self.read_interface_file(self.interfaces_file)
         self.routingtab = []
         self.routingtab_file = confParser.get_device_home(device).strip()
         self.routingtab_file = self.routingtab_file + '/routes'
@@ -80,14 +80,16 @@ class ThisDevice:
         self.rule_files = []
         self.rules = []
 
-    def read_interface_file(self):
+    def read_interface_file(self, filename):
         """read plain file containing output of
         Win-XP-SP3:  netsh, see adm6-ini.bat
         Debian:   ifconfig
         OpenBSD:  ifconfig
         """
+        if len(filename) == 0:
+            filename = self.interfaces_file
         try:
-            f = open(self.interfaces_file, 'r')
+            f = open(filename, 'r')
             while True:
                 line = f.readline()
                 if not line:
@@ -96,9 +98,10 @@ class ThisDevice:
                     pass
                 self.interface_line(line)
             f.close()
+            return False
         except IOError, e:
-            print self.interfaces_file + ": ", e.strerror
-            return
+            print filename + ": ", e.strerror
+            return True
 
     def interface_line(self, line):
         """evaluate one line of ifconfig-output
