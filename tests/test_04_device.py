@@ -43,9 +43,34 @@ class ThisDevice_tests(unittest.TestCase):
         except:
             value = False
         self.assertFalse(value)
-        #self.assertIsInstance(dev, ThisDevice)
-        #print "F:", dev.interfaces_file
-        #print "I:", dev.interfaces
-        #print "L:", len(dev.interfaces)
-        #self.assertFalse(True)
-    
+
+    def test_d_03_adm6_read_interfaces(self):
+        """
+        dv-03 ThisDevice: read_interface_file
+        """
+        cfg = Adm6ConfigParser(".adm6.conf")
+        hn6 = HostNet6()
+        dev = ThisDevice('adm6', cfg, hn6)
+        err = False
+        try:
+            dev.interfaces = []
+            err = dev.read_interface_file('')
+        except:
+            pass
+        self.assertEquals(err, False)
+
+    def test_d_04_adm6_read_interfaces_fail(self):
+        """
+        dv-04 ThisDevice: read_interface_file fails
+        """
+        cfg = Adm6ConfigParser(".adm6.conf")
+        hn6 = HostNet6()
+        dev = ThisDevice('adm6', cfg, hn6)
+        err = False
+        try:
+            dev.interfaces = []
+            err = dev.read_interface_file('not_exisiting_file')
+        except:
+            pass
+        self.assertEquals(err, True)
+
