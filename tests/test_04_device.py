@@ -102,7 +102,6 @@ class ThisDevice_tests(unittest.TestCase):
             err = dev.read_routingtab_file('')
         except:
             err = True
-            pass
         self.assertEquals(err, False)
         expect = 28 # r-ex routingtable has 29 lines, one unreachable!
         value = len(dev.routingtab)
@@ -120,8 +119,7 @@ class ThisDevice_tests(unittest.TestCase):
             dev.routingtab = []
             err = dev.read_routingtab_file('asd')
         except:
-            err = True
-            pass
+            err = False
         self.assertEquals(err, True)
         expect = 0 # 'asd' does not exist!
         value = len(dev.routingtab)
