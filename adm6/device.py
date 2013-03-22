@@ -75,7 +75,7 @@ class ThisDevice:
         self.routingtab = []
         self.routingtab_file = confParser.get_device_home(device).strip()
         self.routingtab_file = self.routingtab_file + '/routes'
-        self.read_routingtab_file(self.device_os)
+        self.read_routingtab_file(self.routingtab_file)
         self.rules_path = confParser.get_device_home(device).strip()
         self.rule_files = []
         self.rules = []
@@ -108,24 +108,24 @@ class ThisDevice:
         store results in self.interfaces = []
         !!! specific on os-type !!!
         """
-        if 'Win-XP' in self.device_os:
-            """german version only for now"""
-            if line.startswith('Schnittstelle '):
-                righthalf = line.rsplit(':')
-                ifacename = righthalf.pop(-1).strip()
-                self.int_name = ifacename
-            else:
-                items = line.split()
-                if len(items) > 1:
-                    targ = items.pop(-1)
-                    try:
-                        target = IPv6Network(targ)
-                    except AddressValueError, e:
-                        """no IPv6 Address in last column """
-                        return
-                    self.int_addr = target
-                    self.interfaces.append([self.int_name, self.int_addr])
-            return
+    #    if 'Win-XP' in self.device_os:
+    #        """german version only for now"""
+    #        if line.startswith('Schnittstelle '):
+    #            righthalf = line.rsplit(':')
+    #            ifacename = righthalf.pop(-1).strip()
+    #            self.int_name = ifacename
+    #        else:
+    #            items = line.split()
+    #            if len(items) > 1:
+    #                targ = items.pop(-1)
+    #                try:
+    #                    target = IPv6Network(targ)
+    #                except AddressValueError, e:
+    #                    """no IPv6 Address in last column """
+    #                    return
+    #                self.int_addr = target
+    #                self.interfaces.append([self.int_name, self.int_addr])
+    #        return
         nam = re.findall('^[a-z]+[ 0-9][ :] ', line, flags=0)
         if nam:
             self.int_name = nam.pop(0).strip()
@@ -149,24 +149,30 @@ class ThisDevice:
                 self.interfaces.append([self.int_name, self.int_addr])
             return
 
-    def read_routingtab_file(self, os):
+    def read_routingtab_file(self, filename=None):
         """read plain file containg output of
         Debian:     ip -6 route show
         OpenBSD:    route  -n   show
         """
+        if len(filename) == 0:
+            filename = self.routingtab_file
+        self.routingtab = []
         try:
-            f = open(self.routingtab_file, 'r')
+            print "F:", filename
+            f = open(filename, 'r')
             while True:
                 line = f.readline()
                 if not line:
                     break
-                self.routingtab_line(line, os)
+                self.routingtab_line(line)
             f.close()
         except IOError, e:
-            print self.routingtab_file + ": ", e.strerror
-        return
+            print self.filename + ": ", e.strerror
+            print "read_routingtab_file fails:", filename
+            return True
+        return False
 
-    def routingtab_line(self, line, os):
+    def routingtab_line(self, line):
         """read a line using os-spcific version
         """
         if 'Linux' in self.device_os:
@@ -180,12 +186,13 @@ class ThisDevice:
         return
 
     def _debian_routingtab_line(self, line):
-        """evaluate one line of debian ipv6 routingtable"""
+        """
+        evaluate one line of debian ipv6 routingtable
+        and append it to routingtab, which is a list of routing entries
+        """
         words = line.split()
-        #print words
         w1 = words.pop(0).strip()
         if not line.find("unreachable"):
-            #print line
             return
         if not line.find("default") and line.find("via") > 0:
             target = '::/0'
