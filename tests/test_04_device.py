@@ -46,7 +46,7 @@ class ThisDevice_tests(unittest.TestCase):
 
     def test_d_03_adm6_read_interfaces(self):
         """
-        dv-03 ThisDevice: read_interface_file
+        dv-03 ThisDevice: linux read_interface_file
         """
         cfg = Adm6ConfigParser(".adm6.conf")
         hn6 = HostNet6()
@@ -61,7 +61,7 @@ class ThisDevice_tests(unittest.TestCase):
 
     def test_d_04_adm6_read_interfaces_fail(self):
         """
-        dv-04 ThisDevice: read_interface_file fails
+        dv-04 ThisDevice: linux read_interface_file fails
         """
         cfg = Adm6ConfigParser(".adm6.conf")
         hn6 = HostNet6()
@@ -74,3 +74,73 @@ class ThisDevice_tests(unittest.TestCase):
             pass
         self.assertEquals(err, True)
 
+    def test_d_05_obi_read_interfaces(self):
+        """
+        dv-05 ThisDevice: OpenBSD read_interface_file
+        """
+        cfg = Adm6ConfigParser(".adm6.conf")
+        hn6 = HostNet6()
+        dev = ThisDevice('obi-wan', cfg, hn6)
+        err = False
+        try:
+            dev.interfaces = []
+            err = dev.read_interface_file('')
+        except:
+            pass
+        self.assertEquals(err, False)
+
+    def test_d_06_linux_read_routingtab(self):
+        """
+        dv-06 ThisDevice: linux read_routing_tab
+        """
+        cfg = Adm6ConfigParser(".adm6.conf")
+        hn6 = HostNet6()
+        dev = ThisDevice('r-ex', cfg, hn6)
+        err = False
+        try:
+            dev.routingtab = []
+            err = dev.read_routingtab_file('')
+        except:
+            err = True
+            pass
+        self.assertEquals(err, False)
+        expect = 28 # r-ex routingtable has 29 lines, one unreachable!
+        value = len(dev.routingtab)
+        self.assertEquals(expect, value)
+
+    def test_d_07_linux_read_routingtab_fail(self):
+        """
+        dv-07 ThisDevice: linux read_routing_tab fails
+        """
+        cfg = Adm6ConfigParser(".adm6.conf")
+        hn6 = HostNet6()
+        dev = ThisDevice('adm6', cfg, hn6)
+        err = False
+        try:
+            dev.routingtab = []
+            err = dev.read_routingtab_file('asd')
+        except:
+            err = True
+            pass
+        self.assertEquals(err, True)
+        expect = 0 # 'asd' does not exist!
+        value = len(dev.routingtab)
+        self.assertEquals(expect, value)
+
+    def ttest_d_07_linux_read_routingtab(self):
+        """
+        dv-07 ThisDevice: linux read_routing_tab
+        """
+        cfg = Adm6ConfigParser(".adm6.conf")
+        hn6 = HostNet6()
+        dev = ThisDevice('adm6', cfg, hn6)
+        err = False
+        try:
+            dev.routingtab = []
+            err = dev.read_routingtab_file('')
+        except:
+            pass
+        print "O:", dev.os
+        print "R:", dev.routingtab
+        self.assertEquals(err, False)
+        self.assertTrue(False)
