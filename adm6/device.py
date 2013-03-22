@@ -166,11 +166,9 @@ class ThisDevice:
                     break
                 self.routingtab_line(line)
             f.close()
+            return False
         except IOError, e:
-            print self.filename + ": ", e.strerror
-            print "read_routingtab_file fails:", filename
             return True
-        return False
 
     def routingtab_line(self, line):
         """read a line using os-spcific version
@@ -179,8 +177,8 @@ class ThisDevice:
             self._debian_routingtab_line(line)
         elif 'BSD' in self.device_os: 
             self._bsd_routingtab_line(line)
-        elif "Win-XP-SP3" in self.device_os:
-            self._wxp_routingtab_line(line)
+        #elif "Win-XP-SP3" in self.device_os:
+        #    self._wxp_routingtab_line(line)
         else:
             raise "# error: Attempt to read routingtable for unknown OS"
         return
