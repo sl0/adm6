@@ -328,28 +328,37 @@ class ThisDevice:
         """
         nice view of all interfacesconfiguration read
         """
-        nice_print('# Interfaces:', '')
+        msg = nice_print('# Interfaces:', '')
         for interface in self.interfaces:
             (name, address) = interface
-            nice_print("#  "+name+':  ', str(address))
+            msg += nice_print("#  "+name+':  ', str(address))
+        return msg
 
     def show_routingtab(self):
-        """nice view of all routingconfiguration read"""
-        nice_print('# Routingtable:', '')
-        nice_print('#          [ target,                next_hop,',
+        """
+        nice view of all routingconfiguration read
+        """
+        msg = nice_print('# Routingtable:', '')
+        msg += nice_print('#          [ target,                next_hop,',
                    '         interface ]')
         nr = 0
         for route in self.routingtab:
             nr = nr + 1
-            nice_print(u'# Route '+str(nr)+u':', str(route).strip())
+            msg += nice_print(u'# Route '+str(nr)+u':', str(route).strip())
+        return msg
 
     def show_rules(self):
-        """show all rules as text before addresses are solved"""
+        """
+        show all rules as text before addresses are solved
+        """
+        msg = ""
         rn = 1
         for rule in self.rules:
-            nice_print("#  "+str(rn)+": "+str(rule), '')
+            msg += nice_print("#  "+str(rn)+": "+str(rule), '')
             rn += 1
-        nice_print('#', '')
+        msg += nice_print('#', '')
+        #print msg
+        return msg
 
     def do_rules(self, filter):
         """invocation: dev.do_rules(filter)"""
@@ -463,11 +472,13 @@ class ThisDevice:
         return None
 
 def nice_print(title, mytext):
-    """nice printout of a config line, only to impress the user
-    used linelength: 80 characters"""
-    #return
+    """
+    nice printout of a config line, only to impress the user
+    used linelength: 80 characters
+    """
     rest_len = 78 - len(title) - len(mytext)
-    print title + " " + mytext + " "*rest_len + "#"
+    message = title + " " + mytext + " "*rest_len + u"#\n"
+    return message
 
 
 def do_all_configured_devices():
