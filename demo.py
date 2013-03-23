@@ -381,7 +381,7 @@ def init_www_rules(path = ""):
     second_name = path + "/50-rules.www-local"
     n="""# this file: an empty line, then a correct one, then real error
 
-any          ns         udp    53    accept    NOSTATE      # test comment
+any          ns         udp   123    accept    NOSTATE
 errorline
 err
 #EOF
