@@ -158,7 +158,6 @@ class ThisDevice:
             filename = self.routingtab_file
         self.routingtab = []
         try:
-            print "F:", filename
             f = open(filename, 'r')
             while True:
                 line = f.readline()
@@ -235,27 +234,27 @@ class ThisDevice:
                 #print " something wrong reading bsd-routingtable"
                 return
 
-    def _wxp_routingtab_line(self, line):
-        """evaluate one line of WinXP routing-table,
-        enter only, if valid IPv6 content
-        """
-        zeile = line.split()
-        if len(zeile) > 0:
-            hop = zeile.pop(-1)
-            if len(zeile) > 0:
-                dev = zeile.pop(-1)
-                target = zeile.pop(-1)
-            else:
-                return    
-        else:
-            return
-        try:
-            targ = IPv6Network(target)
-            nhp = IPv6Network(hop)
-            self.routingtab.append([targ, nhp, dev])
-        except:
-            return
-        return
+    #def _wxp_routingtab_line(self, line):
+    #    """evaluate one line of WinXP routing-table,
+    #    enter only, if valid IPv6 content
+    #    """
+    #    zeile = line.split()
+    #    if len(zeile) > 0:
+    #        hop = zeile.pop(-1)
+    #        if len(zeile) > 0:
+    #            dev = zeile.pop(-1)
+    #            target = zeile.pop(-1)
+    #        else:
+    #            return
+    #    else:
+    #        return
+    #    try:
+    #        targ = IPv6Network(target)
+    #        nhp = IPv6Network(hop)
+    #        self.routingtab.append([targ, nhp, dev])
+    #    except:
+    #        return
+    #    return
 
     def read_rules(self):
         """Alle Regel-Dateien einlesen"""
@@ -267,9 +266,11 @@ class ThisDevice:
         for file in files:
             self.rule_files.append(file)
             self.read_rule_file(file)
+        return len(self.rules)
 
     def read_rule_file(self, file):
         """read given file as rules"""
+        num = 0
         try:
             f = open(file, 'r')
             while True:
@@ -277,36 +278,43 @@ class ThisDevice:
                 if not line:
                     break
                 self.read_one_rule(line)
+                num += 1
             f.close()
+            return num
         except IOError, e:
             print file + ": ", e.strerror
-        return
+        return num
 
     def read_one_rule(self, line):
         """take one line of rules-file and do the appropriate"""
         line = line.strip()
         line = line.replace("\t", " ")
-        try:
-            if line.__len__() < 8:
-                #print "#Line to small"
+        if line.__len__() < 8:
+            #print "#Line to small"
+            return
+        if '#' in line:
+            if line.startswith('#'):
                 return
-            if '#' in line:
-                if line.startswith('#'):
-                    return
-                (left, right) = line.split('#')
-                rule = left.split()
-            else:
-                rule = line.split()
-        except:
+            (left, right) = line.split('#')
+            rule = left.split()
+        else:
             rule = line.split()
         try:
             src = rule.pop(0)
+            dst = rule.pop(0)
+            prot = rule.pop(0)
+            port = rule.pop(0)
+            actn = rule.pop(0)
+            # options aren't neccessary!
         except:
-            # found empty line, no fault!
+            # found a line containing not enough elements
+            # this shall be no fault, let the admin or the ui work correctly
+            # or change the code
             return
-        if src.startswith('#'):
-            # still a comment line, no fault!
-            return
+        rule.insert(0, actn)
+        rule.insert(0, prot)
+        rule.insert(0, port)
+        rule.insert(0, dst)
         rule.insert(0, src)
         self.rules.append(rule)
 
