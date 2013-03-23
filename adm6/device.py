@@ -382,11 +382,11 @@ class ThisDevice:
                 prt = rule.pop(0)
             if len(rule) > 0:
                 act = rule.pop(0)
-            else:
-                m += nice_print(rule_header
-                        +"has insufficient parametercount", '')
-                m += nice_print(rule_header + str(rule), '')
-                continue
+            #else:   # may not happen because of tests while reading rules
+            #    m += nice_print(rule_header
+            #            +"has insufficient parametercount", '')
+            #    m += nice_print(rule_header + str(rule), '')
+            #    continue
             self.do_this_rule(clone, rn, filter, rule_header,
                 src, dst, pro, prt, act, rule)
             m += nice_print("#"*76, '#')
@@ -415,8 +415,8 @@ class ThisDevice:
             for destin in dsts:
                 pair += 1
                 i_am_destin = self.address_is_own(destin)
-                (ifs, ros) = self.look_for(rn, source)
-                (ifd, rod) = self.look_for(rn, destin)
+                (ifs, ros) = self.look_for(source)
+                (ifd, rod) = self.look_for(destin)
                 """Step 3: Which traffic is it?"""
                 if i_am_source:
                     """Step 3a: This is outgoing traffic"""
@@ -447,7 +447,7 @@ class ThisDevice:
                 #filter6.show_content()
         return m
 
-    def look_for(self, rh, addr):
+    def look_for(self, addr):
         """seeks addr in routing-table, returns tuple of
         interface-name and number of routing-entry"""
         interface = u'undef'
@@ -466,14 +466,16 @@ class ThisDevice:
         return (interface, route_number)
 
     def address_is_own(self, value):
-        """check, if given address is interface-address of ThisDevice
-        returns Name of Interface or None"""
+        """
+        check, if given address is interface-address of ThisDevice
+        returns Name of Interface or None
+        """
         for interface in self.interfaces:
             [iface_name, target_IP] = interface
             target = IPv6Network(target_IP)
             if target.ip == value.ip:
-                return iface_name
-        return None
+                return interface
+        return ['', '']
 
 def nice_print(title, mytext):
     """
