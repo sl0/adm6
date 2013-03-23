@@ -947,13 +947,14 @@ ff02::%gif0/32                     link#6                         UC         0  
     return
 
 def write_any_file(file,content):
-    demo = True
+    demo = False
     if demo:
         # my version
         doku = content.replace('2001:db8:1:','2001:db8:23:')
     else:
         # demo version, db8
-        doku = content.replace('2010:db8:f002:','2001:db8:0:')
+        ndoku = content.replace('2010:db8:f002:','2001:db8:0:')
+        doku = ndoku.replace('87.79.1.','192.0.2.')
     try:
         file = open(file,'w')
         file.write(doku)
