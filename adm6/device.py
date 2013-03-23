@@ -257,7 +257,9 @@ class ThisDevice:
     #    return
 
     def read_rules(self):
-        """Alle Regel-Dateien einlesen"""
+        """
+        read all the rule-files in a machines homedir
+        """
         self.rules = []
         dir = self.rules_path
         os.chdir(dir)
@@ -269,7 +271,9 @@ class ThisDevice:
         return len(self.rules)
 
     def read_rule_file(self, file):
-        """read given file as rules"""
+        """
+        read given file as rules for the machine
+        """
         num = 0
         try:
             f = open(file, 'r')
@@ -286,7 +290,9 @@ class ThisDevice:
         return num
 
     def read_one_rule(self, line):
-        """take one line of rules-file and do the appropriate"""
+        """
+        take one line of a rules-file, check and do the appropriate
+        """
         line = line.strip()
         line = line.replace("\t", " ")
         if line.__len__() < 8:
@@ -319,7 +325,9 @@ class ThisDevice:
         self.rules.append(rule)
 
     def show_interfaces(self):
-        """nice view of all interfacesconfiguration read"""
+        """
+        nice view of all interfacesconfiguration read
+        """
         nice_print('# Interfaces:', '')
         for interface in self.interfaces:
             (name, address) = interface
