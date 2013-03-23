@@ -56,8 +56,8 @@ class ThisDevice:
 
     def __init__(self, device, confParser, hostnet):
         """
-        create an instance of ThisdDevice representing an 
-        IPv6 packet filtering machine, which is well configured 
+        create an instance of ThisdDevice representing an
+        IPv6 packet filtering machine, which is well configured
         in .adm6.conf and in the machine homedirectory
         """
         self.name = device.strip()
@@ -174,7 +174,7 @@ class ThisDevice:
         """
         if 'Linux' in self.device_os:
             self._debian_routingtab_line(line)
-        elif 'BSD' in self.device_os: 
+        elif 'BSD' in self.device_os:
             self._bsd_routingtab_line(line)
         #elif "Win-XP-SP3" in self.device_os:
         #    self._wxp_routingtab_line(line)
@@ -383,16 +383,17 @@ class ThisDevice:
             if len(rule) > 0:
                 act = rule.pop(0)
             else:
-                m += nice_print(rule_header 
+                m += nice_print(rule_header
                         +"has insufficient parametercount", '')
                 m += nice_print(rule_header + str(rule), '')
                 continue
             self.do_this_rule(clone, rn, filter, rule_header,
                 src, dst, pro, prt, act, rule)
             m += nice_print("#"*76, '#')
-        m += nice_print('# '+self.name+u': ready, ' 
+        m += nice_print('# '+self.name+u': ready, '
                         +str(rn)+u' rules found', '')
         filter.mach_output()
+        return m
 
     def do_this_rule(self, clone, rn, filter6,
                         rh, sr, ds, pr, po, ac, op):
@@ -404,8 +405,9 @@ class ThisDevice:
         srcs = self.hn6.get_addrs(sr)
         dsts = self.hn6.get_addrs(ds)
         rule_start_text = rh
-        nice_print(rule_start_text +u'has  '+str(len(srcs))+" source(s) and "
-                             +str(len(dsts))+" destination(s) in hostnet6", '')
+        m = nice_print(rule_start_text +u'has  '+str(len(srcs))
+                +" source(s) and "+str(len(dsts))
+                +" destination(s) in hostnet6", '')
         pair = 0
         """Step 2: Loop over all Source and Destination pairs"""
         for source in srcs:
@@ -418,31 +420,32 @@ class ThisDevice:
                 """Step 3: Which traffic is it?"""
                 if i_am_source:
                     """Step 3a: This is outgoing traffic"""
-                    nice_print(rule_start_text,
+                    m += nice_print(rule_start_text,
                         '  outgoing traffic!')
                 elif i_am_destin:
                     """Step 3b: This is incoming traffic"""
-                    nice_print(rule_start_text,
+                    m += nice_print(rule_start_text,
                         '  incoming traffic!')
                 else:
                     """Step 3c: This is possibly traversing traffic"""
                     #print "ROS: " + str(ros) + " ROD: " + str(rod)
                     if ros == rod:
                         if not 'FORCED' in op:
-                            nice_print(rule_start_text
+                            m += nice_print(rule_start_text
                                 +u'bypassing traffic, nothing done!', '')
                             continue
-                            nice_print(rule_start_text
+                            m += nice_print(rule_start_text
                                 +u'bypassing traffic but FORCED', '')
                     else:
                         """We are sure about traversing traffic now"""
-                        nice_print(rule_start_text
+                        m += nice_print(rule_start_text
                             +u'traversing traffic, action needed', '')
                 """Step 4: append appropriate filter"""
                 filter6.append([clone, fwrd, rn, pair, i_am_source, i_am_destin,
                                source, destin, ifs, ros, ifd, rod,
                                pr, po, ac, op])
                 #filter6.show_content()
+        return m
 
     def look_for(self, rh, addr):
         """seeks addr in routing-table, returns tuple of
