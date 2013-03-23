@@ -357,22 +357,21 @@ class ThisDevice:
             msg += nice_print("#  "+str(rn)+": "+str(rule), '')
             rn += 1
         msg += nice_print('#', '')
-        #print msg
         return msg
 
     def do_rules(self, filter):
         """invocation: dev.do_rules(filter)"""
-        nice_print('# begin on rules expecting interface and routing for:',
+        m = nice_print('# begin on rules expecting interface and routing for:',
             self.device_os)
-        nice_print("#"*76, '#')
+        m += nice_print("#"*76, '#')
         rn = 0
         for rule in self.rules:
             rn += 1
             clone = str(rule)
             rule_header = u'# Rule '+str(rn)+u': '
             lstart = rule_header + "has  "+str(len(rule))+" items : "
-            nice_print(lstart, '')
-            nice_print(u'# '+str(rule), '')
+            m += nice_print(lstart, '')
+            m += nice_print(u'# '+str(rule), '')
             if len(rule) > 0:
                 src = rule.pop(0)
             if len(rule) > 0:
@@ -384,13 +383,15 @@ class ThisDevice:
             if len(rule) > 0:
                 act = rule.pop(0)
             else:
-                nice_print(rule_header +"has insufficient parametercount", '')
-                nice_print(rule_header + str(rule), '')
+                m += nice_print(rule_header 
+                        +"has insufficient parametercount", '')
+                m += nice_print(rule_header + str(rule), '')
                 continue
             self.do_this_rule(clone, rn, filter, rule_header,
                 src, dst, pro, prt, act, rule)
-            nice_print("#"*76, '#')
-        nice_print('# '+self.name+u': ready, '+str(rn)+u' rules found', '')
+            m += nice_print("#"*76, '#')
+        m += nice_print('# '+self.name+u': ready, ' 
+                        +str(rn)+u' rules found', '')
         filter.mach_output()
 
     def do_this_rule(self, clone, rn, filter6,
