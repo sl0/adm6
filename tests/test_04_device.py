@@ -422,3 +422,108 @@ class ThisDevice_tests(unittest.TestCase):
         self.assertEquals(message, expect)
         #print message
         #self.assertFalse(True)
+
+
+    def test_19_do_rules_adm6(self):
+        """
+        dv-19 ThisDevice: do rules adm6
+        """
+        dbg = 0
+        device_name = 'adm6'
+        cfg = Adm6ConfigParser(".adm6.conf")
+        path = str(cfg.get_device_home(device_name))
+        device_os = cfg.get_os(device_name)
+        hfile = cfg.get_adm6_home()
+        hfile += '/etc/hostnet6'
+        hn6 = HostNet6(hfile)
+        dev = ThisDevice(device_name, cfg, hn6)
+        fwd = dev.device_fwd
+        asy = dev.device_asym
+        ifa = dev.interfaces
+        rul = dev.read_rules()
+        #print "N:", device_name
+        #print "O:", device_os
+        #print "P", path
+        #print "F:", fwd
+        #print "A:", asy
+        #print "R:", dev.rules
+        #print dev.show_rules()
+        f6 = IP6_Filter(dbg, path, device_name, device_os, fwd, asy, ifa)
+        expect ="""# begin on rules expecting interface and routing for: Debian GNU/Linux, wheezy #
+############################################################################ # #
+# Rule 1: has  5 items :                                                       #
+# ['admin', 'obi-wan', '22', 'tcp', 'accept']                                  #
+############################################################################ # #
+# Rule 2: has  6 items :                                                       #
+# ['any', 'ns', '53', 'udp', 'accept', 'NOSTATE']                              #
+############################################################################ # #
+# Rule 3: has  5 items :                                                       #
+# ['admin', 'ns', '22', 'tcp', 'accept']                                       #
+############################################################################ # #
+# Rule 4: has  5 items :                                                       #
+# ['admin', 'r-ex', '22', 'tcp', 'accept']                                     #
+############################################################################ # #
+# Rule 5: has  5 items :                                                       #
+# ['admin', 'obi-wan', '22', 'tcp', 'accept']                                  #
+############################################################################ # #
+# Rule 6: has  5 items :                                                       #
+# ['admin', 'r-ex', '22', 'tcp', 'accept']                                     #
+############################################################################ # #
+# Rule 7: has  5 items :                                                       #
+# ['admin', 'ns', '22', 'tcp', 'accept']                                       #
+############################################################################ # #
+# Rule 8: has  9 items :                                                       #
+# ['admin', 'r-ex', '22', 'tcp', 'accept', 'FORCED', 'INSEC', 'NOIF', 'NOSTATE'] #
+############################################################################ # #
+# Rule 9: has  6 items :                                                       #
+# ['any', 'ns', '53', 'udp', 'accept', 'NOSTATE']                              #
+############################################################################ # #
+# Rule 10: has  6 items :                                                      #
+# ['ns', 'any', '53', 'udp', 'accept', 'NOSTATE']                              #
+############################################################################ # #
+# Rule 11: has  7 items :                                                      #
+# ['any', 'ns', '53', 'udp', 'accept', 'NOIF', 'NOSTATE']                      #
+############################################################################ # #
+# Rule 12: has  5 items :                                                      #
+# ['any', 'ns', '25', 'tcp', 'accept']                                         #
+############################################################################ # #
+# Rule 13: has  5 items :                                                      #
+# ['ns', 'any', '25', 'tcp', 'accept']                                         #
+############################################################################ # #
+# Rule 14: has  5 items :                                                      #
+# ['any', 'www', '80', 'tcp', 'accept']                                        #
+############################################################################ # #
+# Rule 15: has  5 items :                                                      #
+# ['jhx6', 'www', '22', 'tcp', 'accept']                                       #
+############################################################################ # #
+# Rule 16: has  5 items :                                                      #
+# ['nag', 'any', 'echo-request', 'icmpv6', 'accept']                           #
+############################################################################ # #
+# Rule 17: has  5 items :                                                      #
+# ['any', 'nag', 'echo-reply', 'icmpv6', 'accept']                             #
+############################################################################ # #
+# Rule 18: has  5 items :                                                      #
+# ['any', 'nag', 'destination-unreachable', 'icmpv6', 'accept']                #
+############################################################################ # #
+# Rule 19: has  5 items :                                                      #
+# ['nag', 'any', '0:', 'tcp', 'accept']                                        #
+############################################################################ # #
+# Rule 20: has  5 items :                                                      #
+# ['many', 'www', '80', 'tcp', 'accept']                                       #
+############################################################################ # #
+# Rule 21: has  5 items :                                                      #
+# ['nag', 'www', '80', 'tcp', 'accept']                                        #
+############################################################################ # #
+# Rule 22: has  5 items :                                                      #
+# ['nag', 'www', '25', 'tcp', 'accept']                                        #
+############################################################################ # #
+# Rule 23: has  5 items :                                                      #
+# ['www', 'nag', '113', 'tcp', 'accept']                                       #
+############################################################################ # #
+# adm6: ready, 23 rules found                                                  #
+"""
+        message = dev.do_rules(f6)
+        self.assertEquals(message, expect)
+        #print "M:", message
+        #self.assertFalse(True)
+
