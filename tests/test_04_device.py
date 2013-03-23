@@ -237,13 +237,13 @@ class ThisDevice_tests(unittest.TestCase):
         expect ="""# Interfaces:                                                                  #
 #  eth0:   fe80::200:24ff:fec4:d818/64                                         #
 #  eth1:   fe80::200:24ff:fec4:d819/64                                         #
-#  eth1:   2010:db8:f002:1::1/64                                               #
-#  eth1:   2010:db8:f002:1::53/64                                              #
+#  eth1:   2001:db8:0:1::1/64                                                  #
+#  eth1:   2001:db8:0:1::53/64                                                 #
 #  eth2:   fe80::200:24ff:fec6:fc84/64                                         #
 #  eth3:   fe80::200:24ff:fec6:fc85/64                                         #
-#  eth3:   2010:db8:f002::2/64                                                 #
+#  eth3:   2001:db8::2/64                                                      #
 #  lo:   ::1/128                                                               #
-#  sit1:   2010:db8:f002:3::1/64                                               #
+#  sit1:   2001:db8:0:3::1/64                                                  #
 #  sit1:   fe80::574f:173/128                                                  #
 #  tun0:   fe80:0:ff00::1/64                                                   #
 #  tun1:   fe80:0:fe00::1/64                                                   #
@@ -267,10 +267,10 @@ class ThisDevice_tests(unittest.TestCase):
         expect ="""# Interfaces:                                                                  #
 #  lo0::   ::1/128                                                             #
 #  lo0::   fe80::1/128                                                         #
-#  sis0::   2001:db8:23:1::2/128                                               #
+#  sis0::   2001:db8:1:1::2/128                                                #
 #  sis0::   fe80::200:24ff:feca:1d9c/128                                       #
 #  sis1::   fe80::200:24ff:feca:1d9d/128                                       #
-#  gif0::   2001:db8:23:5afe::2/128                                            #
+#  gif0::   2001:db8:1:5afe::2/128                                             #
 #  gif0::   fe80::200:24ff:feca:1d9c/128                                       #
 """
         message = dev.show_interfaces()
@@ -287,12 +287,11 @@ class ThisDevice_tests(unittest.TestCase):
         dev = ThisDevice('adm6', cfg, hn6)
         expect ="""# Routingtable:                                                                #
 #          [ target,                next_hop,          interface ]             #
-# Route 1: [IPv6Network('2010:db8:f002:beef::/64'), IPv6Network('::/0'), 'eth0']#
+# Route 1: [IPv6Network('2001:db8:0:beef::/64'), IPv6Network('::/0'), 'eth0']  #
 # Route 2: [IPv6Network('fe80::/64'), IPv6Network('::/0'), 'eth0']             #
 # Route 3: [IPv6Network('::/0'), IPv6Network('fe80::a00:27ff:fe59:d69e/128'), 'eth0']#
 """
         message = dev.show_routingtab()
-        #print message
         self.assertEquals(message, expect)
 
     def test_16_show_routingtab_r_ex(self):
@@ -304,19 +303,19 @@ class ThisDevice_tests(unittest.TestCase):
         hfile += '/etc/hostnet6'
         hn6 = HostNet6(hfile)
         dev = ThisDevice('r-ex', cfg, hn6)
-        expect ="""# Routingtable:                                                                #
+        expect = """# Routingtable:                                                                #
 #          [ target,                next_hop,          interface ]             #
-# Route 1: [IPv6Network('2001:db8:23::/64'), IPv6Network('::/0'), 'eth3']      #
-# Route 2: [IPv6Network('2001:db8:23:1::/64'), IPv6Network('::/0'), 'eth1']    #
-# Route 3: [IPv6Network('2001:db8:23:2::/64'), IPv6Network('::/0'), 'sit1']    #
-# Route 4: [IPv6Network('2001:db8:23:3::/64'), IPv6Network('::/128'), 'sit1']  #
-# Route 5: [IPv6Network('2001:db8:23:fa00::/56'), IPv6Network('fe80:0:fa00::2/128'), 'tun0']#
-# Route 6: [IPv6Network('2001:db8:23:fb00::/56'), IPv6Network('fe80:0:fb00::2/128'), 'tun1']#
-# Route 7: [IPv6Network('2001:db8:23:fc00::/56'), IPv6Network('fe80:0:fc00::2/128'), 'tun2']#
-# Route 8: [IPv6Network('2001:db8:23:fd00::/56'), IPv6Network('fe80:0:fd00::2/128'), 'tun3']#
-# Route 9: [IPv6Network('2001:db8:23:fe00::/56'), IPv6Network('fe80:0:fe00::2/128'), 'tun4']#
-# Route 10: [IPv6Network('2001:db8:23:ff00::/56'), IPv6Network('fe80:0:ff00::2/128'), 'tun5']#
-# Route 11: [IPv6Network('2000::/3'), IPv6Network('2001:db8:23::1/128'), 'eth3']#
+# Route 1: [IPv6Network('2001:db8:1::/64'), IPv6Network('::/0'), 'eth3']       #
+# Route 2: [IPv6Network('2001:db8:1:1::/64'), IPv6Network('::/0'), 'eth1']     #
+# Route 3: [IPv6Network('2001:db8:1:2::/64'), IPv6Network('::/0'), 'sit1']     #
+# Route 4: [IPv6Network('2001:db8:1:3::/64'), IPv6Network('::/128'), 'sit1']   #
+# Route 5: [IPv6Network('2001:db8:1:fa00::/56'), IPv6Network('fe80:0:fa00::2/128'), 'tun0']#
+# Route 6: [IPv6Network('2001:db8:1:fb00::/56'), IPv6Network('fe80:0:fb00::2/128'), 'tun1']#
+# Route 7: [IPv6Network('2001:db8:1:fc00::/56'), IPv6Network('fe80:0:fc00::2/128'), 'tun2']#
+# Route 8: [IPv6Network('2001:db8:1:fd00::/56'), IPv6Network('fe80:0:fd00::2/128'), 'tun3']#
+# Route 9: [IPv6Network('2001:db8:1:fe00::/56'), IPv6Network('fe80:0:fe00::2/128'), 'tun4']#
+# Route 10: [IPv6Network('2001:db8:1:ff00::/56'), IPv6Network('fe80:0:ff00::2/128'), 'tun5']#
+# Route 11: [IPv6Network('2000::/3'), IPv6Network('2001:db8:1::1/128'), 'eth3']#
 # Route 12: [IPv6Network('fe80::/64'), IPv6Network('::/0'), 'eth1']            #
 # Route 13: [IPv6Network('fe80::/64'), IPv6Network('::/0'), 'eth0']            #
 # Route 14: [IPv6Network('fe80::/64'), IPv6Network('::/0'), 'eth2']            #
@@ -419,14 +418,88 @@ class ThisDevice_tests(unittest.TestCase):
 #                                                                              #
 """
         message = dev.show_rules()
-        self.assertEquals(message, expect)
         #print message
-        #self.assertFalse(True)
+        self.assertEquals(message, expect)
 
-
-    def test_19_do_rules_adm6(self):
+    def test_19_address_is_own(self):
         """
-        dv-19 ThisDevice: do rules adm6
+        dv-19 ThisDevice: test own addresses adm6
+        """
+        dbg = 0
+        device_name = 'adm6'
+        cfg = Adm6ConfigParser(".adm6.conf")
+        path = str(cfg.get_device_home(device_name))
+        device_os = cfg.get_os(device_name)
+        hfile = cfg.get_adm6_home()
+        hfile += '/etc/hostnet6'
+        hn6 = HostNet6(hfile)
+        dev = ThisDevice(device_name, cfg, hn6)
+        fwd = dev.device_fwd
+        asy = dev.device_asym
+        ifa = dev.interfaces
+        rul = dev.read_rules()
+        # check first address
+        expect = "eth0"
+        addr = IPv6Network('2001:db8:0:beef::4711/128')
+        ifname = dev.address_is_own(addr)
+        self.assertEquals(ifname[0], expect)
+        # check second address
+        expect = "eth0"
+        addr = IPv6Network('2001:db8:0:beef:a00:27ff:fe0d:1f8f/128')
+        ifname = dev.address_is_own(addr)
+        self.assertEquals(ifname[0], expect)
+        # check loopback address
+        expect = 'lo'
+        addr = IPv6Network('::1/128')
+        ifname = dev.address_is_own(addr)
+        self.assertEquals(ifname[0], expect)
+        # check nonlocal address
+        expect = ''
+        addr = IPv6Network('2001:db8:0:beef::4713/128')
+        ifname = dev.address_is_own(addr)
+        self.assertEquals(ifname[0], expect)
+
+    def test_20_address_is_own(self):
+        """
+        dv-20 ThisDevice: test own addresses ns
+        """
+        dbg = 0
+        device_name = 'ns'
+        cfg = Adm6ConfigParser(".adm6.conf")
+        path = str(cfg.get_device_home(device_name))
+        device_os = cfg.get_os(device_name)
+        hfile = cfg.get_adm6_home()
+        hfile += '/etc/hostnet6'
+        hn6 = HostNet6(hfile)
+        dev = ThisDevice(device_name, cfg, hn6)
+        fwd = dev.device_fwd
+        asy = dev.device_asym
+        ifa = dev.interfaces
+        rul = dev.read_rules()
+        # check first address
+        expect = "eth1"
+        addr = IPv6Network('2001:db8:0:1::23/128')
+        ifname = dev.address_is_own(addr)
+        self.assertEquals(ifname[0], expect)
+        # check second address
+        expect = "eth1"
+        addr = IPv6Network('2001:db8:0:1:200:24ff:fecc:220d/128')
+        ifname = dev.address_is_own(addr)
+        self.assertEquals(ifname[0], expect)
+        # check loopback address
+        expect = 'lo'
+        addr = IPv6Network('::1/128')
+        ifname = dev.address_is_own(addr)
+        self.assertEquals(ifname[0], expect)
+        # check nonlocal address
+        expect = ''
+        addr = IPv6Network('2001:db8:0:beef::4713/128')
+        ifname = dev.address_is_own(addr)
+        self.assertEquals(ifname[0], expect)
+
+    def test_21_do_rules_adm6(self):
+        """
+        dv-21 ThisDevice: do rules adm6
         """
         dbg = 0
         device_name = 'adm6'
@@ -523,7 +596,7 @@ class ThisDevice_tests(unittest.TestCase):
 # adm6: ready, 23 rules found                                                  #
 """
         message = dev.do_rules(f6)
+        print "M:", message
         self.assertEquals(message, expect)
-        #print "M:", message
         #self.assertFalse(True)
 
