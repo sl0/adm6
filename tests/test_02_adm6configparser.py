@@ -280,7 +280,7 @@ class Adm6ConfigParser_tests(unittest.TestCase):
         cf-19 get adm6 ip from config
         """
         value = None
-        ref = "2001:db8:23:2::1"
+        ref = "2001:db8:1:2::1"
         my_err = False
         try:
             cfg = Adm6ConfigParser(".adm6.conf")
