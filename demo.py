@@ -6,7 +6,8 @@ import sys
 
 
 def initiial_check():
-    """Test if structure is present, if only parts exist, do
+    """
+    Test if structure is present, if only parts exist, do
     not create the new one!!!
     """
     if os.environ.has_key('HOME'):
@@ -17,6 +18,7 @@ def initiial_check():
     pq = home + "/adm6"
     pe = pq + '/etc'
     pd = pq + '/desc'
+    pw = pd + '/www'
     q = os.path.exists(pq)
     e = os.path.exists(pe)
     d = os.path.exists(pd)
@@ -51,6 +53,7 @@ def initiial_check():
     write_files_adm6(pd+"/adm6")
     write_files_www(pd+"/www")
     write_files_ns(pd+"/ns")
+    init_www_rules(pw)
     #print pd+"/r-ex"
     write_files_r_ex(pd+"/r-ex")
     #print pd+"/obi-wan"
@@ -372,6 +375,20 @@ deaf           2001:db8:deaf::/48                  # deaf test and demo
     write_any_file(full_filename,h)
     return full_filename
 
+def init_www_rules(path = ""):
+    """write additional rules, needed for testing
+    """
+    second_name = path + "/50-rules.www-local"
+    n="""# this file: an empty line, then a correct one, then real error
+
+any          ns         udp    53    accept    NOSTATE      # test comment
+errorline
+err
+#EOF
+"""
+    write_any_file(second_name, n)
+    return second_name
+
 def init_rules(path = ""):
     """wirte 00-rules.admin to adm6/etc"""
     full_filename = path + "/00-rules.admin"
@@ -407,10 +424,6 @@ www          nag        tcp    113  accept
 ##
 #many        allhosts   icmpv6 echo-request  accept
 ##
-##jhx        srv        tcp    22    accept
-##jhx        many       tcp    80    accept
-##jhx        many       tcp    443    accept
-###
 #any         any        tcp    22    deny    # and no one else
 #
 #tester      tester     tcp    22    accept
@@ -419,7 +432,7 @@ www          nag        tcp    113  accept
 #
 #EOF
 """
-    write_any_file(full_filename,r)
+    write_any_file(full_filename, r)
     return full_filename
 
 def write_files_adm6(path):
