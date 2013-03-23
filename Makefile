@@ -8,12 +8,8 @@ default:	test_all
 test_all:
 	@nosetests -v --with-coverage 2>&1 | grep -v ipaddr
 
-sync:
-	@git push -v --mirror git+ssh://jhselber@scm.evolvis.org/scmrepos/git/adm6/adm6.git
-
 run:
 	@python adm6/device.py 2>&1
-	#@python device.py 2>&1 | more
 
 new:
 	make clean
@@ -31,6 +27,7 @@ landscape:
 	ln -sf ~/adm6/desc/r-ex/output out-r-ex
 
 clean:
+	(cd doc; make clean ; cd - )
 	rm -rf *~
 	rm -f *.pyc adm6/*pyc tests/*pyc
 	rm -f out-adm6 out-ns out-ow out-www out-r-ex global-cfg
