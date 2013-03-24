@@ -318,8 +318,8 @@ class ThisDevice:
             # or change the code
             return
         rule.insert(0, actn)
-        rule.insert(0, prot)
         rule.insert(0, port)
+        rule.insert(0, prot)
         rule.insert(0, dst)
         rule.insert(0, src)
         self.rules.append(rule)
@@ -387,7 +387,7 @@ class ThisDevice:
             #            +"has insufficient parametercount", '')
             #    m += nice_print(rule_header + str(rule), '')
             #    continue
-            self.do_this_rule(clone, rn, filter, rule_header,
+            m += self.do_this_rule(clone, rn, filter, rule_header,
                 src, dst, pro, prt, act, rule)
             m += nice_print("#"*76, '#')
         m += nice_print('# '+self.name+u': ready, '
@@ -397,10 +397,11 @@ class ThisDevice:
 
     def do_this_rule(self, clone, rn, filter6,
                         rh, sr, ds, pr, po, ac, op):
-        """build os-independant detailed rule without options, which are
-        very os-specific"""
-        """Step 1: find IP-Addresses of Sources and Destinations,
-        'de-grouping'"""
+        """
+        build os-independant detailed rule without options,
+        which are very os-specific
+        """
+        # Step 1: find IP-Addresses of Sources and Destinations, 'de-grouping'
         fwrd = self.device_fwd
         srcs = self.hn6.get_addrs(sr)
         dsts = self.hn6.get_addrs(ds)
@@ -408,48 +409,56 @@ class ThisDevice:
         m = nice_print(rule_start_text +u'has  '+str(len(srcs))
                 +" source(s) and "+str(len(dsts))
                 +" destination(s) in hostnet6", '')
+        if len(srcs) == 0 or len(dsts) == 0:
+            m += nice_print(rule_start_text + u'nothing done','')
+            return m
+        # Step 2: Loop over all Source and Destination pairs
         pair = 0
-        """Step 2: Loop over all Source and Destination pairs"""
         for source in srcs:
             i_am_source = self.address_is_own(source)
+            (ifs, ros) = self.look_for(source)
             for destin in dsts:
                 pair += 1
                 i_am_destin = self.address_is_own(destin)
-                (ifs, ros) = self.look_for(source)
                 (ifd, rod) = self.look_for(destin)
-                """Step 3: Which traffic is it?"""
+                # Step 3: Which kind of traffic is it?
                 if i_am_source:
-                    """Step 3a: This is outgoing traffic"""
+                    # 3a: This is outgoing traffic
                     m += nice_print(rule_start_text,
                         '  outgoing traffic!')
                 elif i_am_destin:
-                    """Step 3b: This is incoming traffic"""
+                    # 3b: This is incoming traffic
                     m += nice_print(rule_start_text,
                         '  incoming traffic!')
                 else:
-                    """Step 3c: This is possibly traversing traffic"""
+                    # 3c: This is possibly traversing traffic
                     #print "ROS: " + str(ros) + " ROD: " + str(rod)
                     if ros == rod:
+                        # 3ca: src and dst reachable via the same route
                         if not 'FORCED' in op:
                             m += nice_print(rule_start_text
                                 +u'bypassing traffic, nothing done!', '')
                             continue
+                        else:
                             m += nice_print(rule_start_text
                                 +u'bypassing traffic but FORCED', '')
                     else:
-                        """We are sure about traversing traffic now"""
+                        # 3cb: src and dst reachable via different routes
+                        # We are sure about traversing traffic now
                         m += nice_print(rule_start_text
                             +u'traversing traffic, action needed', '')
-                """Step 4: append appropriate filter"""
-                filter6.append([clone, fwrd, rn, pair, i_am_source, i_am_destin,
-                               source, destin, ifs, ros, ifd, rod,
-                               pr, po, ac, op])
-                #filter6.show_content()
+                # Step 4: append appropriate filter
+                laenge = filter6.append([clone, fwrd, rn, pair,
+                                i_am_source, i_am_destin, source, destin,
+                                ifs, ros, ifd, rod, pr, po, ac, op])
+                m += nice_print(rule_start_text + u'count: ' + str(laenge),'')
         return m
 
     def look_for(self, addr):
-        """seeks addr in routing-table, returns tuple of
-        interface-name and number of routing-entry"""
+        """
+        seeks addr in routing-table, returns tuple of
+        interface-name and line number of routing-entry
+        """
         interface = u'undef'
         route_number = -1
         ad = IPv6Network(addr)
@@ -474,8 +483,60 @@ class ThisDevice:
             [iface_name, target_IP] = interface
             target = IPv6Network(target_IP)
             if target.ip == value.ip:
-                return interface
-        return ['', '']
+                return True
+        return False
+
+
+class DevTest():
+    """
+    this is a test class for ThisDevice demonstration purpose
+    """
+
+    def __init__(self):
+        """
+        prerequiste: run demo.py first or have your own landscape
+        this is a test class for ThisDevice demonstration purpose
+        """
+        self.do_all_configured_devices()
+
+    def do_all_configured_devices(self):
+        """
+        this loops over all devices mentioned in config as active
+        and creates appropriate filter commands
+        """
+        confParser = Adm6ConfigParser(".adm6.conf")
+        version = confParser.get_version()
+        confParser.print_header()
+        ##confParser.inc_adm6_debuglevel()
+        debuglevel = confParser.get_adm6_debuglevel()
+        #print confParser.get_show_cf()
+        my_devices = confParser.get_devices().split(',')
+        print "# DEVICES: " + str(my_devices)
+        for device_name in my_devices:
+            if confParser.get_apply(device_name):
+                device_os = confParser.get_os(device_name)
+                confParser.print_head(device_name)
+                path = str(confParser.get_device_home(device_name))
+                h_path = path+'/hostnet6'
+                hn6 = HostNet6(h_path)
+                dev = ThisDevice(device_name, confParser, hn6)
+                dev.read_rules()
+                #hn6.show_hostnet6()
+                #dev.show_interfaces()
+                #dev.show_routingtab()
+                dev.show_rules()
+                #print "dev.device_fwd: ", dev.device_fwd,
+                filter6 = IP6_Filter(debuglevel,
+                             path,
+                             device_name,
+                             device_os,
+                             dev.device_fwd,
+                             dev.device_asym,
+                             dev.interfaces)
+                dev.do_rules(filter6)
+                #filter6.mach_output(version)
+        print "#"*80
+
 
 def nice_print(title, mytext):
     """
@@ -487,40 +548,7 @@ def nice_print(title, mytext):
     return message
 
 
-def do_all_configured_devices():
-    confParser = Adm6ConfigParser(".adm6.conf")
-    version = confParser.get_version()
-    confParser.print_header()
-    ##confParser.inc_adm6_debuglevel()
-    debuglevel = confParser.get_adm6_debuglevel()
-    #print confParser.get_show_cf()
-    my_devices = confParser.get_devices().split(',')
-    print "# DEVICES: " + str(my_devices)
-    for device_name in my_devices:
-        if confParser.get_apply(device_name):
-            device_os = confParser.get_os(device_name)
-            confParser.print_head(device_name)
-            path = str(confParser.get_device_home(device_name))
-            h_path = path+'/hostnet6'
-            hn6 = HostNet6(h_path)
-            dev = ThisDevice(device_name, confParser, hn6)
-            dev.read_rules()
-            #hn6.show_hostnet6()
-            #dev.show_interfaces()
-            #dev.show_routingtab()
-            dev.show_rules()
-            #print "dev.device_fwd: ", dev.device_fwd,
-            filter6 = IP6_Filter(debuglevel,
-                         path,
-                         device_name,
-                         device_os,
-                         dev.device_fwd,
-                         dev.device_asym,
-                         dev.interfaces)
-            dev.do_rules(filter6)
-            #filter6.mach_output(version)
-    print "#"*80
-
-
 if __name__ == "__main__":
-    do_all_configured_devices()
+    #do_all_configured_devices()
+    a = DevTest()
+
