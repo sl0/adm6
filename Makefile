@@ -6,7 +6,7 @@ BACKUP = ~/adm6.tbz
 default:	test_all
 
 test_all:
-	@nosetests -v --with-coverage 2>&1 | grep -v ipaddr
+	@nosetests -v --with-coverage 2>&1 | egrep -v '(^ipaddr|^encodings.ascii)'
 
 run:
 	@python adm6/device.py 2>&1
