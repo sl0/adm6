@@ -487,7 +487,7 @@ class ThisDevice:
         return False
 
 
-class DevTest():
+class DevTest:
     """
     this is a test class for ThisDevice demonstration purpose
     """
