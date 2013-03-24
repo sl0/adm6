@@ -469,6 +469,7 @@ class IP6_Filter():
         append another rule to the end of the creation list
         """
         self.rules.append(rule)
+        return len(self.rules)
 
     def mangle_file(self, outfile, mangleinclude):
         """
