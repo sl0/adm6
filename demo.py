@@ -110,7 +110,7 @@ active = 1
 [device#www]
 desc = company web server
 os = Debian GNU/Linux, Lenny
-ip = 2001:db8:1:2::2013
+ip = 2001:db8:1:2::2010
 fwd = 0
 active = 1
 
@@ -345,17 +345,16 @@ any            2000::/3                            # Alle Welt
 #any            ::/0                               # Alle Welt alternativ
 many           ::/0                                # Alle Welt
 localhost      ::1/128                             #
-adm6           2010:db8:1:beed::23/128             # admin-computer
+admin          2001:db8:0:beef::4711/128           # admin-computer
 ns             2001:db8:1:2::53/128                # nameserver
 ns             2001:db8:1:2::23/128                # nameserver
+www            2001:db8:1:2::2010/128              # webserver
 tester         2001:db8:1:fa00::/56                # per OpenVPN tunnel to r-ex
 #tester         2001:db8:1:fb00::/56                # per OpenVPN
 #tester         2001:db8:1:fc00::/56                # per OpenVPN
 #tester         2001:db8:1:fd00::/56                # per OpenVPN
 #tester         2001:db8:1:fe00::/56                # per OpenVPN
 #tester         2001:db8:1:ff00::/56                # per OpenVPN
-admin          2001:db8:1:2:216:d3ff:fec4:5174/128 # admin. host
-admin          fe80:db8:1:2:216:d3ff:fec4:5174/128 # admin. host
 linklocal      fe80::/10                           # on every interface
 multicast      ff00::/8                            # on every interface
 allhosts       ff00::1/128                         # on every interface possible!
@@ -396,20 +395,21 @@ def init_rules(path = ""):
 #  first: some syntax error and an empty line
 
 admin        obi-wan    tcp    22    accept   #
-any          ns         udp    53    accept   NOSTATE #
 admin        ns         tcp    22    accept   #
 admin        r-ex       tcp    22    accept   #
 admin        obi-wan    tcp    22    accept   #
-admin        r-ex       tcp    22    accept   #
+admin        www        tcp    22    accept   #
 admin        ns         tcp    22    accept   # test options
 admin        r-ex       tcp    22    accept   FORCED INSEC NOIF NOSTATE # test options
-any          ns         udp    53    accept    NOSTATE      # test comment
-ns           any        udp    53    accept    NOSTATE
-any          ns         udp    53    accept    NOIF NOSTATE # test comment on rule 2
-any          ns         tcp    25    accept                 # test comment
-ns           any        tcp    25    accept                 # test comment
-any          www        tcp    80    accept                 # test comment
-jhx6         www        tcp    22    accept    # essential administrative rule!
+ns           admin      udp   514    accept   #
+any          ns         udp    53    accept   NOSTATE     #
+any          ns         udp    53    accept   NOSTATE     # test comment
+ns           any        udp    53    accept   NOSTATE
+any          ns         udp    53    accept   NOIF NOSTATE # test comment on rule 2
+any          ns         tcp    25    accept                # test comment
+ns           any        tcp    25    accept                # test comment
+any          www        tcp    80    accept                # test comment
+jhx6         www        tcp    22    accept   # essential administrative rule!
 nag          any        icmpv6    echo-request    accept
 any          nag        icmpv6    echo-reply      accept
 any          nag        icmpv6    destination-unreachable    accept
@@ -437,8 +437,8 @@ www          nag        tcp    113  accept
 
 def write_files_adm6(path):
     i="""eth0      Link encap:Ethernet  HWaddr 08:00:27:0d:1f:8f
-          inet6 addr: 2010:db8:f002:beef::4711/64 Scope:Global
-          inet6 addr: 2010:db8:f002:beef:a00:27ff:fe0d:1f8f/64 Scope:Global
+          inet6 addr: 2001:db8:0:beef::4711/64 Scope:Global
+          inet6 addr: 2001:db8:0:beef:a00:27ff:fe0d:1f8f/64 Scope:Global
           inet6 addr: fe80::a00:27ff:fe0d:1f8f/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:849 errors:0 dropped:0 overruns:0 frame:0
@@ -456,7 +456,7 @@ lo        Link encap:Local Loopback
           collisions:0 txqueuelen:0
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 """
-    r="""2010:db8:f002:beef::/64 dev eth0  proto kernel  metric 256  expires 2591953sec mtu 1500 advmss 1440 hoplimit 4294967295
+    r="""2001:db8:f002:beef::/64 dev eth0  proto kernel  metric 256  expires 2591953sec mtu 1500 advmss 1440 hoplimit 4294967295
 fe80::/64 dev eth0  metric 256  mtu 1500 advmss 1440 hoplimit 4294967295
 default via fe80::a00:27ff:fe59:d69e dev eth0  proto kernel  metric 1024  expires 1591sec mtu 1500 advmss 1440 hoplimit 64
 """
@@ -466,7 +466,7 @@ default via fe80::a00:27ff:fe59:d69e dev eth0  proto kernel  metric 1024  expire
 
 def write_files_www(path):
     i="""eth0      Link encap:Ethernet  HWaddr 00:00:24:c3:e0:50
-          inet addr:87.79.1.121  Bcast:87.79.1.127  Mask:255.255.255.240
+          inet addr:10.10.1.121  Bcast:10.10.1.127  Mask:255.255.255.240
           inet6 addr: fe80::200:24ff:fec3:e050/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:2071381 errors:0 dropped:0 overruns:0 frame:0
@@ -476,9 +476,9 @@ def write_files_www(path):
           Interrupt:16 Base address:0x2000
 
 eth1      Link encap:Ethernet  HWaddr 00:00:24:c3:e0:51
-          inet6 addr: 2010:db8:f002:1:200:24ff:fec3:e051/64 Scope:Global
+          inet6 addr: 2001:db8:f002:1:200:24ff:fec3:e051/64 Scope:Global
           inet6 addr: fe80::200:24ff:fec3:e051/64 Scope:Link
-          inet6 addr: 2010:db8:f002:1::2010/64 Scope:Global
+          inet6 addr: 2001:db8:1:2::2010/64 Scope:Global
           UP BROADCAST RUNNING MULTICAST  MTU:1412  Metric:1
           RX packets:776009 errors:0 dropped:0 overruns:0 frame:0
           TX packets:787546 errors:9 dropped:0 overruns:9 carrier:9
@@ -495,9 +495,9 @@ lo        Link encap:Local Loopback
           collisions:0 txqueuelen:0
           RX bytes:313661 (306.3 KiB)  TX bytes:313661 (306.3 KiB)
 """
-    r="""2010:db8:f002:1::/64 dev eth1  metric 256  expires 2592054sec mtu 1412 advmss 1352 hoplimit 4294967295
-2010:db8:f002:2::/64 via 2010:db8:f002:1::2 dev eth1  metric 1024  mtu 1412 advmss 1352 hoplimit 4294967295
-2000::/3 via 2010:db8:f002:1::1 dev eth1  metric 1024  mtu 1412 advmss 1352 hoplimit 4294967295
+    r="""2001:db8:f002:1::/64 dev eth1  metric 256  expires 2592054sec mtu 1412 advmss 1352 hoplimit 4294967295
+2001:db8:f002:2::/64 via 2001:db8:f002:1::2 dev eth1  metric 1024  mtu 1412 advmss 1352 hoplimit 4294967295
+2000::/3 via 2001:db8:f002:1::1 dev eth1  metric 1024  mtu 1412 advmss 1352 hoplimit 4294967295
 fe80::/64 dev eth1  metric 256  mtu 1412 advmss 1352 hoplimit 4294967295
 fe80::/64 dev eth0  metric 256  mtu 1500 advmss 1440 hoplimit 4294967295
 default via fe80::200:24ff:fec4:d819 dev eth1  proto kernel  metric 1024  expires 1693sec mtu 1412 advmss 1352 hoplimit 64
@@ -513,7 +513,7 @@ default via fe80::200:24ff:fec4:d819 dev eth1  proto kernel  metric 1024  expire
 
 def write_files_ns(path):
     i = """eth0      Link encap:Ethernet  HWaddr 00:00:24:cc:22:0c
-          inet addr:87.79.1.114  Bcast:87.79.1.127  Mask:255.255.255.240
+          inet addr:10.10.1.114  Bcast:10.10.1.127  Mask:255.255.255.240
           inet6 addr: fe80::200:24ff:fecc:220c/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1412  Metric:1
           RX packets:7320840 errors:0 dropped:0 overruns:0 frame:0
@@ -523,8 +523,8 @@ def write_files_ns(path):
           Interrupt:11 Base address:0xe100
 
 eth1      Link encap:Ethernet  HWaddr 00:00:24:cc:22:0d
-          inet6 addr: 2010:db8:f002:1::23/64 Scope:Global
-          inet6 addr: 2010:db8:f002:1:200:24ff:fecc:220d/64 Scope:Global
+          inet6 addr: 2001:db8:f002:1::23/64 Scope:Global
+          inet6 addr: 2001:db8:f002:1:200:24ff:fecc:220d/64 Scope:Global
           inet6 addr: fe80::200:24ff:fecc:220d/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1412  Metric:1
           RX packets:308566 errors:0 dropped:0 overruns:0 frame:0
@@ -542,10 +542,10 @@ lo        Link encap:Local Loopback
           collisions:0 txqueuelen:0
           RX bytes:228381858 (217.8 MiB)  TX bytes:228381858 (217.8 MiB)
 """
-    r = """2010:db8:f002:1::/64 dev eth1  metric 256  expires 2592009sec mtu 1412 advmss 1352 hoplimit 4294967295
+    r = """2001:db8:f002:1::/64 dev eth1  metric 256  expires 2592009sec mtu 1412 advmss 1352 hoplimit 4294967295
 fe80::/64 dev eth0  metric 256  mtu 1412 advmss 1352 hoplimit 4294967295
 fe80::/64 dev eth1  metric 256  mtu 1412 advmss 1352 hoplimit 4294967295
-default via 2010:db8:f002:1::1 dev eth1  metric 1  mtu 1412 advmss 1352 hoplimit 4294967295
+default via 2001:db8:f002:1::1 dev eth1  metric 1  mtu 1412 advmss 1352 hoplimit 4294967295
 default via fe80::200:24ff:fec4:d819 dev eth1  proto kernel  metric 1024  expires 1648sec mtu 1412 advmss 1352 hoplimit 64
 """
     ms = """# adm6 Debian mangle6-startup starting
@@ -576,7 +576,7 @@ default via fe80::200:24ff:fec4:d819 dev eth1  proto kernel  metric 1024  expire
 
 def write_files_r_ex(path):
     i = """eth0      Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18
-          inet addr:87.79.1.126  Bcast:87.79.1.127  Mask:255.255.255.240
+          inet addr:10.10.1.126  Bcast:10.10.1.127  Mask:255.255.255.240
           inet6 addr: fe80::200:24ff:fec4:d818/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:62828154 errors:0 dropped:0 overruns:0 frame:0
@@ -586,24 +586,24 @@ def write_files_r_ex(path):
           Interrupt:17 Base address:0xe000
 
 eth0:1    Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18
-          inet addr:87.79.1.125  Bcast:87.79.1.127  Mask:255.255.255.240
+          inet addr:10.10.1.125  Bcast:10.10.1.127  Mask:255.255.255.240
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           Interrupt:17 Base address:0xe000
 
 eth0:2    Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18
-          inet addr:87.79.1.113  Bcast:87.79.1.127  Mask:255.255.255.240
+          inet addr:10.10.1.113  Bcast:10.10.1.127  Mask:255.255.255.240
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           Interrupt:17 Base address:0xe000
 
 eth0:3    Link encap:Ethernet  HWaddr 00:00:24:c4:d8:18
-          inet addr:87.79.1.115  Bcast:87.79.1.127  Mask:255.255.255.240
+          inet addr:10.10.1.115  Bcast:10.10.1.127  Mask:255.255.255.240
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           Interrupt:17 Base address:0xe000
 
 eth1      Link encap:Ethernet  HWaddr 00:00:24:c4:d8:19
           inet6 addr: fe80::200:24ff:fec4:d819/64 Scope:Link
-          inet6 addr: 2010:db8:f002:1::1/64 Scope:Global
-          inet6 addr: 2010:db8:f002:1::53/64 Scope:Global
+          inet6 addr: 2001:db8:f002:1::1/64 Scope:Global
+          inet6 addr: 2001:db8:f002:1::53/64 Scope:Global
           UP BROADCAST RUNNING MULTICAST  MTU:1300  Metric:1
           RX packets:3165973 errors:0 dropped:0 overruns:0 frame:0
           TX packets:3083693 errors:3 dropped:0 overruns:3 carrier:3
@@ -612,7 +612,7 @@ eth1      Link encap:Ethernet  HWaddr 00:00:24:c4:d8:19
           Interrupt:18 Base address:0x2000
 
 eth2      Link encap:Ethernet  HWaddr 00:00:24:c6:fc:84
-          inet addr:87.79.1.102  Bcast:87.79.1.103  Mask:255.255.255.248
+          inet addr:10.10.1.102  Bcast:10.10.1.103  Mask:255.255.255.248
           inet6 addr: fe80::200:24ff:fec6:fc84/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:77713999 errors:0 dropped:0 overruns:0 frame:0
@@ -624,7 +624,7 @@ eth2      Link encap:Ethernet  HWaddr 00:00:24:c6:fc:84
 eth3      Link encap:Ethernet  HWaddr 00:00:24:c6:fc:85
           inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0
           inet6 addr: fe80::200:24ff:fec6:fc85/64 Scope:Link
-          inet6 addr: 2010:db8:f002::2/64 Scope:Global
+          inet6 addr: 2001:db8:f002::2/64 Scope:Global
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:224314477 errors:0 dropped:2 overruns:0 frame:0
           TX packets:225044221 errors:13 dropped:0 overruns:13 carrier:13
@@ -642,7 +642,7 @@ lo        Link encap:Local Loopback
           RX bytes:246583 (240.8 KiB)  TX bytes:246583 (240.8 KiB)
 
 sit1      Link encap:IPv6-in-IPv4
-          inet6 addr: 2010:db8:f002:3::1/64 Scope:Global
+          inet6 addr: 2001:db8:f002:3::1/64 Scope:Global
           inet6 addr: fe80::574f:173/128 Scope:Link
           UP POINTOPOINT RUNNING NOARP  MTU:1480  Metric:1
           RX packets:5931194 errors:0 dropped:0 overruns:0 frame:0
@@ -764,7 +764,7 @@ enc0: flags=0<> mtu 1536
 gif0: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1280
         priority: 0
         groups: gif
-        physical address inet 192.168.110.176 --> 87.79.1.115
+        physical address inet 192.168.110.176 --> 10.10.1.115
         inet6 fe80::200:24ff:fec8:cf04%gif0 ->  prefixlen 64 scopeid 0x6
         inet6 2001:db8:1:3::2 -> 2001:db8:1:3::1 prefixlen 128
 """
@@ -869,7 +869,7 @@ sis1: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
         priority: 0
         media: Ethernet autoselect (100baseTX full-duplex)
         status: active
-        inet 87.79.1.116 netmask 0xfffffff0 broadcast 87.79.1.127
+        inet 10.10.1.116 netmask 0xfffffff0 broadcast 10.10.1.127
         inet6 fe80::200:24ff:feca:1d9d%sis1 prefixlen 64 scopeid 0x2
 sis2: flags=8842<BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
         lladdr 00:00:24:ca:1d:9e
@@ -881,7 +881,7 @@ enc0: flags=0<> mtu 1536
 gif0: flags=8050<POINTOPOINT,RUNNING,MULTICAST> mtu 1280
         priority: 0
         groups: gif
-        physical address inet 87.79.1.116 --> 87.79.93.232
+        physical address inet 10.10.1.116 --> 10.10.93.232
         inet6 2001:db8:1:5afe::2 -> 2001:db8:1:5afe::1 prefixlen 128
         inet6 fe80::200:24ff:feca:1d9c%gif0 ->  prefixlen 64 scopeid 0x6
 """
@@ -889,11 +889,11 @@ gif0: flags=8050<POINTOPOINT,RUNNING,MULTICAST> mtu 1280
 
 Internet:
 Destination        Gateway            Flags   Refs      Use   Mtu  Prio Iface
-87.79.1.96/29      87.79.1.113        UGS        1     3703     -     8 sis1
-87.79.1.112/28     link#2             UC         2        0     -     4 sis1
-87.79.1.113        00:00:24:c4:d8:18  UHLc       1        0     -     4 sis1
-87.79.1.126        00:00:24:c4:d8:18  UHLc       1     1293     -     4 sis1
-87.79.93.232       87.79.1.126        UGHS       0  1117324     -     8 sis1
+10.10.1.96/29      10.10.1.113        UGS        1     3703     -     8 sis1
+10.10.1.112/28     link#2             UC         2        0     -     4 sis1
+10.10.1.113        00:00:24:c4:d8:18  UHLc       1        0     -     4 sis1
+10.10.1.126        00:00:24:c4:d8:18  UHLc       1     1293     -     4 sis1
+10.10.93.232       10.10.1.126        UGHS       0  1117324     -     8 sis1
 127/8              127.0.0.1          UGRS       0        0 33204     8 lo0
 127.0.0.1          127.0.0.1          UH         1     1733 33204     4 lo0
 224/4              127.0.0.1          URS        0        0 33204     8 lo0
@@ -947,14 +947,9 @@ ff02::%gif0/32                     link#6                         UC         0  
     return
 
 def write_any_file(file,content):
-    demo = False
-    if demo:
-        # my version
-        doku = content.replace('2001:db8:1:','2001:db8:23:')
-    else:
-        # demo version, db8
-        ndoku = content.replace('2010:db8:f002:','2001:db8:0:')
-        doku = ndoku.replace('87.79.1.','192.0.2.')
+    # demo version, db8
+    ndoku = content.replace('2001:db8:f002:','2001:db8:0:')
+    doku = ndoku.replace('10.10.1.','192.0.2.')
     try:
         file = open(file,'w')
         file.write(doku)
