@@ -9,7 +9,7 @@
 import unittest
 from adm6.adm6configparser import Adm6ConfigParser
 from adm6.filter6 import IP6_Filter, Ip6_Filter_Rule
-from adm6.device import ThisDevice
+from adm6.device import ThisDevice, DevTest
 from adm6.hostnet6 import HostNet6
 from sys import stdout
 from os.path import expanduser as homedir
@@ -948,7 +948,7 @@ class ThisDevice_tests(unittest.TestCase):
 
     def test_25_do_rules_r_ex(self):
         """
-        dv-24 ThisDevice: do rules r-ex
+        dv-25 ThisDevice: do rules r-ex
         """
         dbg = 0
         device_name = 'r-ex'
@@ -1135,3 +1135,9 @@ class ThisDevice_tests(unittest.TestCase):
         print "M:", message
         self.assertEquals(message, expect)
         #self.assertFalse(True)
+
+    def test_26_do_all_devices(self):
+        """
+        dv-26 ThisDevice: do all devices
+        """
+        all_devices = DevTest()
