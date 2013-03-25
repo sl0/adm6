@@ -11,7 +11,9 @@ from adm6.filter6 import IP6_Filter, Ip6_Filter_Rule
 from sys import stdout
 from os.path import expanduser as homedir
 from ipaddr import IPv6Network
+from os  import getenv as get_env
 
+home_dir_replacement = get_env("HOME")
 rule = {}
 
 class Ip6_Filter_Rule_tests(unittest.TestCase):
@@ -1347,7 +1349,7 @@ class Ip6_Filter_tests(unittest.TestCase):
         """
         debug = False
         name = "www"
-        #path = "/home/sl0/adm6/desc/www"
+        #path = "HOME_DIR/adm6/desc/www"
         mach_dir = "~/adm6/desc/www"
         path = homedir(mach_dir)
         os = "Debian GNU/Linux"
@@ -1372,7 +1374,7 @@ class Ip6_Filter_tests(unittest.TestCase):
         """
         debug = False
         name = "ns"
-        path = "/home/sl0/adm6/desc/ns"
+        path = "HOME_DIR/adm6/desc/ns"
         mach_dir = "~/adm6/desc/adm6"
         path = homedir(mach_dir)
         os = "Debian GNU/Linux"
@@ -1398,7 +1400,7 @@ class Ip6_Filter_tests(unittest.TestCase):
         """
         debug = False
         name = "adm6"
-        #path = "/home/sl0/adm6/desc/adm6"
+        #path = "HOME_DIR/adm6/desc/adm6"
         mach_dir = "~/adm6/desc/adm6"
         path = homedir(mach_dir)
         os = "Debian GNU/Linux"
@@ -1411,9 +1413,10 @@ class Ip6_Filter_tests(unittest.TestCase):
         file_to_read = "mangle-endup"
         fi.msg = ""
         fi.mangle_file(ofile, file_to_read)
-        expect = "# failed reading mangle-file: %s/" % (path)
-        expect += file_to_read
-        expect = "# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-endup, but OK"
+        temp = "# failed reading mangle-file: %s/" % (path)
+        temp += file_to_read
+        temp = "# failed reading mangle-file: HOME_DIR/adm6/desc/adm6/mangle-endup, but OK"
+        expect = temp.replace("HOME_DIR", home_dir_replacement)
         value = fi.msg
         self.assertEqual(expect, value)
 
@@ -1423,7 +1426,7 @@ class Ip6_Filter_tests(unittest.TestCase):
         """
         debug = True
         name = "ns"
-        path = "/home/sl0/adm6/desc/ns"
+        path = "HOME_DIR/adm6/desc/ns"
         mach_dir = "~/adm6/desc/ns"
         path = homedir(mach_dir)
         os = "Debian GNU/Linux"
@@ -1495,7 +1498,7 @@ echo -n ".";"""
         """
         debug = True
         name = "ns"
-        path = "/home/sl0/adm6/desc/ns"
+        path = "HOME_DIR/adm6/desc/ns"
         mach_dir = "~/adm6/desc/ns"
         path = homedir(mach_dir)
         os = "Debian GNU/Linux"
@@ -1593,7 +1596,7 @@ echo -n ".";"""
         fi.rules.append(rule)
         fi.mach_output(ofilename)
         value = fi.msg
-        expect = """#!/bin/bash
+        temp = """#!/bin/bash
 #
 echo "**********************************************************************"
 echo "**********************************************************************"
@@ -1653,7 +1656,7 @@ $IP6O -p ipv6-icmp -s ${MCAST} -j ACCEPT
 #
 # all prepared now, individual mangling and rules following
 #
-# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-startup, but OK
+# failed reading mangle-file: HOME_DIR/adm6/desc/adm6/mangle-startup, but OK
 # ---------------------------------------------------------------------------- #
 # Rule-Nr        : 1                                                           #
 # Pair-Nr        : 1                                                           #
@@ -1689,7 +1692,7 @@ echo -n ".";/sbin/ip6tables -A   input___new  -s 2001:db8:1::1/128 -d 2001:db8:2
 /sbin/ip6tables -A   output__new  -d 2001:db8:1::1/128 -s 2001:db8:2::11/128 -p udp --dport 1024: --sport 4711 -j ACCEPT -m comment --comment "1,1"
 echo -n ".";/sbin/ip6tables -A   forward_new  -s 2001:db8:1::1/128 -d 2001:db8:2::11/128 -p udp --sport 1024: --dport 4711 -j ACCEPT -m comment --comment "1,1"
 /sbin/ip6tables -A   forward_new  -d 2001:db8:1::1/128 -s 2001:db8:2::11/128 -p udp --dport 1024: --sport 4711 -j ACCEPT -m comment --comment "1,1"
-echo -n ".";# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-endup, but OK#
+echo -n ".";# failed reading mangle-file: HOME_DIR/adm6/desc/adm6/mangle-endup, but OK#
 #$IP6I -p tcp --dport 22 -j ACCEPT
 #$IP6O -p tcp --sport 22 -j ACCEPT
 #
@@ -1767,6 +1770,7 @@ echo "**********************************************************************"
 echo "**********************************************************************"
 # EOF
 """
+        expect = temp.replace("HOME_DIR", home_dir_replacement)
         self.assertEquals(expect, value)
 
     def test_13_IP6_Filter_mach_output_as_travers(self):
@@ -1803,7 +1807,7 @@ echo "**********************************************************************"
         fi.rules.append(rule)
         fi.mach_output(ofilename)
         value = fi.msg
-        expect = """#!/bin/bash
+        temp = """#!/bin/bash
 #
 echo "**********************************************************************"
 echo "**********************************************************************"
@@ -1863,7 +1867,7 @@ $IP6O -p ipv6-icmp -s ${MCAST} -j ACCEPT
 #
 # all prepared now, individual mangling and rules following
 #
-# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-startup, but OK
+# failed reading mangle-file: HOME_DIR/adm6/desc/adm6/mangle-startup, but OK
 # ---------------------------------------------------------------------------- #
 # Rule-Nr        : 1                                                           #
 # Pair-Nr        : 1                                                           #
@@ -1895,7 +1899,7 @@ $IP6O -p ipv6-icmp -s ${MCAST} -j ACCEPT
 # dst-multicast  : False                                                       #
 /sbin/ip6tables -A   forward_new  -i eth0 -s 2001:db8:1::1/128 -d 2001:db8:2::11/128 -p udp --sport 1024: --dport 4711 -j ACCEPT -m comment --comment "1,1"
 /sbin/ip6tables -A   forward_new  -i eth1 -d 2001:db8:1::1/128 -s 2001:db8:2::11/128 -p udp --dport 1024: --sport 4711 -j ACCEPT -m comment --comment "1,1"
-echo -n ".";# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-endup, but OK#
+echo -n ".";# failed reading mangle-file: HOME_DIR/adm6/desc/adm6/mangle-endup, but OK#
 #$IP6I -p tcp --dport 22 -j ACCEPT
 #$IP6O -p tcp --sport 22 -j ACCEPT
 #
@@ -1974,6 +1978,7 @@ echo "**********************************************************************"
 # EOF
 """
         #print "M:", value
+        expect = temp.replace("HOME_DIR", home_dir_replacement)
         self.assertEquals(expect, value)
 
     def test_14_IP6_Filter_mach_output_as_stateful_travers(self):
@@ -2010,7 +2015,7 @@ echo "**********************************************************************"
         fi.rules.append(rule)
         fi.mach_output(ofilename)
         value = fi.msg
-        expect = """#!/bin/bash
+        temp = """#!/bin/bash
 #
 echo "**********************************************************************"
 echo "**********************************************************************"
@@ -2070,7 +2075,7 @@ $IP6O -p ipv6-icmp -s ${MCAST} -j ACCEPT
 #
 # all prepared now, individual mangling and rules following
 #
-# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-startup, but OK
+# failed reading mangle-file: HOME_DIR/adm6/desc/adm6/mangle-startup, but OK
 # ---------------------------------------------------------------------------- #
 # Rule-Nr        : 1                                                           #
 # Pair-Nr        : 1                                                           #
@@ -2102,7 +2107,7 @@ $IP6O -p ipv6-icmp -s ${MCAST} -j ACCEPT
 # dst-multicast  : False                                                       #
 /sbin/ip6tables -A   forward_new  -i eth0 -s 2001:db8:1::1/128 -d 2001:db8:2::11/128 -p udp --sport 1024: --dport 4711 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
 /sbin/ip6tables -A   forward_new  -i eth1 -d 2001:db8:1::1/128 -s 2001:db8:2::11/128 -p udp --dport 1024: --sport 4711 -m state --state     ESTABLISHED,RELATED -j ACCEPT -m comment --comment "1,1"
-echo -n ".";# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-endup, but OK#
+echo -n ".";# failed reading mangle-file: HOME_DIR/adm6/desc/adm6/mangle-endup, but OK#
 #$IP6I -p tcp --dport 22 -j ACCEPT
 #$IP6O -p tcp --sport 22 -j ACCEPT
 #
@@ -2180,6 +2185,7 @@ echo "**********************************************************************"
 echo "**********************************************************************"
 # EOF
 """
+        expect = temp.replace("HOME_DIR", home_dir_replacement)
         value_len = len(value)
         expect_len = len(expect)
         self.assertEquals(expect_len, value_len)
@@ -2205,7 +2211,7 @@ echo "**********************************************************************"
         rule.append(1)                             # Rule-Nr.
         rule.append(1)                             # Pair-Nr.
         rule.append(False)                         # i_am_s
-        rule.append(True)                         # i_am_d
+        rule.append(True)                          # i_am_d
         rule.append(IPv6Network('2001:db8:1::1'))  # source
         rule.append(IPv6Network('2001:db8:2::11')) # destin
         rule.append('eth0')                        # source-if
@@ -2219,7 +2225,7 @@ echo "**********************************************************************"
         fi.rules.append(rule)
         fi.mach_output(ofilename)
         value = fi.msg
-        expect = """#!/bin/bash
+        temp = """#!/bin/bash
 #
 echo "**********************************************************************"
 echo "**********************************************************************"
@@ -2279,7 +2285,7 @@ $IP6O -p ipv6-icmp -s ${MCAST} -j ACCEPT
 #
 # all prepared now, individual mangling and rules following
 #
-# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-startup, but OK
+# failed reading mangle-file: HOME_DIR/adm6/desc/adm6/mangle-startup, but OK
 # ---------------------------------------------------------------------------- #
 # Rule-Nr        : 1                                                           #
 # Pair-Nr        : 1                                                           #
@@ -2311,7 +2317,7 @@ $IP6O -p ipv6-icmp -s ${MCAST} -j ACCEPT
 # dst-multicast  : False                                                       #
 /sbin/ip6tables -A   input___new  -s 2001:db8:1::1/128 -d 2001:db8:2::11/128 -p udp --sport 0:  --dport 4711 -j ACCEPT -m comment --comment "1,1"
 /sbin/ip6tables -A   output__new  -d 2001:db8:1::1/128 -s 2001:db8:2::11/128 -p udp --dport 0:  --sport 4711 -j ACCEPT -m comment --comment "1,1"
-echo -n ".";# failed reading mangle-file: /home/sl0/adm6/desc/adm6/mangle-endup, but OK#
+echo -n ".";# failed reading mangle-file: HOME_DIR/adm6/desc/adm6/mangle-endup, but OK#
 #$IP6I -p tcp --dport 22 -j ACCEPT
 #$IP6O -p tcp --sport 22 -j ACCEPT
 #
@@ -2389,22 +2395,10 @@ echo "**********************************************************************"
 echo "**********************************************************************"
 # EOF
 """
+        expect = temp.replace("HOME_DIR", home_dir_replacement)
         value_len = len(value)
         expect_len = len(expect)
         self.assertEquals(expect_len, value_len)
-        out_path = homedir(path + '/output')
-        ofile = open(out_path, 'r')
-        ctrl_read = ""
-        lines = 0
-        for line in ofile:
-            lines += 1
-            ctrl_read += line
-        ctrl_len = len(ctrl_read)
-        print "C:", ctrl_len, "V:", value_len, "E:", expect_len, "L:", lines
-        self.assertEquals(value_len, 8315)
-        self.assertEquals(lines, 170)
-        # don't know reason for value_len != ctrl_len
-        self.assertEquals(ctrl_len, 8323)
 
 
 if __name__ == "__main__":
