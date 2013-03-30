@@ -23,8 +23,9 @@ be implemented, ipf, netsh advFirewall and the like are on the wishlist.
 .. toctree::
    :maxdepth: 1
 
-   how does it work
+   overview
    config
+   rules
    sources
 
 Indices and tables

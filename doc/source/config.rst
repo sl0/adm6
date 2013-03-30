@@ -33,6 +33,8 @@ are follinig up the examples:
 +---------------------+--------------------------+--------------------------------------------+
 | ``timestamp``       | ``creation date``        | ``2013-03-30``                             |
 +---------------------+--------------------------+--------------------------------------------+
+| ``home``            | ``home directory``       | ``/home/sl0/adm6``                         |
++---------------------+--------------------------+--------------------------------------------+
 | ``key-file``        | ``ssh public key``       | ``~/.ssh/id_rsa.pub``                      |
 +---------------------+--------------------------+--------------------------------------------+
 | ``devices``         | ``adm6 targets``         | ``adm6,r-ex,ns,www,obi-wan``               |
@@ -87,3 +89,10 @@ generated filters, f.e. asymetric routing needs to suppress stateful packetfilte
 as not all packets of a flow come through the device...  
 This values needs not to be present in the config section, assumed to be 0.
 
+
+adm6 - configuration comments
+-----------------------------
+
+Using python the methods of ConfigParser, it's easily possible to read and write the 
+configfile in a comfortable way. But be warned, if you wirte back an existing file,
+all the comments are gone, and the order of your sections is unpredicable.

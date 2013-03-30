@@ -1,6 +1,6 @@
-=======================
-adm6 - how does it work 
-=======================
+===============
+adm6 - overview
+===============
 
 .. image:: adm6-logo.png
    :width: 250px
