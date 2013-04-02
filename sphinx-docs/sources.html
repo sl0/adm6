@@ -1,0 +1,1112 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>adm6 - python classes &mdash; adm6 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="adm6 0.2.0 documentation" href="index.html" />
+    <link rel="prev" title="adm6 - rules" href="rules.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rules.html" title="adm6 - rules"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">adm6 0.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-adm6">
+<span id="adm6-python-classes"></span><h1>adm6 - python classes<a class="headerlink" href="#module-adm6" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="adm6.adm6configparser.Adm6ConfigParser">
+<em class="property">class </em><tt class="descclassname">adm6.adm6configparser.</tt><tt class="descname">Adm6ConfigParser</tt><big>(</big><em>cfg_file</em><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read global configuration from configfile named as parameter</p>
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.dec_adm6_debuglevel">
+<tt class="descname">dec_adm6_debuglevel</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.dec_adm6_debuglevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>decrement debuglevel by one</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_adm6_debuglevel">
+<tt class="descname">get_adm6_debuglevel</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_adm6_debuglevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>get applicationwide debuglevel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_adm6_home">
+<tt class="descname">get_adm6_home</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_adm6_home" title="Permalink to this definition">¶</a></dt>
+<dd><p>return adm6 homedir as read from config-file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_apply">
+<tt class="descname">get_apply</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>give back applyflag (missing flag means true always!)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_asym">
+<tt class="descname">get_asym</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_asym" title="Permalink to this definition">¶</a></dt>
+<dd><p>give back asymmetric-flag
+(true means device does asymmetric IPv6 routing!)
+asymmetric = 1 forces stateful to off</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_desc">
+<tt class="descname">get_desc</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>give description of named device</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_device_home">
+<tt class="descname">get_device_home</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_device_home" title="Permalink to this definition">¶</a></dt>
+<dd><p>give directory of device as full pathname</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_devices">
+<tt class="descname">get_devices</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>give a list of all devices named in global section</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_fwd">
+<tt class="descname">get_fwd</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_fwd" title="Permalink to this definition">¶</a></dt>
+<dd><p>give back fwdflag (false means device does not forward IPv6!)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_ip">
+<tt class="descname">get_ip</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>give IP of named device</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_key_filename">
+<tt class="descname">get_key_filename</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_key_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>return ssh key_file read from config-flie</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_os">
+<tt class="descname">get_os</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_os" title="Permalink to this definition">¶</a></dt>
+<dd><p>give OS-String of named device</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_show_cf">
+<tt class="descname">get_show_cf</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_show_cf" title="Permalink to this definition">¶</a></dt>
+<dd><p>return complete content as dict of dicts</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_software">
+<tt class="descname">get_software</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_software" title="Permalink to this definition">¶</a></dt>
+<dd><p>give a list of all os-software named in global section</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.get_version">
+<tt class="descname">get_version</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.get_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>return version string read from config-flie</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.inc_adm6_debuglevel">
+<tt class="descname">inc_adm6_debuglevel</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.inc_adm6_debuglevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>increment debuglevel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.nice_print">
+<tt class="descname">nice_print</tt><big>(</big><em>title</em>, <em>mytext</em><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.nice_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>nice printout of a config line, only to impress the user
+used linelength: 70 characters</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.print_all_headers">
+<tt class="descname">print_all_headers</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.print_all_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>print all device headers (for debug purposes only)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.print_head">
+<tt class="descname">print_head</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.print_head" title="Permalink to this definition">¶</a></dt>
+<dd><p>print a nice header for named device-section</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.print_header">
+<tt class="descname">print_header</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.print_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>print nice header as top of every generated output</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.adm6configparser.Adm6ConfigParser.set_adm6_debuglevel">
+<tt class="descname">set_adm6_debuglevel</tt><big>(</big><em>level</em><big>)</big><a class="headerlink" href="#adm6.adm6configparser.Adm6ConfigParser.set_adm6_debuglevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>set applicationwide debuglevel</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adm6.hostnet6.HostNet6">
+<em class="property">class </em><tt class="descclassname">adm6.hostnet6.</tt><tt class="descname">HostNet6</tt><big>(</big><em>file='reference-hostnet'</em><big>)</big><a class="headerlink" href="#adm6.hostnet6.HostNet6" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instance is content of hostnet6-file
+as a sorted list of lists of: (name,address!!!es!!!)
+every line in file may be like:
+NAME   ADDRESS # COMMENT
+or
+# COMMENT</p>
+<dl class="method">
+<dt id="adm6.hostnet6.HostNet6.append">
+<tt class="descname">append</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#adm6.hostnet6.HostNet6.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>append content of file to entries</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.hostnet6.HostNet6.get_addrs">
+<tt class="descname">get_addrs</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#adm6.hostnet6.HostNet6.get_addrs" title="Permalink to this definition">¶</a></dt>
+<dd><p>return list of addresses belonging to a name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.hostnet6.HostNet6.nice_print">
+<tt class="descname">nice_print</tt><big>(</big><em>title</em>, <em>mytext</em><big>)</big><a class="headerlink" href="#adm6.hostnet6.HostNet6.nice_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>nice printout of a config line, only to impress the user
+used linelength: 70 characters</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.hostnet6.HostNet6.show_addr">
+<tt class="descname">show_addr</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#adm6.hostnet6.HostNet6.show_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>print addresses belonging to name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.hostnet6.HostNet6.show_hostnet6">
+<tt class="descname">show_hostnet6</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.hostnet6.HostNet6.show_hostnet6" title="Permalink to this definition">¶</a></dt>
+<dd><p>show all current entries</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adm6.filter6.IP6_Filter">
+<em class="property">class </em><tt class="descclassname">adm6.filter6.</tt><tt class="descname">IP6_Filter</tt><big>(</big><em>debuglevel</em>, <em>path</em>, <em>name</em>, <em>os</em>, <em>fwd</em>, <em>asym</em>, <em>interfaces=None</em><big>)</big><a class="headerlink" href="#adm6.filter6.IP6_Filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Devicetype mostly independant Filter</p>
+<dl class="method">
+<dt id="adm6.filter6.IP6_Filter.append">
+<tt class="descname">append</tt><big>(</big><em>rule</em><big>)</big><a class="headerlink" href="#adm6.filter6.IP6_Filter.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>append another rule to the end of the creation list</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.filter6.IP6_Filter.final_this_rule">
+<tt class="descname">final_this_rule</tt><big>(</big><em>rule</em>, <em>outfile</em><big>)</big><a class="headerlink" href="#adm6.filter6.IP6_Filter.final_this_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>do output for one pair out of rule-nr into file: outfile,
+convert simple list-structure in rule into Rule-UserDict-Object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.filter6.IP6_Filter.mach_output">
+<tt class="descname">mach_output</tt><big>(</big><em>fname=None</em><big>)</big><a class="headerlink" href="#adm6.filter6.IP6_Filter.mach_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>construct header, rules and footer altogether</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.filter6.IP6_Filter.mangle_file">
+<tt class="descname">mangle_file</tt><big>(</big><em>outfile</em>, <em>mangleinclude</em><big>)</big><a class="headerlink" href="#adm6.filter6.IP6_Filter.mangle_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>include a file into the outputfile, paketmangling or whatever</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adm6.filter6.Ip6_Filter_Rule">
+<em class="property">class </em><tt class="descclassname">adm6.filter6.</tt><tt class="descname">Ip6_Filter_Rule</tt><big>(</big><em>dict=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#adm6.filter6.Ip6_Filter_Rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>IP6_Filter_Rule is a container with all the neccessary stuff
+for device-type independant filter-generation.
+It is filled by reading all the specific device-files of one device,
+device-type is one out of (Debian, OpenBSD, OpenSolaris)
+interfaces, routing-table, hostnet6 and all device-rules</p>
+<dl class="method">
+<dt id="adm6.filter6.Ip6_Filter_Rule.produce_Debian">
+<tt class="descname">produce_Debian</tt><big>(</big><em>outfile</em>, <em>commented</em><big>)</big><a class="headerlink" href="#adm6.filter6.Ip6_Filter_Rule.produce_Debian" title="Permalink to this definition">¶</a></dt>
+<dd><p>do one pair of src-dst out of a rule for Debian</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.filter6.Ip6_Filter_Rule.produce_IPF">
+<tt class="descname">produce_IPF</tt><big>(</big><em>outfile</em>, <em>commented</em><big>)</big><a class="headerlink" href="#adm6.filter6.Ip6_Filter_Rule.produce_IPF" title="Permalink to this definition">¶</a></dt>
+<dd><p>do one pair out of a rule for Free-, Net-BSD, OpenSolaris</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.filter6.Ip6_Filter_Rule.produce_OpenBSD">
+<tt class="descname">produce_OpenBSD</tt><big>(</big><em>outfile</em>, <em>commented</em><big>)</big><a class="headerlink" href="#adm6.filter6.Ip6_Filter_Rule.produce_OpenBSD" title="Permalink to this definition">¶</a></dt>
+<dd><p>do one pair of src-dst out of a rule for OpenBSD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.filter6.Ip6_Filter_Rule.produce_wxpsp3">
+<tt class="descname">produce_wxpsp3</tt><big>(</big><em>outfile</em>, <em>commented</em><big>)</big><a class="headerlink" href="#adm6.filter6.Ip6_Filter_Rule.produce_wxpsp3" title="Permalink to this definition">¶</a></dt>
+<dd><p>do one pair of src-dst out of a rule for Win-XP-SP3</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adm6.device.ThisDevice">
+<em class="property">class </em><tt class="descclassname">adm6.device.</tt><tt class="descname">ThisDevice</tt><big>(</big><em>device</em>, <em>confParser</em>, <em>hostnet</em><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object keeps all sampled information about a device,
+information is read from a subdirectory in adm6/desc/
+interface-config (output of ifconfig) and
+routing-table (output of ip -6 route show) and
+filter-rules (plain ascii-filese with defs and actions)
+might be useful for other things than generating filters</p>
+<dl class="method">
+<dt id="adm6.device.ThisDevice.address_is_own">
+<tt class="descname">address_is_own</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.address_is_own" title="Permalink to this definition">¶</a></dt>
+<dd><p>check, if given address is interface-address of ThisDevice
+returns Name of Interface or None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.do_rules">
+<tt class="descname">do_rules</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.do_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>invocation: dev.do_rules(filter)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.do_this_rule">
+<tt class="descname">do_this_rule</tt><big>(</big><em>clone</em>, <em>rn</em>, <em>filter6</em>, <em>rh</em>, <em>sr</em>, <em>ds</em>, <em>pr</em>, <em>po</em>, <em>ac</em>, <em>op</em><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.do_this_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>build os-independant detailed rule without options,
+which are very os-specific</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.interface_line">
+<tt class="descname">interface_line</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.interface_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>evaluate one line of ifconfig-output
+store results in self.interfaces = []
+!!! specific on os-type !!!</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.look_for">
+<tt class="descname">look_for</tt><big>(</big><em>addr</em><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.look_for" title="Permalink to this definition">¶</a></dt>
+<dd><p>seeks addr in routing-table, returns tuple of
+interface-name and line number of routing-entry</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.read_interface_file">
+<tt class="descname">read_interface_file</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.read_interface_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>read plain file containing output of
+Win-XP-SP3:  netsh, see adm6-ini.bat
+Debian:   ifconfig
+OpenBSD:  ifconfig</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.read_one_rule">
+<tt class="descname">read_one_rule</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.read_one_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>take one line of a rules-file, check and do the appropriate</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.read_routingtab_file">
+<tt class="descname">read_routingtab_file</tt><big>(</big><em>filename=None</em><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.read_routingtab_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>read plain file containg output of
+Debian:     ip -6 route show
+OpenBSD:    route  -n   show</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.read_rule_file">
+<tt class="descname">read_rule_file</tt><big>(</big><em>file</em><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.read_rule_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>read given file as rules for the machine</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.read_rules">
+<tt class="descname">read_rules</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.read_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>read all the rule-files in a machines homedir</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.routingtab_line">
+<tt class="descname">routingtab_line</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.routingtab_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>read a line using os-spcific version</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.show_interfaces">
+<tt class="descname">show_interfaces</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.show_interfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>nice view of all interfacesconfiguration read</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.show_routingtab">
+<tt class="descname">show_routingtab</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.show_routingtab" title="Permalink to this definition">¶</a></dt>
+<dd><p>nice view of all routingconfiguration read</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adm6.device.ThisDevice.show_rules">
+<tt class="descname">show_rules</tt><big>(</big><big>)</big><a class="headerlink" href="#adm6.device.ThisDevice.show_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>show all rules as text before addresses are solved</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-tests"></span><dl class="class">
+<dt id="tests.test_01_hostnet6.HostNet6_tests">
+<em class="property">class </em><tt class="descclassname">tests.test_01_hostnet6.</tt><tt class="descname">HostNet6_tests</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.test_01_hostnet6.HostNet6_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>some tests for class HostNet6</p>
+<dl class="method">
+<dt id="tests.test_01_hostnet6.HostNet6_tests.test_01_read_nonexisting_file">
+<tt class="descname">test_01_read_nonexisting_file</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_01_hostnet6.HostNet6_tests.test_01_read_nonexisting_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>hn-01 read non existing file, check raise</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_01_hostnet6.HostNet6_tests.test_02_read_an_existing_file">
+<tt class="descname">test_02_read_an_existing_file</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_01_hostnet6.HostNet6_tests.test_02_read_an_existing_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>hn-02 read an existing file, check no raise</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_01_hostnet6.HostNet6_tests.test_03_evaluate_entries">
+<tt class="descname">test_03_evaluate_entries</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_01_hostnet6.HostNet6_tests.test_03_evaluate_entries" title="Permalink to this definition">¶</a></dt>
+<dd><p>hn-03 evaluate entries of reference-hostnet</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_01_hostnet6.HostNet6_tests.test_04_evaluate_appended_entries_fail">
+<tt class="descname">test_04_evaluate_appended_entries_fail</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_01_hostnet6.HostNet6_tests.test_04_evaluate_appended_entries_fail" title="Permalink to this definition">¶</a></dt>
+<dd><p>hn-04 entries of reference-hostnet-fail are not appended</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_01_hostnet6.HostNet6_tests.test_05_evaluate_appended_entries_ok">
+<tt class="descname">test_05_evaluate_appended_entries_ok</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_01_hostnet6.HostNet6_tests.test_05_evaluate_appended_entries_ok" title="Permalink to this definition">¶</a></dt>
+<dd><p>hn-05 entries of reference-hostnet-append are appended</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_01_hostnet6.HostNet6_tests.test_06_get_address">
+<tt class="descname">test_06_get_address</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_01_hostnet6.HostNet6_tests.test_06_get_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>hn-06 get_addrs returns list of given hostname</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_01_hostnet6.HostNet6_tests.test_07_show_hostnet">
+<tt class="descname">test_07_show_hostnet</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_01_hostnet6.HostNet6_tests.test_07_show_hostnet" title="Permalink to this definition">¶</a></dt>
+<dd><p>hn-07 show hostnet returns a long string</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser">
+<em class="property">class </em><tt class="descclassname">tests.test_02_adm6configparser.</tt><tt class="descname">Adm6ConfigParser</tt><big>(</big><em>cfg_file</em><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read global configuration from configfile named as parameter</p>
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.dec_adm6_debuglevel">
+<tt class="descname">dec_adm6_debuglevel</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.dec_adm6_debuglevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>decrement debuglevel by one</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_adm6_debuglevel">
+<tt class="descname">get_adm6_debuglevel</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_adm6_debuglevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>get applicationwide debuglevel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_adm6_home">
+<tt class="descname">get_adm6_home</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_adm6_home" title="Permalink to this definition">¶</a></dt>
+<dd><p>return adm6 homedir as read from config-file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_apply">
+<tt class="descname">get_apply</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>give back applyflag (missing flag means true always!)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_asym">
+<tt class="descname">get_asym</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_asym" title="Permalink to this definition">¶</a></dt>
+<dd><p>give back asymmetric-flag
+(true means device does asymmetric IPv6 routing!)
+asymmetric = 1 forces stateful to off</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_desc">
+<tt class="descname">get_desc</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>give description of named device</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_device_home">
+<tt class="descname">get_device_home</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_device_home" title="Permalink to this definition">¶</a></dt>
+<dd><p>give directory of device as full pathname</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_devices">
+<tt class="descname">get_devices</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>give a list of all devices named in global section</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_fwd">
+<tt class="descname">get_fwd</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_fwd" title="Permalink to this definition">¶</a></dt>
+<dd><p>give back fwdflag (false means device does not forward IPv6!)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_ip">
+<tt class="descname">get_ip</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>give IP of named device</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_key_filename">
+<tt class="descname">get_key_filename</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_key_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>return ssh key_file read from config-flie</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_os">
+<tt class="descname">get_os</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_os" title="Permalink to this definition">¶</a></dt>
+<dd><p>give OS-String of named device</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_show_cf">
+<tt class="descname">get_show_cf</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_show_cf" title="Permalink to this definition">¶</a></dt>
+<dd><p>return complete content as dict of dicts</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_software">
+<tt class="descname">get_software</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_software" title="Permalink to this definition">¶</a></dt>
+<dd><p>give a list of all os-software named in global section</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.get_version">
+<tt class="descname">get_version</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.get_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>return version string read from config-flie</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.inc_adm6_debuglevel">
+<tt class="descname">inc_adm6_debuglevel</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.inc_adm6_debuglevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>increment debuglevel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.nice_print">
+<tt class="descname">nice_print</tt><big>(</big><em>title</em>, <em>mytext</em><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.nice_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>nice printout of a config line, only to impress the user
+used linelength: 70 characters</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.print_all_headers">
+<tt class="descname">print_all_headers</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.print_all_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>print all device headers (for debug purposes only)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.print_head">
+<tt class="descname">print_head</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.print_head" title="Permalink to this definition">¶</a></dt>
+<dd><p>print a nice header for named device-section</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.print_header">
+<tt class="descname">print_header</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.print_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>print nice header as top of every generated output</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_02_adm6configparser.Adm6ConfigParser.set_adm6_debuglevel">
+<tt class="descname">set_adm6_debuglevel</tt><big>(</big><em>level</em><big>)</big><a class="headerlink" href="#tests.test_02_adm6configparser.Adm6ConfigParser.set_adm6_debuglevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>set applicationwide debuglevel</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests">
+<em class="property">class </em><tt class="descclassname">tests.test_03_filter6.</tt><tt class="descname">Ip6_Filter_Rule_tests</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>some tests for class Ip6_Filter_Rule</p>
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_01_create_Filter_Rule">
+<tt class="descname">test_01_create_Filter_Rule</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_01_create_Filter_Rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-01 create Filter_Rule object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_02_produce_for_invalid_os_name">
+<tt class="descname">test_02_produce_for_invalid_os_name</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_02_produce_for_invalid_os_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-02 produce for invalid os name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_03_produce_for_linux_as_traversed">
+<tt class="descname">test_03_produce_for_linux_as_traversed</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_03_produce_for_linux_as_traversed" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-03 produce for linux as traversed host</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_04_produce_for_openbsd">
+<tt class="descname">test_04_produce_for_openbsd</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_04_produce_for_openbsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-04 produce for OpenBSD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_05_produce_for_bsd">
+<tt class="descname">test_05_produce_for_bsd</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_05_produce_for_bsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-05 produce for BSD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_06_produce_for_opensolaris">
+<tt class="descname">test_06_produce_for_opensolaris</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_06_produce_for_opensolaris" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-06 produce for OpenSolaris</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_07_produce_for_wxp">
+<tt class="descname">test_07_produce_for_wxp</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_07_produce_for_wxp" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-07 produce for WXP</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_08_repr_with_debuglevel">
+<tt class="descname">test_08_repr_with_debuglevel</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_08_repr_with_debuglevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-08 repr with debuglevel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_09_repr_without_debuglevel">
+<tt class="descname">test_09_repr_without_debuglevel</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_09_repr_without_debuglevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-09 repr without debuglevel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_10_produce_for_linux_as_source">
+<tt class="descname">test_10_produce_for_linux_as_source</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_10_produce_for_linux_as_source" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-10 produce for linux as source host</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_11_produce_for_linux_as_source_icmpv6">
+<tt class="descname">test_11_produce_for_linux_as_source_icmpv6</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_11_produce_for_linux_as_source_icmpv6" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-11 produce for linux as source host icmpv6</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_12_produce_for_linux_as_source_nonew">
+<tt class="descname">test_12_produce_for_linux_as_source_nonew</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_12_produce_for_linux_as_source_nonew" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-12 produce for linux as source host nonew</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_13_produce_for_linux_as_dest">
+<tt class="descname">test_13_produce_for_linux_as_dest</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_13_produce_for_linux_as_dest" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-13 produce for linux as dest host</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_14_produce_for_linux_as_traversed">
+<tt class="descname">test_14_produce_for_linux_as_traversed</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_14_produce_for_linux_as_traversed" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-14 produce for linux as traversed host</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_15_produce_for_linux_as_traversed_reject">
+<tt class="descname">test_15_produce_for_linux_as_traversed_reject</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_15_produce_for_linux_as_traversed_reject" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-15 produce for linux reject rule</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_16_produce_for_linux_as_traversed_drop">
+<tt class="descname">test_16_produce_for_linux_as_traversed_drop</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_16_produce_for_linux_as_traversed_drop" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-16 produce for linux drop rule</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_17_produce_for_linux_as_traversed_insec">
+<tt class="descname">test_17_produce_for_linux_as_traversed_insec</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_17_produce_for_linux_as_traversed_insec" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-17 produce for linux accept rule insec</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_18_produce_for_linux_ip6">
+<tt class="descname">test_18_produce_for_linux_ip6</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_18_produce_for_linux_ip6" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-18 produce for linux ip6 accept rule</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_19_produce_for_linux_ip6_forced">
+<tt class="descname">test_19_produce_for_linux_ip6_forced</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_19_produce_for_linux_ip6_forced" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-19 produce for linux ip6 forced accept rule</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_20_produce_for_linux_forward_forbidden">
+<tt class="descname">test_20_produce_for_linux_forward_forbidden</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_20_produce_for_linux_forward_forbidden" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-20 produce for linux ip6 forward forbidden</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_21_produce_for_linux_forward_linklocal">
+<tt class="descname">test_21_produce_for_linux_forward_linklocal</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_21_produce_for_linux_forward_linklocal" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-21 produce for linux forward linklocal</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_22_produce_for_openbsd_icmpv6">
+<tt class="descname">test_22_produce_for_openbsd_icmpv6</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_22_produce_for_openbsd_icmpv6" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-22 produce for OpenBSD icmpv6</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_23_produce_for_openbsd_tcp_nonew">
+<tt class="descname">test_23_produce_for_openbsd_tcp_nonew</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_23_produce_for_openbsd_tcp_nonew" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-23 produce for OpenBSD tcp nonew</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_24_produce_for_openbsd_tcp_drop">
+<tt class="descname">test_24_produce_for_openbsd_tcp_drop</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_24_produce_for_openbsd_tcp_drop" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-24 produce for OpenBSD tcp drop</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_25_produce_for_openbsd_ip6">
+<tt class="descname">test_25_produce_for_openbsd_ip6</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_25_produce_for_openbsd_ip6" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-25 produce for OpenBSD ip6</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_26_produce_for_openbsd_commented">
+<tt class="descname">test_26_produce_for_openbsd_commented</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_26_produce_for_openbsd_commented" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-26 produce for OpenBSD commented</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_27_produce_for_openbsd_commented">
+<tt class="descname">test_27_produce_for_openbsd_commented</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_27_produce_for_openbsd_commented" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-27 produce for OpenBSD forward forbidden</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_28_produce_for_openbsd_noif">
+<tt class="descname">test_28_produce_for_openbsd_noif</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_28_produce_for_openbsd_noif" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-28 produce for OpenBSD forward noif</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_29_produce_for_openbsd_dst_linklocal">
+<tt class="descname">test_29_produce_for_openbsd_dst_linklocal</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_29_produce_for_openbsd_dst_linklocal" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-29 produce for OpenBSD forward dst-link-local</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_30_produce_for_wxp_tcp">
+<tt class="descname">test_30_produce_for_wxp_tcp</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_30_produce_for_wxp_tcp" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-30 produce for wxp tcp</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_31_produce_for_wxp_icmpv6">
+<tt class="descname">test_31_produce_for_wxp_icmpv6</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_31_produce_for_wxp_icmpv6" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-31 produce for wxp icmpv6</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_32_produce_for_wxp_nonew">
+<tt class="descname">test_32_produce_for_wxp_nonew</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_32_produce_for_wxp_nonew" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-32 produce for wxp nonew</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_33_produce_for_wxp_reject_insec">
+<tt class="descname">test_33_produce_for_wxp_reject_insec</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_33_produce_for_wxp_reject_insec" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-33 produce for wxp reject insec</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_34_produce_for_wxp_ip6_commented">
+<tt class="descname">test_34_produce_for_wxp_ip6_commented</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_34_produce_for_wxp_ip6_commented" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-34 produce for wxp ip6 commented</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_Rule_tests.test_35_produce_for_wxp_dst_linklocal">
+<tt class="descname">test_35_produce_for_wxp_dst_linklocal</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_Rule_tests.test_35_produce_for_wxp_dst_linklocal" title="Permalink to this definition">¶</a></dt>
+<dd><p>fr-35 produce for wxp dst-linklocal</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests">
+<em class="property">class </em><tt class="descclassname">tests.test_03_filter6.</tt><tt class="descname">Ip6_Filter_tests</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>some tests for class Ip6_Filter_Rule</p>
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_01_IP6_Filter_create_Debian">
+<tt class="descname">test_01_IP6_Filter_create_Debian</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_01_IP6_Filter_create_Debian" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-01 IP6 Filter create an object for Debian</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_02_IP6_Filter_create_OpenBSD">
+<tt class="descname">test_02_IP6_Filter_create_OpenBSD</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_02_IP6_Filter_create_OpenBSD" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-02 IP6 Filter create an object for OpenBSD</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_03_IP6_Filter_create_OpenSolaris">
+<tt class="descname">test_03_IP6_Filter_create_OpenSolaris</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_03_IP6_Filter_create_OpenSolaris" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-03 IP6 Filter create an object for OpenSolaris</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_04_IP6_Filter_create_win_xp_sp3">
+<tt class="descname">test_04_IP6_Filter_create_win_xp_sp3</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_04_IP6_Filter_create_win_xp_sp3" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-04 IP6 Filter create an object for WXP SP3</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_05_IP6_Filter_create_unknown_os">
+<tt class="descname">test_05_IP6_Filter_create_unknown_os</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_05_IP6_Filter_create_unknown_os" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-05 IP6 Filter create an object for unknown os</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_06_IP6_Filter_append_first_rule">
+<tt class="descname">test_06_IP6_Filter_append_first_rule</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_06_IP6_Filter_append_first_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-06 IP6 Filter append first rule</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_07_IP6_Filter_mangle_start_exist">
+<tt class="descname">test_07_IP6_Filter_mangle_start_exist</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_07_IP6_Filter_mangle_start_exist" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-07 IP6 Filter mangle-start exisiting file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_08_IP6_Filter_mangle_end_exist">
+<tt class="descname">test_08_IP6_Filter_mangle_end_exist</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_08_IP6_Filter_mangle_end_exist" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-08 IP6 Filter mangle-end exisiting file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_09_IP6_Filter_mangle_end_non_exist">
+<tt class="descname">test_09_IP6_Filter_mangle_end_non_exist</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_09_IP6_Filter_mangle_end_non_exist" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-09 IP6 Filter mangle-end non exisiting file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_10_IP6_Filter_final_this_rule">
+<tt class="descname">test_10_IP6_Filter_final_this_rule</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_10_IP6_Filter_final_this_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-10 IP6 Filter final this rule</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_11_IP6_Filter_final_this_rule_forced_linklocal">
+<tt class="descname">test_11_IP6_Filter_final_this_rule_forced_linklocal</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_11_IP6_Filter_final_this_rule_forced_linklocal" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-11 IP6 Filter final this rule forced linklocal</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_12_IP6_Filter_mach_output_as_src">
+<tt class="descname">test_12_IP6_Filter_mach_output_as_src</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_12_IP6_Filter_mach_output_as_src" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-12 IP6 Filter mach_output as src</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_13_IP6_Filter_mach_output_as_travers">
+<tt class="descname">test_13_IP6_Filter_mach_output_as_travers</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_13_IP6_Filter_mach_output_as_travers" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-13 IP6 Filter mach_output as travers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_14_IP6_Filter_mach_output_as_stateful_travers">
+<tt class="descname">test_14_IP6_Filter_mach_output_as_stateful_travers</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_14_IP6_Filter_mach_output_as_stateful_travers" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-14 IP6 Filter mach_output as stateful travers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_03_filter6.Ip6_Filter_tests.test_15_IP6_Filter_mach_output_as_real_file">
+<tt class="descname">test_15_IP6_Filter_mach_output_as_real_file</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_03_filter6.Ip6_Filter_tests.test_15_IP6_Filter_mach_output_as_real_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>ft-15 IP6 Filter mach_output as real file</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tests.test_04_device.ThisDevice_tests">
+<em class="property">class </em><tt class="descclassname">tests.test_04_device.</tt><tt class="descname">ThisDevice_tests</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>some tests for class Ip6_Filter_Rule</p>
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_01_adm6_is_instance">
+<tt class="descname">test_01_adm6_is_instance</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_01_adm6_is_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-01 ThisDevice: adm6 is instance</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_02_unkn_is_not_instance">
+<tt class="descname">test_02_unkn_is_not_instance</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_02_unkn_is_not_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-02 ThisDevice: unknown is not instance</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_03_adm6_read_interfaces">
+<tt class="descname">test_03_adm6_read_interfaces</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_03_adm6_read_interfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-03 ThisDevice: linux read_interface_file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_04_adm6_read_interfaces_fail">
+<tt class="descname">test_04_adm6_read_interfaces_fail</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_04_adm6_read_interfaces_fail" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-04 ThisDevice: linux read_interface_file fails</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_05_obi_read_interfaces">
+<tt class="descname">test_05_obi_read_interfaces</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_05_obi_read_interfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-05 ThisDevice: OpenBSD read_interface_file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_06_linux_read_routingtab">
+<tt class="descname">test_06_linux_read_routingtab</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_06_linux_read_routingtab" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-06 ThisDevice: linux read_routing_tab</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_07_linux_read_routingtab_fail">
+<tt class="descname">test_07_linux_read_routingtab_fail</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_07_linux_read_routingtab_fail" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-07 ThisDevice: linux read_routing_tab fails</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_08_linux_read_routingtab">
+<tt class="descname">test_08_linux_read_routingtab</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_08_linux_read_routingtab" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-08 ThisDevice: read_routing_tab for invalid os</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_09_read_rules">
+<tt class="descname">test_09_read_rules</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_09_read_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-09 ThisDevice: read_rules</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_10_read_rulefile">
+<tt class="descname">test_10_read_rulefile</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_10_read_rulefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-10 ThisDevice: read exisitng rule file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_11_read_rulefile">
+<tt class="descname">test_11_read_rulefile</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_11_read_rulefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-11 ThisDevice: read non exisitng rule file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_12_read_rules">
+<tt class="descname">test_12_read_rules</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_12_read_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-12 ThisDevice: read rules for www incl. err line</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_13_show_interfaces_r_ex">
+<tt class="descname">test_13_show_interfaces_r_ex</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_13_show_interfaces_r_ex" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-13 ThisDevice: show interfaces r-ex</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_14_show_interfaces_obi_wan">
+<tt class="descname">test_14_show_interfaces_obi_wan</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_14_show_interfaces_obi_wan" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-14 ThisDevice: show interfaces obi-wan</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_15_show_routingtab_adm6">
+<tt class="descname">test_15_show_routingtab_adm6</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_15_show_routingtab_adm6" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-15 ThisDevice: show routingtab adm6</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_16_show_routingtab_r_ex">
+<tt class="descname">test_16_show_routingtab_r_ex</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_16_show_routingtab_r_ex" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-16 ThisDevice: show routingtab r-ex</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_17_show_rules_adm6">
+<tt class="descname">test_17_show_rules_adm6</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_17_show_rules_adm6" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-17 ThisDevice: show rules adm6</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_18_show_rules_www">
+<tt class="descname">test_18_show_rules_www</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_18_show_rules_www" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-18 ThisDevice: show rules www</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_19_address_is_own_adm6">
+<tt class="descname">test_19_address_is_own_adm6</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_19_address_is_own_adm6" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-19 ThisDevice: test own addresses adm6</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_20_address_is_own_ns">
+<tt class="descname">test_20_address_is_own_ns</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_20_address_is_own_ns" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-20 ThisDevice: test own addresses ns</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_21_address_is_own_www">
+<tt class="descname">test_21_address_is_own_www</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_21_address_is_own_www" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-21 ThisDevice: test own addresses www</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_22_look_for_r_ex">
+<tt class="descname">test_22_look_for_r_ex</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_22_look_for_r_ex" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-22 ThisDevice: look for route entries r-ex</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_23_do_rules_adm6">
+<tt class="descname">test_23_do_rules_adm6</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_23_do_rules_adm6" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-23 ThisDevice: do rules adm6</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_24_do_rules_www">
+<tt class="descname">test_24_do_rules_www</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_24_do_rules_www" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-24 ThisDevice: do rules www</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_25_do_rules_r_ex">
+<tt class="descname">test_25_do_rules_r_ex</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_25_do_rules_r_ex" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-25 ThisDevice: do rules r-ex</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_04_device.ThisDevice_tests.test_26_do_all_devices">
+<tt class="descname">test_26_do_all_devices</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.test_04_device.ThisDevice_tests.test_26_do_all_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>dv-26 ThisDevice: do all devices</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rules.html"
+                        title="previous chapter">adm6 - rules</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/sources.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rules.html" title="adm6 - rules"
+             >previous</a> |</li>
+        <li><a href="index.html">adm6 0.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, sl0.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

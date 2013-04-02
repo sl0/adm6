@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>adm6 - configuration &mdash; adm6 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="adm6 0.2.0 documentation" href="index.html" />
+    <link rel="next" title="adm6 - rules" href="rules.html" />
+    <link rel="prev" title="adm6 - overview" href="overview.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="rules.html" title="adm6 - rules"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="adm6 - overview"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">adm6 0.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="adm6-configuration">
+<h1>adm6 - configuration<a class="headerlink" href="#adm6-configuration" title="Permalink to this headline">¶</a></h1>
+<img alt="adm6 logo" class="align-right" src="_images/adm6-logo.png" style="width: 250px;" />
+<p><em>adm6</em> - configuration uses a python module: ConfigParser. This
+is following one of the python paradigms: batteries included.</p>
+<p><em>adm6</em> - configuration file is located here: <tt class="docutils literal"><span class="pre">~/.adm6.conf</span></tt>
+Almost everything is specified here, except target machines details
+like interface and routing configurations.
+The file is divided into sections, one of them is marked like this: <tt class="docutils literal"><span class="pre">[global]</span></tt></p>
+<div class="section" id="adm6-global-configuration">
+<h2>adm6 - global configuration<a class="headerlink" href="#adm6-global-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Herein we find top most important informations about local
+<em>adm6</em> configuration, always one by one on a separate line,
+which is divided by a <em>=</em> into a left and a right part. The
+left one names the meaning of the right parts value, here
+are follinig up the examples:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="29%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><tt class="docutils literal"><span class="pre">name</span></tt></th>
+<th class="head"><tt class="docutils literal"><span class="pre">meaning</span></tt></th>
+<th class="head"><tt class="docutils literal"><span class="pre">example</span> <span class="pre">value</span></tt></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">version</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">software</span> <span class="pre">version</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">0.2</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">timestamp</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">creation</span> <span class="pre">date</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2013-03-30</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">home</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">home</span> <span class="pre">directory</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">/home/sl0/adm6</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">key-file</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">ssh</span> <span class="pre">public</span> <span class="pre">key</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">~/.ssh/id_rsa.pub</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">devices</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">adm6</span> <span class="pre">targets</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">adm6,r-ex,ns,www,obi-wan</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">software</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">supported</span> <span class="pre">platforms</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">['Debian',</span> <span class="pre">'OpenBSD',</span> <span class="pre">]</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">debuglevel</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">debug</span> <span class="pre">vebose</span> <span class="pre">setting</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">1</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Comments are possible on a line by itself, lead in character is <strong>;</strong></p>
+</div>
+<div class="section" id="adm6-device-configuration">
+<h2>adm6 - device configuration<a class="headerlink" href="#adm6-device-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Every configured device (see global section: devices) needs to have
+an own section in the configuration file, named by its device-name, f.e. <tt class="docutils literal"><span class="pre">[device#r-ex]</span></tt></p>
+<p>The name after <tt class="docutils literal"><span class="pre">device#</span></tt> needs to match exactly to one of the global sections devices string.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="28%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><tt class="docutils literal"><span class="pre">name</span></tt></th>
+<th class="head"><tt class="docutils literal"><span class="pre">meaning</span></tt></th>
+<th class="head"><tt class="docutils literal"><span class="pre">example</span> <span class="pre">value</span></tt></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">desc</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">description</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">external</span> <span class="pre">IPv6</span> <span class="pre">router</span> <span class="pre">via</span> <span class="pre">ISP</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">world</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">os</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">operating</span> <span class="pre">system</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">Debian</span> <span class="pre">GNU/Linux,</span> <span class="pre">wheezy</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ip</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">devices</span> <span class="pre">ssh</span> <span class="pre">listener</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:1:2::1</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">fwd</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">forwarding</span> <span class="pre">status</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">1</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">active</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">active</span> <span class="pre">status</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">1</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">asymmetric</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">asymmetric</span> <span class="pre">routing</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">1</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>What do these values mean in detail?</p>
+<p><tt class="docutils literal"><span class="pre">desc</span></tt> may be a verbose description for the target system.</p>
+<p><tt class="docutils literal"><span class="pre">os</span></tt>  should match anyhow to one of the globally configured supported platforms.</p>
+<p><tt class="docutils literal"><span class="pre">ip</span></tt>  address of the device, ssh should listen there, the configured key should give root access.</p>
+<p><tt class="docutils literal"><span class="pre">fwd</span></tt> forwarding status, router should have a value of 1, others 0.</p>
+<p><tt class="docutils literal"><span class="pre">active</span></tt> active status, useful to disable a configured device from adm6 filter updates. Sometimes
+the net isn&#8217;t relieable, is it?</p>
+<p><tt class="docutils literal"><span class="pre">asymmetric</span></tt> asymmetric status, some strange behaviors have impact to the
+generated filters, f.e. asymetric routing needs to suppress stateful packetfilters,
+as not all packets of a flow come through the device...
+This values needs not to be present in the config section, assumed to be 0.</p>
+</div>
+<div class="section" id="adm6-configuration-comments">
+<h2>adm6 - configuration comments<a class="headerlink" href="#adm6-configuration-comments" title="Permalink to this headline">¶</a></h2>
+<p>Using python the methods of ConfigParser, it&#8217;s easily possible to read and write the
+configfile in a comfortable way. But be warned, if you wirte back an existing file,
+all the comments are gone, and the order of your sections is unpredicable.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">adm6 - configuration</a><ul>
+<li><a class="reference internal" href="#adm6-global-configuration">adm6 - global configuration</a></li>
+<li><a class="reference internal" href="#adm6-device-configuration">adm6 - device configuration</a></li>
+<li><a class="reference internal" href="#adm6-configuration-comments">adm6 - configuration comments</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">adm6 - overview</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="rules.html"
+                        title="next chapter">adm6 - rules</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/config.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="rules.html" title="adm6 - rules"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="adm6 - overview"
+             >previous</a> |</li>
+        <li><a href="index.html">adm6 0.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, sl0.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
