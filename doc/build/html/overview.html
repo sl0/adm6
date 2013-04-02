@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>adm6 - overview &mdash; adm6 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="adm6 0.2.0 documentation" href="index.html" />
+    <link rel="next" title="adm6 - configuration" href="config.html" />
+    <link rel="prev" title="adm6 - documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="config.html" title="adm6 - configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="adm6 - documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">adm6 0.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="adm6-overview">
+<h1>adm6 - overview<a class="headerlink" href="#adm6-overview" title="Permalink to this headline">¶</a></h1>
+<img alt="adm6 logo" class="align-right" src="_images/adm6-logo.png" style="width: 250px;" />
+<p><em>You are encouraged</em> to take a close look into any files
+<strong>before</strong> executing them.</p>
+<div class="section" id="adm6-prerequisites">
+<h2>adm6 &#8211; prerequisites<a class="headerlink" href="#adm6-prerequisites" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>There are only few:</dt>
+<dd><ul class="first last simple">
+<li>python, version 2.7 works, others aren&#8217;t tested, but should fit as well</li>
+<li>python-ipaddr, a module for IPv6-calculations made by google(TM)</li>
+<li>knowledge about IPv6 isn&#8217;t a must, but helpful</li>
+<li>GNU make can help for your convienience</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="adm6-how-to-get-it">
+<h2>adm6 &#8211; how to get it<a class="headerlink" href="#adm6-how-to-get-it" title="Permalink to this headline">¶</a></h2>
+<p>Thats very simple on your commandline:</p>
+<div class="highlight-python"><pre>~ $ mkdir sources
+~ $ git clone git@github.com:sl0/adm6.git
+~ $ cd ~/sources/adm6
+~ $ ls
+adm6
+demo.py
+doc
+LICENSE.txt
+Makefile
+README.rst
+reference-hostnet
+reference-hostnet-append
+tests
+~ $</pre>
+</div>
+</div>
+<div class="section" id="adm6-the-testbed">
+<h2>adm6 - the testbed<a class="headerlink" href="#adm6-the-testbed" title="Permalink to this headline">¶</a></h2>
+<p><strong>demo.py</strong> contains all the neccessary stuff to setup the testbed from scratch. Just type:</p>
+<p><tt class="docutils literal"><span class="pre">python</span> <span class="pre">demo.py</span></tt></p>
+<p><strong>or</strong></p>
+<p><tt class="docutils literal"><span class="pre">make</span> <span class="pre">new</span></tt></p>
+<p>Anyhow, this will create a file and a directory in your home-directory:</p>
+<ol class="arabic simple">
+<li>configuration file: ~/.adm6.conf</li>
+<li>configuration directory ~/adm6</li>
+</ol>
+<p><tt class="docutils literal"><span class="pre">make</span> <span class="pre">clean</span></tt> will remove these</p>
+<p>Have a look into the configuration file. Comments are included for better
+understanding. Most important: The global section contains a list of the
+devicenames. For every specific device, there is a section, wherein the
+belonging vars are captured. Within the configuration directory, there a
+directory tree is created like this:</p>
+</div>
+<div class="section" id="adm6-structure">
+<h2>adm6 - structure<a class="headerlink" href="#adm6-structure" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" colspan="2"><strong>Path</strong>              | <strong>Content</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">~/.adm6.conf</span></tt></td>
+<td>adm6 global application configuration file</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">~/adm6</span></tt></td>
+<td>subdirectories etc, desc</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">~/adm6/etc</span></tt></td>
+<td>configurations subdirectory</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">~/adm6/etc/Debian-header</span></tt></td>
+<td>Debian headerfile (start of generated output)</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">~/adm6/etc/Debian-footer</span></tt></td>
+<td>Debian footerfile (tail of generated output)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">~/adm6/etc/hostnet6</span></tt></td>
+<td>common hostnet6 (hosts and networks definitions)</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">~/adm6/etc</span></tt></td>
+<td>00-rules.admin (example rulefile)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">~/adm6/desc</span></tt></td>
+<td>one subdirecory per filterdevice</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">~/adm6/desc/r-ex</span></tt></td>
+<td>subdirecory for filterdevice r-ex</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">~/adm6/desc/r-ex/interfaces</span></tt></td>
+<td>r-ex interfaces configuration</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">~/adm6/desc/r-ex/routes</span></tt></td>
+<td>r-ex routing configuration</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">~/adm6/desc/r-ex/00-rules-admin</span></tt></td>
+<td>r-ex administrative rules, ssh-access et.al.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">~/adm6/desc/r-ex/10-rules-router</span></tt></td>
+<td>r-ex addtional rules in numbered rules-file</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">~/adm6/desc/adm6</span></tt></td>
+<td>subdirecory for filterdevice adm6</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="adm6-the-picture">
+<h2>adm6 - the picture<a class="headerlink" href="#adm6-the-picture" title="Permalink to this headline">¶</a></h2>
+<p>All internet traffic is going through or coming out of the ISP router.</p>
+<p><strong>All</strong> others do! Think of the networks as connected only via r-ex as a router.
+More details are handled in the <a class="reference external" href="config.html">configuration</a> section</p>
+<p class="nwdiag">
+<img src="_images/nwdiag-bda6bb42bd207396b10b7bf8c2393cfc1e6de0e2.png" alt="None" width="760" height="732" />
+</p>
+</div>
+<div class="section" id="adm6-hostnet6">
+<h2>adm6 - hostnet6<a class="headerlink" href="#adm6-hostnet6" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="46%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Address  (CIDR always)</th>
+<th class="head"># Comment</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">adm6</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:2::23:23/128</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">administrators</span> <span class="pre">residence</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">r-ex</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:2::1/128</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">router</span> <span class="pre">internal</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">intern</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:2::/64</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">internal</span> <span class="pre">net</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">users</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:2::5/128</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">internal</span> <span class="pre">user</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">users</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:2::8/128</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">internal</span> <span class="pre">user</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">r-ex</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:1::4711/128</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">router</span> <span class="pre">external</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ns</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:1::53/128</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">dns</span> <span class="pre">+</span> <span class="pre">mailserver</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">www</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:1::80/128</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">webserver</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">extern</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:1::/64</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">external</span> <span class="pre">net</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ISP</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:1::1/128</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">ISP</span> <span class="pre">router</span> <span class="pre">to</span> <span class="pre">inet6</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">many</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2000::/3</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">routed</span> <span class="pre">IPv6</span> <span class="pre">universe</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Take these definitions as examples. They may be used within the following rules.
+Except <cite>users</cite> they are all simple host definitions, <cite>users</cite> occurs twice and so
+defines a group. A rule referencing <cite>users</cite> defined like this will produce filter
+comands for each member, surprisingly.</p>
+</div>
+<div class="section" id="adm6-rules-files">
+<h2>adm6 - rules-files<a class="headerlink" href="#adm6-rules-files" title="Permalink to this headline">¶</a></h2>
+<p>A single rule defines allowed or denied traffic, f.e.:
+A tcp sesion from host A to tcp port 25 on host B is allowed.
+Rules use the definitions from th hostnet6 file and are
+grouped in rules-files.</p>
+<p>The software is searching the rules-files in the machine
+specific directories, and they are only used for that
+machine, where it was found in it&#8217;s directory.</p>
+<p>The rules-files are searched by the pattern <tt class="docutils literal"><span class="pre">[0-9][0-9]-rules.*</span></tt>,
+so multiple rules-files are possible fore each machine.
+<tt class="docutils literal"><span class="pre">00-rules.admin</span></tt> should be present, one of the basic ideas is to
+have a common ruleset for all filtering devices. The sequence order how
+the multiple rules-files for every machine are read and envaluated, is
+fixd by the leading numbers. Within each rules-file, the rules are read line by
+line, commentlines are marked by a leading &#8220;#&#8221;. Let&#8217;s look at an example
+rules-file, f.e. 00-rules.admin:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+<col width="11%" />
+<col width="15%" />
+<col width="21%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">#source</th>
+<th class="head">destin</th>
+<th class="head">proto</th>
+<th class="head">port</th>
+<th class="head">action</th>
+<th class="head">options</th>
+<th class="head">#comment</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">admin</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">obi-wan</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">tcp</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">22</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">accept</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">NONE</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">admin</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">ns</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">tcp</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">22</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">accept</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">NONE</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">admin</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">r-ex</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">tcp</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">22</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">accept</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">NOIF</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">any</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">ns</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">udp</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">53</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">accept</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">NOSTATE</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">users</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">ns</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">udp</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">53</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">accept</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">NOSTATE</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">users</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">www</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">tcp</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">25</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">accept</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">NOSTATE</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">users</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">www</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">tcp</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">143</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">accept</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">NOSTATE</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">users</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">www</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">tcp</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">80</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">accept</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">NOSTATE</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">users</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">www</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">tcp</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">443</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">accept</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">NOSTATE</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="adm6-one-rule">
+<h2>adm6 - one rule<a class="headerlink" href="#adm6-one-rule" title="Permalink to this headline">¶</a></h2>
+<p>To evaluate one rule, source and destination adresses are looked up in hostnet6 table.
+As both may be groups with multiple members, Pairs are build for each relation. Lets
+have an example.</p>
+<p>Example:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+<col width="11%" />
+<col width="15%" />
+<col width="21%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">#source</th>
+<th class="head">destin</th>
+<th class="head">proto</th>
+<th class="head">port</th>
+<th class="head">action</th>
+<th class="head">options</th>
+<th class="head">#comment</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">users</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">www</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">tcp</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">80</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">accept</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">NOSTATE</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>corresponding hostnet5 entries:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="48%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Address  (CIDR always)</th>
+<th class="head">#comment</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">users</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:2::5/128</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">internal</span> <span class="pre">user</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">users</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:2::8/128</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">internal</span> <span class="pre">user</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">www</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">2001:db8:1::80/128</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">#</span> <span class="pre">webserver</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Expanding source and destination items of this rule results in two lists:</p>
+<p><tt class="docutils literal"><span class="pre">source</span> <span class="pre">=</span> <span class="pre">[</span> <span class="pre">'2001:db8:2::5/128',</span> <span class="pre">'2001:db8:2::8/128',</span> <span class="pre">]</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">destin</span> <span class="pre">=</span> <span class="pre">[</span> <span class="pre">'2001:db8:1::80/128',</span> <span class="pre">]</span></tt></p>
+<p>So we have two pairs of source/destinations:</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">2001:db8:2::5/128</span> <span class="pre">==&gt;</span> <span class="pre">2001:db8:1::80/128</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">2001:db8:2::8/128</span> <span class="pre">==&gt;</span> <span class="pre">2001:db8:1::80/128</span></tt></li>
+</ol>
+<p>From these, some ip6tables-statements are produced for each pair for each participating machine.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">machine:        <strong>www</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span> <span class="pre">INPUT</span> <span class="pre">-i</span> <span class="pre">eth0</span> <span class="pre">-s</span> <span class="pre">2001:db8:2::5/128</span> <span class="pre">-d</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--dport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span> <span class="pre">OUTPUT</span> <span class="pre">-o</span> <span class="pre">eth0</span> <span class="pre">-d</span> <span class="pre">2001:db8:2::5/128</span> <span class="pre">-s</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--sport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span> <span class="pre">INPUT</span> <span class="pre">-i</span> <span class="pre">eth0</span> <span class="pre">-s</span> <span class="pre">2001:db8:2::8/128</span> <span class="pre">-d</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--dport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span> <span class="pre">OUTPUT</span> <span class="pre">-o</span> <span class="pre">eth0</span> <span class="pre">-d</span> <span class="pre">2001:db8:2::8/128</span> <span class="pre">-s</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--sport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">machine:        <strong>r-ex</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span> <span class="pre">FORWARD</span> <span class="pre">-i</span> <span class="pre">eth2</span> <span class="pre">-s</span> <span class="pre">2001:db8:2::5/128</span> <span class="pre">-d</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--dport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span> <span class="pre">FORWARD</span> <span class="pre">-i</span> <span class="pre">eth1</span> <span class="pre">-d</span> <span class="pre">2001:db8:2::5/128</span> <span class="pre">-s</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--sport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span> <span class="pre">FORWARD</span> <span class="pre">-i</span> <span class="pre">eth2</span> <span class="pre">-s</span> <span class="pre">2001:db8:2::8/128</span> <span class="pre">-d</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--dport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span> <span class="pre">FORWARD</span> <span class="pre">-i</span> <span class="pre">eth1</span> <span class="pre">-d</span> <span class="pre">2001:db8:2::8/128</span> <span class="pre">-s</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--sport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">machine:        <strong>user1</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span> <span class="pre">OUTPUT</span> <span class="pre">-i</span> <span class="pre">eth0</span> <span class="pre">-s</span> <span class="pre">2001:db8:2::5/128</span> <span class="pre">-d</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--dport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span> <span class="pre">INPUT</span> <span class="pre">-o</span> <span class="pre">eth0</span> <span class="pre">-d</span> <span class="pre">2001:db8:2::5/128</span> <span class="pre">-s</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--sport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">machine:        <strong>user2</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span> <span class="pre">OUTPUT</span> <span class="pre">-i</span> <span class="pre">eth0</span> <span class="pre">-s</span> <span class="pre">2001:db8:2::8/128</span> <span class="pre">-d</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--dport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ip6tables</span> <span class="pre">-A</span>&nbsp; <span class="pre">INPUT</span> <span class="pre">-o</span> <span class="pre">eth0</span> <span class="pre">-d</span> <span class="pre">2001:db8:2::8/128</span> <span class="pre">-s</span> <span class="pre">2001:db8:1::80/128</span> <span class="pre">-p</span> <span class="pre">tcp</span> <span class="pre">--sport</span> <span class="pre">80</span> <span class="pre">-j</span> <span class="pre">ACCEPT</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="adm6-production">
+<h2>adm6 - production<a class="headerlink" href="#adm6-production" title="Permalink to this headline">¶</a></h2>
+<p>To have these different results, adm6 needs to have
+informations about interfaces and routing-tables of the machines.
+These are stored in the machines directories, usually in a format, like they
+can be read on the commandline. F.e. in Linux we see:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ip -6 route show | grep -v fe80</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">2001:db8:1::/64</span> <span class="pre">dev</span> <span class="pre">eth1</span>&nbsp; <span class="pre">proto</span> <span class="pre">kernel</span>&nbsp; <span class="pre">metric</span> <span class="pre">256</span>&nbsp; <span class="pre">mtu</span> <span class="pre">1500</span> <span class="pre">advmss</span> <span class="pre">1440</span> <span class="pre">hoplimit</span> <span class="pre">4294967295</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">2001:db8:2::/64</span> <span class="pre">dev</span> <span class="pre">eth2</span>&nbsp; <span class="pre">proto</span> <span class="pre">kernel</span>&nbsp; <span class="pre">metric</span> <span class="pre">256</span>&nbsp; <span class="pre">mtu</span> <span class="pre">1500</span> <span class="pre">advmss</span> <span class="pre">1440</span> <span class="pre">hoplimit</span> <span class="pre">4294967295</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">2000::/3</span> <span class="pre">via</span> <span class="pre">2001:db8:1::1</span> <span class="pre">dev</span> <span class="pre">eth1</span>&nbsp; <span class="pre">metric</span> <span class="pre">1024</span>&nbsp; <span class="pre">mtu</span> <span class="pre">1500</span> <span class="pre">advmss</span> <span class="pre">1440</span> <span class="pre">hoplimit</span> <span class="pre">4294967295</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>The Interface configuration is read by commandline tool <strong>ifconfig</strong>.</p>
+<p>These informations are used for each source and destination address pair:</p>
+<ol class="arabic simple">
+<li>If any of the source or destination adresses are equal to a local configured adress,
+then sure it&#8217;s incoming or outgoing traffic. If both aren&#8217;t used locally, the machines
+routingtable is looked up for the linenumbers for targeting the source and destination
+address. If these are reachable on the same route, the traffic is not traversing the
+filtering machine, no filtercommands are generated.</li>
+<li>If source and destination addresses aren&#8217;t reachable through the same route, traffic
+probably is traversing this filtering machine. System-wide configuration allows
+or disallows forwarding, if allowed, correspondig filtercommands are generated.</li>
+</ol>
+<p>More details may be found in the sources. But it should be as simple as described here.
+Now we know, how the concept works. Let&#8217;s have a demonstration.</p>
+</div>
+<div class="section" id="adm6-and-now">
+<h2>adm6 - and now?<a class="headerlink" href="#adm6-and-now" title="Permalink to this headline">¶</a></h2>
+<p>Simply tpye:</p>
+<p><tt class="docutils literal"><span class="pre">make</span> <span class="pre">run</span></tt></p>
+<p>All generated filters are written to the foreseen locations in the
+machines homedir, the default filename is: <tt class="docutils literal"><span class="pre">output</span></tt>. Now you should look into these files...</p>
+</div>
+<div class="section" id="adm6-real-world">
+<h2>adm6 - real world<a class="headerlink" href="#adm6-real-world" title="Permalink to this headline">¶</a></h2>
+<p>Perhaps you like to add a first real world machine, add the interfaces, routing informations
+and hostnet6 definitions. Then you should create a ruleset. Perhaps, as a minimum, you like to allow a tcp/22 to you machine? Keep it simple, at least for the startup:</p>
+<p><tt class="docutils literal"><span class="pre">make</span> <span class="pre">run</span></tt></p>
+<p>Look into your created output, copy it to the target machine, look again, run it.</p>
+<p>Thats all of the magic for now. More will come, distribution, fault checking, and the like.</p>
+<p>Have fun!</p>
+<p>sl0</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">adm6 - overview</a><ul>
+<li><a class="reference internal" href="#adm6-prerequisites">adm6 &#8211; prerequisites</a></li>
+<li><a class="reference internal" href="#adm6-how-to-get-it">adm6 &#8211; how to get it</a></li>
+<li><a class="reference internal" href="#adm6-the-testbed">adm6 - the testbed</a></li>
+<li><a class="reference internal" href="#adm6-structure">adm6 - structure</a></li>
+<li><a class="reference internal" href="#adm6-the-picture">adm6 - the picture</a></li>
+<li><a class="reference internal" href="#adm6-hostnet6">adm6 - hostnet6</a></li>
+<li><a class="reference internal" href="#adm6-rules-files">adm6 - rules-files</a></li>
+<li><a class="reference internal" href="#adm6-one-rule">adm6 - one rule</a></li>
+<li><a class="reference internal" href="#adm6-production">adm6 - production</a></li>
+<li><a class="reference internal" href="#adm6-and-now">adm6 - and now?</a></li>
+<li><a class="reference internal" href="#adm6-real-world">adm6 - real world</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter"><strong>adm6 - documentation</strong></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="config.html"
+                        title="next chapter">adm6 - configuration</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/overview.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="config.html" title="adm6 - configuration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="adm6 - documentation"
+             >previous</a> |</li>
+        <li><a href="index.html">adm6 0.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, sl0.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
