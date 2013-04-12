@@ -13,10 +13,10 @@ run:
 
 new:
 	make clean
-	make landscape
+	make demo_setup
 
-landscape:
-	@python demo.py 
+demo_setup:
+	@python tests/prep_demo.py
 	ln -sf ~/.adm6.conf global-cfg
 	ln -sf ~/adm6/etc etc
 	ln -sf ~/adm6/desc desc
