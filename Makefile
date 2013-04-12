@@ -7,7 +7,7 @@ test_all:
 	@make demo
 	@make noses
 	@make clean 2>&1 >/dev/null
-	@echo "all done"
+	@echo "cleaned up, all done"
 
 noses:
 	@nosetests -v --cover-package=adm6 --with-coverage 2>&1
