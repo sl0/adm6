@@ -1,5 +1,3 @@
-.. adm6 README, started early in 2013, still growing
-
 =============
 adm6 - README
 =============
