@@ -28,7 +28,7 @@ Thats very simple on your commandline:
 ::
 
    ~ $ mkdir sources
-   ~ $ git clone git@github.com:sl0/adm6.git
+   ~ $ git clone https://github.com/sl0/adm6.git
    ~ $ cd ~/sources/adm6 
    ~ $ ls 
    adm6
